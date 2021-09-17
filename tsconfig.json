@@ -2,11 +2,12 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
+    "declaration": true,
     "experimentalDecorators": true,
     "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
-    "allowJs": true,
+    "allowJs": false,
     "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
@@ -15,7 +16,7 @@
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
-    "types": ["reflect-metadata"],
+    "types": ["reflect-metadata", "node", "webpack", "webpack-env", "jest"],
     "paths": {
       "@/*": ["src/*"]
     }
