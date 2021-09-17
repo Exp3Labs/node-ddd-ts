@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  # boilerplate-node-ddd-ts
+  node:
+    container_name: ddd-${PROJECT_NAME}
+    restart: always
+    build:
+      context: .
+      dockerfile: Dockerfile
+    expose:
+      - ${SERVER_PORT}
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    networks:
+      - intranet
+      - container
+
+networks:
+  container:
+    driver: bridge
+  intranet:
+    external: true

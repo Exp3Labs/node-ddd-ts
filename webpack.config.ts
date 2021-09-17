@@ -6,6 +6,7 @@ import NodemonPlugin from 'nodemon-webpack-plugin';
 import CopyPlugin from 'copy-webpack-plugin';
 import ESLintPlugin from 'eslint-webpack-plugin';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
+import dotenv from 'dotenv';
 
 const { NODE_ENV = 'production' }: any = process.env;
 
@@ -20,7 +21,10 @@ const config: webpack.Configuration = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
-    plugins: [new TsconfigPathsPlugin()]
+    plugins: [new TsconfigPathsPlugin()],
+    alias: {
+      process: 'process/browser'
+    }
   },
   module: {
     rules: [
@@ -33,6 +37,9 @@ const config: webpack.Configuration = {
   },
   externals: [nodeExternals()] as webpack.Configuration['externals'],
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(dotenv.config().parsed)
+    }),
     new CleanWebpackPlugin(),
     new ESLintPlugin({
       extensions: ['.tsx', '.ts', '.js']
@@ -45,8 +52,7 @@ const config: webpack.Configuration = {
     new CopyPlugin({ patterns: [{ from: '.env' }] })
   ],
   node: {
-    __dirname: false,
-    __filename: false,
+    global: true
   },
   stats: {
     warnings: true
