@@ -1,9 +1,9 @@
 {
   "private": true,
-  "name": "nodetomic-ddd-ts",
+  "name": "boilerplate-node-ddd-ts",
   "version": "1.0.0",
   "description": "Node, Koa, MongoDB, Postgres, JWT, Webpack, DDD",
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "scripts": {
     "start": "NODE_ENV=development webpack",
     "build": "webpack",
@@ -22,11 +22,11 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/kevoj/nodetomic-ddd-ts.git"
+    "url": "https://github.com/ExperimentsLabs/boilerplate-node-ddd-ts"
   },
   "author": {
-    "name": "nodetomic-ddd-ts",
-    "url": "https://github.com/kevoj/nodetomic-ddd-ts"
+    "name": "boilerplate-node-ddd-ts",
+    "url": "https://github.com/ExperimentsLabs/boilerplate-node-ddd-ts"
   },
   "license": "MIT",
   "dependencies": {
@@ -38,15 +38,12 @@
     "inversify": "^5.1.1",
     "jsonwebtoken": "^8.5.1",
     "koa": "^2.13.1",
-    "koa-body": "^4.2.0",
     "koa-bodyparser": "^4.3.0",
     "koa-cookie": "^1.0.0",
     "koa-helmet": "^6.1.0",
     "koa-json": "^2.0.2",
-    "koa-logger": "^3.2.1",
-    "koa-openapi": "^9.3.0",
+    "koa-morgan": "^1.0.1",
     "koa-ratelimit": "^5.0.1",
-    "koa-router": "^10.1.1",
     "koa-swagger-decorator": "^1.7.7",
     "mongoose": "^6.0.5",
     "reflect-metadata": "^0.1.13",
@@ -55,16 +52,17 @@
   "devDependencies": {
     "@types/copy-webpack-plugin": "^8.0.1",
     "@types/jest": "^27.0.1",
+    "@types/jsonwebtoken": "^8.5.5",
     "@types/koa": "^2.13.4",
+    "@types/koa-bodyparser": "^4.3.3",
     "@types/koa-cookie": "^1.0.0",
     "@types/koa-json": "^2.0.20",
-    "@types/koa-logger": "^3.1.1",
     "@types/koa-morgan": "^1.0.5",
     "@types/koa-ratelimit": "^4.2.3",
-    "@types/koa-router": "^7.4.4",
     "@types/koa__cors": "^3.0.3",
-    "@types/node": "^16.9.1",
+    "@types/node": "^16.9.2",
     "@types/webpack": "^5.28.0",
+    "@types/webpack-env": "^1.16.2",
     "@types/webpack-node-externals": "^2.5.2",
     "@typescript-eslint/parser": "^4.31.0",
     "clean-webpack-plugin": "^4.0.0",
@@ -105,8 +103,13 @@
       "**/?(*.)+(spec|test).+(ts|tsx|js)"
     ],
     "transform": {
-      "^.+\\.(ts|tsx)$": "ts-jest"
-    }
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "modulePaths": ["<rootDir>/src"]
+
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
@@ -116,7 +119,7 @@
       "es6": true
     },
     "parserOptions": {
-      "ecmaVersion": 2020,
+      "ecmaVersion": 2018,
       "sourceType": "module"
     },
     "extends": [
@@ -129,7 +132,7 @@
     "rules": {
       "prettier/prettier": "warn",
       "no-var": "warn",
-      "no-unused-vars": "warn"
+      "no-unused-vars": "off"
     }
   }
 }
