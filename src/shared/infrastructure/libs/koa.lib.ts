@@ -42,7 +42,7 @@ app.use(
 
 // Catching downstream errors
 app.on('error', (err: string, ctx: Koa.Context) => {
-  ctx.status = 500;
+  ctx.status = ctx.status || 500;
   ctx.body = { error: err.toString() };
 });
 
