@@ -42,13 +42,8 @@ export default class DogPostRouter {
       ctx.status = 201;
       ctx.body = { result: 'Created' };
     } catch (error: any) {
-      console.log(error);
-
       // Error response
-      ctx.status = 500;
-      ctx.body = {
-        error
-      };
+      ctx.app.emit('error', error, ctx);
     }
   }
 }

@@ -43,10 +43,7 @@ export default class DogPutRouter {
       ctx.body = { result: 'Updated' };
     } catch (error) {
       // Error response
-      ctx.status = 500;
-      ctx.body = {
-        error
-      };
+      ctx.app.emit('error', error, ctx);
     }
   }
 }

@@ -38,10 +38,7 @@ export default class DogGetRouter {
       ctx.body = res;
     } catch (error: any) {
       // Error response
-      ctx.status = 500;
-      ctx.body = {
-        error: error.toString()
-      };
+      ctx.app.emit('error', error, ctx);
     }
   }
 
@@ -68,10 +65,7 @@ export default class DogGetRouter {
       ctx.body = res;
     } catch (error: any) {
       // Error response
-      ctx.status = 500;
-      ctx.body = {
-        error: error.toString()
-      };
+      ctx.app.emit('error', error, ctx);
     }
   }
 }
