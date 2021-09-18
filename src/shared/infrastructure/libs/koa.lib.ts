@@ -43,7 +43,7 @@ app.use(
 // Catching downstream errors
 app.on('error', (err: string, ctx: Koa.Context) => {
   ctx.status = ctx.status || 500;
-  ctx.body = { error: err.toString() };
+  ctx.body = err.toString();
 });
 
 app.use(Swagger.routes());
