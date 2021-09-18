@@ -8,7 +8,7 @@ export default class DogGetController {
   constructor(
     @inject(TYPES.DogFind) private readonly dogFind: DogFind,
     @inject(TYPES.DogFindAll) private readonly dogFindAll: DogFindAll
-  ) { }
+  ) {}
 
   async get({ id }: any) {
     const query = new DogFindQuery(id);

@@ -5,42 +5,42 @@ import DomainEventSubscriber from '@/shared/domain/bus/domain.event.subscriber';
 import EventBus from '@/shared/domain/bus/event.bus';
 
 type RabbitMQConfig = {
-   user: string;
-   password: string;
-   host: string;
-   queue: string;
-   exchange: string;
+  user: string;
+  password: string;
+  host: string;
+  queue: string;
+  exchange: string;
 };
 
 @injectable()
 export default class RabbitMQEventBus implements EventBus {
+  private connection: Connection;
+  private exchange: Exchange;
+  private queue: Queue;
+  private subscribers: Map<string, Array<DomainEventSubscriber<DomainEvent>>>;
 
-   private connection: Connection;
-   private exchange: Exchange;
-   private queue: Queue;
-   private subscribers: Map<string, Array<DomainEventSubscriber<DomainEvent>>>;
+  constructor(config: RabbitMQConfig) {
+    this.connection = new Connection(
+      `amqp://${config.user}:${config.password}@${config.host}`
+    );
+    this.exchange = this.connection.declareExchange(config.exchange, 'fanout', {
+      durable: false
+    });
+    this.queue = this.connection.declareQueue(config.queue);
+    this.subscribers = new Map();
+  }
 
-   constructor(config: RabbitMQConfig) {
-      this.connection = new Connection(`amqp://${config.user}:${config.password}@${config.host}`);
-      this.exchange = this.connection.declareExchange(config.exchange, 'fanout', { durable: false });
-      this.queue = this.connection.declareQueue(config.queue);
-      this.subscribers = new Map();
-   }
+  async start(): Promise<void> {
+    console.log('started', this.subscribers);
 
-   async start(): Promise<void> {
+    await this.queue.bind(this.exchange);
 
-      console.log('started', this.subscribers);
+    await this.queue.activateConsumer(
+      async (message) => {
+        const event = message.content.toString();
 
-      await this.queue.bind(this.exchange);
-
-      await this.queue.activateConsumer(
-
-         async message => {
-
-            const event = message.content.toString();
-
-            console.log('event here', event);
-            /*if (event) {
+        console.log('event here', event);
+        /*if (event) {
                const subscribers = this.subscribers.get(event.eventName);
                if (subscribers && subscribers.length) {
                   const subscribersNames = subscribers.map(subscriber => subscriber.constructor.name);
@@ -50,41 +50,42 @@ export default class RabbitMQEventBus implements EventBus {
                }
             }
             message.ack();*/
-         },
-         { noAck: false }
+      },
+      { noAck: false }
+    );
+  }
+
+  addSubscribers(subscribers: DomainEventSubscriber<DomainEvent>[]): void {
+    subscribers.forEach((subscriber) => {
+      subscriber.subscribedTo().forEach((event) => {
+        const eventName = event.EVENT_NAME;
+        if (this.subscribers.has(eventName)) {
+          this.subscribers.get(eventName)!.push(subscriber);
+        } else {
+          this.subscribers.set(eventName, [subscriber]);
+        }
+      });
+    });
+  }
+
+  async publish(events: DomainEvent[]): Promise<void> {
+    const executions: any = [];
+    events.map((event) => {
+      const message = new Message({
+        data: {
+          id: event.eventId,
+          type: event.eventName,
+          occurred_on: event.occurredOn,
+          attributes: event.toPrimitive()
+        },
+        meta: {}
+      });
+      console.log(
+        `[RabbitMQEventBus] Event to be published: ${event.eventName}`
       );
-   }
+      executions.push(this.exchange.send(message));
+    });
 
-   addSubscribers(subscribers: DomainEventSubscriber<DomainEvent>[]): void {
-      subscribers.forEach(subscriber => {
-         subscriber.subscribedTo().forEach(event => {
-            const eventName = event.EVENT_NAME;
-            if (this.subscribers.has(eventName)) {
-               this.subscribers.get(eventName)!.push(subscriber);
-            } else {
-               this.subscribers.set(eventName, [subscriber]);
-            }
-         });
-      });
-   }
-
-   async publish(events: DomainEvent[]): Promise<void> {
-      const executions: any = [];
-      events.map(event => {
-         const message = new Message({
-            data: {
-               id: event.eventId,
-               type: event.eventName,
-               occurred_on: event.occurredOn,
-               attributes: event.toPrimitive()
-            },
-            meta: {}
-         });
-         console.log(`[RabbitMQEventBus] Event to be published: ${event.eventName}`);
-         executions.push(this.exchange.send(message));
-      });
-
-      await Promise.all(executions);
-   }
-
+    await Promise.all(executions);
+  }
 }

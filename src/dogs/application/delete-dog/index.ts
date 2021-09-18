@@ -10,7 +10,7 @@ import DogNotFound from '@/dogs/domain/exceptions/dog.not.found';
 export default class DogDelete {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository
-  ) { }
+  ) {}
 
   async main(command: DogDeleteCommand) {
     const dogId = DogId.fromValue(command.getId());

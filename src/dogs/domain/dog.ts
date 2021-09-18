@@ -7,7 +7,6 @@ import { Entity } from '@/shared/domain/entity';
 
 // Aggregate root / entity
 export default class Dog extends Entity {
-
   private id: DogId;
   private name: DogName;
   private breed: DogBreed;
@@ -26,7 +25,9 @@ export default class Dog extends Entity {
 
     dog.record(
       new DogCreatedDomainEvent(
-        id.getValue(), name.getValue(), breed.getValue()
+        id.getValue(),
+        name.getValue(),
+        breed.getValue()
       )
     );
 

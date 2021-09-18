@@ -11,7 +11,7 @@ import DogNotFound from '../../domain/exceptions/dog.not.found';
 export default class DogFind {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository
-  ) { }
+  ) {}
 
   async main(query: DogFindQuery): Promise<DogResponse> {
     const dogId = DogId.fromValue(query.getId());

@@ -8,7 +8,7 @@ import DogResponse from '@/dogs/application/dog.response';
 export default class DogFindAll {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository
-  ) { }
+  ) {}
 
   async main(): Promise<DogResponse[]> {
     const dogs = await this.dogRepository.findAll();

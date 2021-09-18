@@ -9,17 +9,14 @@ import MongoDogRepository from '@/dogs/infrastructure/mongo.dog.repository';
 import { TYPES } from '@/shared/infrastructure/di/types';
 // import PostgresDogRepository from '@/dogs/infrastructure/postgres.dog.repository';
 export class DogDependencies {
+  register(container: Container) {
+    container.bind<DogCreate>(DogCreate).toSelf();
+    container.bind<DogFind>(DogFind).toSelf();
+    container.bind<DogUpdate>(DogUpdate).toSelf();
+    container.bind<DogDelete>(DogDelete).toSelf();
+    container.bind<DogFindAll>(DogFindAll).toSelf();
 
-   register(container: Container) {
-
-      container.bind<DogCreate>(DogCreate).toSelf();
-      container.bind<DogFind>(DogFind).toSelf();
-      container.bind<DogUpdate>(DogUpdate).toSelf();
-      container.bind<DogDelete>(DogDelete).toSelf();
-      container.bind<DogFindAll>(DogFindAll).toSelf();
-
-      container.bind<DogRepository>(TYPES.DogRepository).to(MongoDogRepository);
-      // container.bind<DogRepository>(TYPES.DogRepository).to(PostgresDogRepository);
-   }
-
+    container.bind<DogRepository>(TYPES.DogRepository).to(MongoDogRepository);
+    // container.bind<DogRepository>(TYPES.DogRepository).to(PostgresDogRepository);
+  }
 }

@@ -10,21 +10,22 @@ import UpdateCountOnDogCreated from '@/dogs/application/create-dog/update.count.
 import { TYPES } from './types';
 
 export class AppDependencies {
-
-   register(container: Container) {
-
-      container.bind<JWT>(TYPES.JWT).to(JSONWebToken);
-      container.bind<DomainEventSubscriber<DomainEvent>>(TYPES.DomainEventSubscriber).to(UpdateCountOnDogCreated);
-      container.bind<EventBus>(TYPES.EventBus).toDynamicValue((context: interfaces.Context) => {
-         return new RabbitMQEventBus({
-            user: 'guest',
-            password: 'guest',
-            host: 'localhost',
-            queue: 'dogs.queue',
-            exchange: 'dogs.exchange',
-         });
-      });
-      //container.bind<EventBus>(TYPES.EventBus).toConstantValue(LocalEventBus.getInstance());
-   }
-
+  register(container: Container) {
+    container.bind<JWT>(TYPES.JWT).to(JSONWebToken);
+    container
+      .bind<DomainEventSubscriber<DomainEvent>>(TYPES.DomainEventSubscriber)
+      .to(UpdateCountOnDogCreated);
+    // container.bind<EventBus>(TYPES.EventBus).toDynamicValue((context: interfaces.Context) => {
+    //    return new RabbitMQEventBus({
+    //       user: 'guest',
+    //       password: 'guest',
+    //       host: 'localhost',
+    //       queue: 'dogs.queue',
+    //       exchange: 'dogs.exchange',
+    //    });
+    // });
+    container
+      .bind<EventBus>(TYPES.EventBus)
+      .toConstantValue(LocalEventBus.getInstance());
+  }
 }
