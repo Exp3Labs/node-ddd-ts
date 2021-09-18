@@ -1,5 +1,4 @@
 import { Container } from 'inversify';
-import { TYPES } from '@/dogs/infrastructure/di/types';
 import DogCreate from '@/dogs/application/create-dog';
 import DogFind from '@/dogs/application/find-dog';
 import DogUpdate from '@/dogs/application/update-dog';
@@ -7,19 +6,20 @@ import DogDelete from '@/dogs/application/delete-dog';
 import DogFindAll from '@/dogs/application/find-all-dog';
 import DogRepository from '@/dogs/domain/ports/dog.repository';
 import MongoDogRepository from '@/dogs/infrastructure/mongo.dog.repository';
+import { TYPES } from '@/shared/infrastructure/di/types';
 // import PostgresDogRepository from '@/dogs/infrastructure/postgres.dog.repository';
+export class DogDependencies {
 
-const DogContainer = new Container();
+   register(container: Container) {
 
-// application
-DogContainer.bind<DogCreate>(DogCreate).toSelf();
-DogContainer.bind<DogFind>(DogFind).toSelf();
-DogContainer.bind<DogUpdate>(DogUpdate).toSelf();
-DogContainer.bind<DogDelete>(DogDelete).toSelf();
-DogContainer.bind<DogFindAll>(DogFindAll).toSelf();
+      container.bind<DogCreate>(DogCreate).toSelf();
+      container.bind<DogFind>(DogFind).toSelf();
+      container.bind<DogUpdate>(DogUpdate).toSelf();
+      container.bind<DogDelete>(DogDelete).toSelf();
+      container.bind<DogFindAll>(DogFindAll).toSelf();
 
-// infrastructure
-DogContainer.bind<DogRepository>(TYPES.DogRepository).to(MongoDogRepository);
-// AppContainer.bind<DogRepository>(TYPES.DogRepository).to(PostgresDogRepository);
+      container.bind<DogRepository>(TYPES.DogRepository).to(MongoDogRepository);
+      // container.bind<DogRepository>(TYPES.DogRepository).to(PostgresDogRepository);
+   }
 
-export default DogContainer;
+}

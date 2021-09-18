@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { TYPES } from '@/dogs/infrastructure/di/types';
+import { TYPES } from '@/shared/infrastructure/di/types';
 import DogId from '@/dogs/domain/dog.id';
 import DogFindQuery from '@/dogs/application/find-dog/query';
 import DogRepository from '@/dogs/domain/ports/dog.repository';
@@ -11,7 +11,7 @@ import DogNotFound from '../../domain/exceptions/dog.not.found';
 export default class DogFind {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository
-  ) {}
+  ) { }
 
   async main(query: DogFindQuery): Promise<DogResponse> {
     const dogId = DogId.fromValue(query.getId());

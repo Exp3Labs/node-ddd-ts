@@ -8,10 +8,10 @@ import {
 } from 'koa-swagger-decorator';
 import DogDeleteController from '@/dogs/gateway/controllers/dog.delete.controller';
 import DogDelete from '@/dogs/application/delete-dog';
-import DogContainer from '@/dogs/infrastructure/di/config';
+import AppContainer from '@/shared/infrastructure/di';
 
 export default class DogDeleteRouter {
-  @request('delete', '/dog/{id}')
+  @request('delete', '/dogs/{id}')
   @summary('Delete a dog by id')
   @tags(['Dogs'])
   @path({
@@ -23,7 +23,7 @@ export default class DogDeleteRouter {
       // Get Params
       const { id } = ctx.validatedParams;
       // Get Container
-      const dogDelete = DogContainer.get<DogDelete>(DogDelete);
+      const dogDelete = AppContainer.get<DogDelete>(DogDelete);
       // Run controller
       const controller = new DogDeleteController(dogDelete);
       await controller.delete({ id });

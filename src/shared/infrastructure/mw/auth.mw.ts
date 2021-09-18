@@ -1,7 +1,8 @@
+//import GLOBAL_TYPES from '@/shared/infrastructure/di/types';
 import { TYPES } from '@/shared/infrastructure/di/types';
 import JWT from '@/shared/domain/ports/jwt';
 import JWTSecret from '@/shared/domain/jwt.secret';
-import AppContainer from '@/shared/infrastructure/di/config';
+import AppContainer from '@/shared/infrastructure/di';
 
 // @injectable()
 // export default class isAuth {

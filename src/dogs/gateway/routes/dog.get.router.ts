@@ -10,11 +10,11 @@ import {
 import DogGetController from '@/dogs/gateway/controllers/dog.get.controller';
 import DogFind from '@/dogs/application/find-dog';
 import DogFindAll from '@/dogs/application/find-all-dog';
-import DogContainer from '@/dogs/infrastructure/di/config';
+import AppContainer from '@/shared/infrastructure/di';
 import { isAuth } from '@/shared/infrastructure/mw/auth.mw';
 
 export default class DogGetRouter {
-  @request('get', '/dog/{id}')
+  @request('get', '/dogs/{id}')
   @summary('Get a dog by id')
   @tags(['Dogs'])
   @path({
@@ -29,8 +29,8 @@ export default class DogGetRouter {
       // Get Params
       const { id } = ctx.validatedParams;
       // Get Container
-      const dogFind = DogContainer.get<DogFind>(DogFind);
-      const dogFindAll = DogContainer.get<DogFindAll>(DogFindAll);
+      const dogFind = AppContainer.get<DogFind>(DogFind);
+      const dogFindAll = AppContainer.get<DogFindAll>(DogFindAll);
       // Run controller
       const controller = new DogGetController(dogFind, dogFindAll);
       const res = await controller.get({ id });
@@ -45,7 +45,7 @@ export default class DogGetRouter {
     }
   }
 
-  @request('get', '/dog')
+  @request('get', '/dogs')
   @summary('Get all the dogs')
   @tags(['Dogs'])
   @middlewares([isAuth])
@@ -59,8 +59,8 @@ export default class DogGetRouter {
       const { user }: any = ctx.req;
       console.log('=> user', user);
       // Get Container
-      const dogFind = DogContainer.get<DogFind>(DogFind);
-      const dogFindAll = DogContainer.get<DogFindAll>(DogFindAll);
+      const dogFind = AppContainer.get<DogFind>(DogFind);
+      const dogFindAll = AppContainer.get<DogFindAll>(DogFindAll);
       // Run controller
       const controller = new DogGetController(dogFind, dogFindAll);
       const res = await controller.getAll();

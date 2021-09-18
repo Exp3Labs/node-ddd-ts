@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { TYPES } from '@/dogs/infrastructure/di/types';
+import { TYPES } from '@/shared/infrastructure/di/types';
 import Dog from '@/dogs/domain/dog';
 import DogId from '@/dogs/domain/dog.id';
 import DogName from '@/dogs/domain/dog.name';
@@ -7,13 +7,15 @@ import DogBreed from '@/dogs/domain/dog.breed';
 import DogDate from '@/dogs/domain/dog.date';
 import DogCreatorCommand from '@/dogs/application/create-dog/command';
 import DogRepository from '@/dogs/domain/ports/dog.repository';
+import EventBus from '@/shared/domain/bus/event.bus';
 
 // use case DDD: create dog
 @injectable()
 export default class DogCreate {
   constructor(
-    @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository
-  ) {}
+    @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository,
+    @inject(TYPES.EventBus) private readonly eventBus: EventBus,
+  ) { }
 
   async main(command: DogCreatorCommand) {
     const dogId = DogId.fromValue(command.getId());
@@ -21,11 +23,11 @@ export default class DogCreate {
     const dogRace = DogBreed.fromValue(command.getRace());
     const dogDate = DogDate.fromValue(new Date());
 
-    const dog = new Dog(dogId, dogName, dogRace, dogDate);
+    const dog = Dog.create(dogId, dogName, dogRace, dogDate);
 
     await this.dogRepository.save(dog);
 
     // Domain event
-    // this.eventBus.publish(new DogCreated(dog));
+    await this.eventBus.publish(dog.pullDomainEvents());
   }
 }

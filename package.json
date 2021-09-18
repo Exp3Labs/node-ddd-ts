@@ -31,6 +31,7 @@
   "license": "MIT",
   "dependencies": {
     "@koa/cors": "^3.1.0",
+    "amqp-ts": "^1.8.0",
     "bcrypt": "^5.0.1",
     "console-table-printer": "^2.10.0",
     "crypto": "^1.0.1",
@@ -47,6 +48,7 @@
     "koa-swagger-decorator": "^1.7.7",
     "mongoose": "^6.0.5",
     "reflect-metadata": "^0.1.13",
+    "uuid": "^8.3.2",
     "validator": "13.6.0"
   },
   "devDependencies": {
@@ -61,6 +63,7 @@
     "@types/koa-ratelimit": "^4.2.3",
     "@types/koa__cors": "^3.0.3",
     "@types/node": "^16.9.2",
+    "@types/uuid": "^8.3.1",
     "@types/webpack": "^5.28.0",
     "@types/webpack-env": "^1.16.2",
     "@types/webpack-node-externals": "^2.5.2",
@@ -108,8 +111,9 @@
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1"
     },
-    "modulePaths": ["<rootDir>/src"]
-
+    "modulePaths": [
+      "<rootDir>/src"
+    ]
   },
   "eslintConfig": {
     "parser": "@typescript-eslint/parser",
