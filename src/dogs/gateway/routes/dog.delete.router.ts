@@ -4,7 +4,8 @@ import {
   path,
   tags,
   responses,
-  Context
+  Context,
+  security
 } from 'koa-swagger-decorator';
 import DogDeleteController from '@/dogs/gateway/controllers/dog.delete.controller';
 import DogDelete from '@/dogs/application/delete-dog';
@@ -17,7 +18,7 @@ export default class DogDeleteRouter {
   @path({
     id: { type: 'string', required: true }
   })
-  @responses({ 200: { description: 'Deleted' }, 500: { description: 'Error' } })
+  @responses({ 204: { description: 'Deleted' }, 500: { description: 'Error' } })
   static async getUsers(ctx: Context) {
     try {
       // Get Params
@@ -28,6 +29,7 @@ export default class DogDeleteRouter {
       const controller = new DogDeleteController(dogDelete);
       await controller.delete({ id });
       // Successful response
+      ctx.status = 204;
       ctx.body = { result: 'Deleted' };
     } catch (error: any) {
       // Error response
