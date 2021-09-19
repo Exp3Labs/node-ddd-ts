@@ -37,10 +37,10 @@ const config: webpack.Configuration = {
   },
   externals: [nodeExternals()] as webpack.Configuration['externals'],
   plugins: [
+    new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(dotenv.config().parsed)
     }),
-    new CleanWebpackPlugin(),
     new ESLintPlugin({
       extensions: ['.tsx', '.ts', '.js']
     }),
