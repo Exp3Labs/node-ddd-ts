@@ -24,7 +24,7 @@ export default class DogGetRouter {
     200: { description: 'Successful' },
     500: { description: 'Error' }
   })
-  static async get(ctx: Context) {
+  static async getDog(ctx: Context) {
     try {
       // Get Params
       const { id } = ctx.validatedParams;
@@ -42,7 +42,7 @@ export default class DogGetRouter {
     }
   }
 
-  @request('get', '/dogs')
+  @request('GET', '/dogs')
   @summary('Get all the dogs')
   @tags(['Dogs'])
   @middlewares([isAuth])
@@ -50,7 +50,7 @@ export default class DogGetRouter {
     200: { description: 'Successful' },
     500: { description: 'Error' }
   })
-  static async getAll(ctx: Context) {
+  static async getAllDogs(ctx: Context) {
     try {
       // Get current user
       const { user }: any = ctx.req;

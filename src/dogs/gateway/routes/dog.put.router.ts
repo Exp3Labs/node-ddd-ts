@@ -12,7 +12,7 @@ import DogUpdate from '@/dogs/application/update-dog';
 import AppContainer from '@/shared/infrastructure/di';
 
 export default class DogPutRouter {
-  @request('put', '/dogs/{id}')
+  @request('PUT', '/dogs/{id}')
   @summary('Update a dog by id')
   @tags(['Dogs'])
   @path({
@@ -29,7 +29,7 @@ export default class DogPutRouter {
     }
   })
   @responses({ 200: { description: 'Updated' }, 500: { description: 'Error' } })
-  static async update(ctx: Context) {
+  static async updateDog(ctx: Context) {
     try {
       // Get Params
       const { id } = ctx.validatedParams;

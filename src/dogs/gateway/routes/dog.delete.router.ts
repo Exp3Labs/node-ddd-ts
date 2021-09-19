@@ -11,14 +11,14 @@ import DogDelete from '@/dogs/application/delete-dog';
 import AppContainer from '@/shared/infrastructure/di';
 
 export default class DogDeleteRouter {
-  @request('delete', '/dog/{id}')
+  @request('DELETE', '/dogs/{id}')
   @summary('Delete a dog by id')
   @tags(['Dogs'])
   @path({
     id: { type: 'string', required: true }
   })
   @responses({ 204: { description: 'Deleted' }, 500: { description: 'Error' } })
-  static async getUsers(ctx: Context) {
+  static async deleteDog(ctx: Context) {
     try {
       // Get Params
       const { id } = ctx.validatedParams;
