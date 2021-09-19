@@ -1,20 +1,6 @@
 # BOILERPLATE-NODE-DDD-TS
 
 Minimalist boilerplate for **nodejs**, designed for vertical and horizontal scalability.
-
-## Technologies
-
-- Koa
-- Redis 6
-- MongoDB 4
-- Swagger 3
-- Typescript
-- Webpack 5
-- Socket 4
-- Eslint
-- Prettier
-- Jest
-
 ## Installation
 
 ```bash
@@ -23,7 +9,7 @@ cd boilerplate-node-ddd-ts
 yarn
 ```
 
-Then, you will need to create a .env file in the root of the project
+Then, you will need to create a **.env** file in the root of the project
 
 ```bash
 PROJECT_MODE=development
@@ -42,8 +28,6 @@ MONGODB_PASSWORD=
 ## Scripts
 
 ### start
-
-Start the project in development mode with the .env file that is in the root
 
 ```bash
 yarn start
