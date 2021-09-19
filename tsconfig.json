@@ -1,11 +1,10 @@
 {
   "compilerOptions": {
-    "declaration": true,
     "experimentalDecorators": true,
     "target": "es6",
     "module": "commonjs",
     "moduleResolution": "node",
-    "allowJs": true,
+    "allowJs": false,
     "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
