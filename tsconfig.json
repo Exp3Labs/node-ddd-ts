@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "experimentalDecorators": true,
-    "target": "es6",
+    "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
-    "allowJs": false,
+    "allowJs": true,
     "sourceMap": true,
     "strict": true,
     "esModuleInterop": true,
