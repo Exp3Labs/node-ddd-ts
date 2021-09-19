@@ -2,7 +2,7 @@
   "private": true,
   "name": "boilerplate-node-ddd-ts",
   "version": "1.0.0",
-  "description": "Node, Koa, MongoDB, Postgres, JWT, Webpack, DDD",
+  "description": "domain-driven-design + clean-architecture + hexagonal-architecture + CQRS",
   "main": "src/index.ts",
   "scripts": {
     "start": "NODE_ENV=development webpack",
@@ -11,21 +11,20 @@
     "serve": "yarn build && node dist/app.js"
   },
   "keywords": [
-    "nodetomic",
     "nodejs",
     "boilerplate",
-    "koa",
-    "redis",
-    "mongodb",
-    "node-boilerplate",
-    "koa-boilerplate"
+    "ddd",
+    "domain-driven-design",
+    "clean-architecture",
+    "hexagonal-architecture",
+    "CQRS"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/ExperimentsLabs/boilerplate-node-ddd-ts"
   },
   "author": {
-    "name": "boilerplate-node-ddd-ts",
+    "name": "Experiment labs",
     "url": "https://github.com/ExperimentsLabs/boilerplate-node-ddd-ts"
   },
   "license": "MIT",

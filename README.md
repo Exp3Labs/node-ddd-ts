@@ -1,6 +1,7 @@
 # BOILERPLATE-NODE-DDD-TS
 
-Minimalist boilerplate for **nodejs**, designed for vertical and horizontal scalability.
+domain-driven-design + clean-architecture + hexagonal-architecture + CQRS
+
 ## Installation
 
 ```bash
@@ -25,6 +26,7 @@ MONGODB_DATABASE=example-dev
 MONGODB_USERNAME=
 MONGODB_PASSWORD=
 ```
+
 ## Scripts
 
 ### start
@@ -47,4 +49,12 @@ Compile the project
 
 ```bash
 yarn build
+```
+
+### build and run
+
+Compile the project and run it
+
+```bash
+yarn serve
 ```
