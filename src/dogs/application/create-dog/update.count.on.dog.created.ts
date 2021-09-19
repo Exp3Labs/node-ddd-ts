@@ -11,7 +11,7 @@ export default class UpdateStatisticsOnDogCreated implements DomainEventSubscrib
    }
 
    async on(domainEvent: DogCreatedDomainEvent): Promise<void> {
-      console.log(`hi there, I'm listening dog created domain event`);
+      console.log(`hi there, I'm listening dog created domain event ${domainEvent.getName()}`);
    }
 
 }

@@ -4,8 +4,6 @@ export abstract class DomainEvent {
 
    static EVENT_NAME: string;
 
-   static fromPrimitives: (...args: any[]) => any;
-
    readonly entityId: string;
    readonly eventId: string;
    readonly occurredOn: Date;
@@ -19,6 +17,8 @@ export abstract class DomainEvent {
    }
 
    abstract toPrimitive(): Object;
+
+   static fromPrimitives: (...args: any[]) => any;
 
 }
 

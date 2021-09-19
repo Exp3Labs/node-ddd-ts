@@ -24,8 +24,6 @@ const db = async () => {
 (async () => {
   await db();
 
-
-
   const eventBus = AppContainer.get<EventBus>(TYPES.EventBus);
   const subscriberDefinitions = AppContainer.getAll<DomainEventSubscriber<DomainEvent>>(TYPES.DomainEventSubscriber);
   eventBus.addSubscribers(subscriberDefinitions);

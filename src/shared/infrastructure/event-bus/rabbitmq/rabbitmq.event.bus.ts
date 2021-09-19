@@ -1,8 +1,11 @@
-import { Connection, Message, Exchange, Queue } from 'amqp-ts';
 import { injectable } from 'inversify';
+import { Connection, Message, Exchange, Queue } from 'amqp-ts';
+
 import { DomainEvent } from '@/shared/domain/bus/domain.event';
 import DomainEventSubscriber from '@/shared/domain/bus/domain.event.subscriber';
 import EventBus from '@/shared/domain/bus/event.bus';
+import DomainEventJSONDeserializer from '@/shared/infrastructure/event-bus/rabbitmq/domain.event.json.deserializer';
+import DomainEventMapping from '@/shared/infrastructure/event-bus/rabbitmq/domain.event.mapping';
 
 type RabbitMQConfig = {
    user: string;
@@ -19,6 +22,7 @@ export default class RabbitMQEventBus implements EventBus {
    private exchange: Exchange;
    private queue: Queue;
    private subscribers: Map<string, Array<DomainEventSubscriber<DomainEvent>>>;
+   private deserializer?: DomainEventJSONDeserializer;
 
    constructor(config: RabbitMQConfig) {
       this.connection = new Connection(`amqp://${config.user}:${config.password}@${config.host}`);
@@ -29,6 +33,10 @@ export default class RabbitMQEventBus implements EventBus {
 
    async start(): Promise<void> {
 
+      if (!this.deserializer) {
+         throw new Error(`${RabbitMQEventBus.name} has not been properly initialized, deserializer is missing`);
+      }
+
       console.log('started', this.subscribers);
 
       await this.queue.bind(this.exchange);
@@ -37,19 +45,18 @@ export default class RabbitMQEventBus implements EventBus {
 
          async message => {
 
-            const event = message.content.toString();
+            const event = this.deserializer!.deserialize(message.content.toString());
 
-            console.log('event here', event);
-            /*if (event) {
+            if (event) {
                const subscribers = this.subscribers.get(event.eventName);
                if (subscribers && subscribers.length) {
                   const subscribersNames = subscribers.map(subscriber => subscriber.constructor.name);
-                  this.logger.info(`[RabbitMqEventBus] Message processed: ${event.eventName} by ${subscribersNames}`);
+                  console.log(`[RabbitMqEventBus] Message processed: ${event.eventName} by ${subscribersNames}`);
                   const subscribersExecutions = subscribers.map(subscriber => subscriber.on(event));
                   await Promise.all(subscribersExecutions);
                }
             }
-            message.ack();*/
+            message.ack();
          },
          { noAck: false }
       );
@@ -66,6 +73,11 @@ export default class RabbitMQEventBus implements EventBus {
             }
          });
       });
+      this.setDomainEventMapping(new DomainEventMapping(subscribers));
+   }
+
+   private setDomainEventMapping(domainEventMapping: DomainEventMapping): void {
+      this.deserializer = new DomainEventJSONDeserializer(domainEventMapping);
    }
 
    async publish(events: DomainEvent[]): Promise<void> {
