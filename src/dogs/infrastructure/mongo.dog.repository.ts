@@ -1,9 +1,8 @@
 import { injectable } from 'inversify';
-import mongoose, { MongooseQueryOptions } from 'mongoose';
 import DogModel from '@/dogs/infrastructure/mongoose/dog.model';
-import DogRepository from '../domain/ports/dog.repository';
-import Dog from '../domain/dog';
-import dogId from '../domain/dog.id';
+import DogRepository from '@/dogs/domain/ports/dog.repository';
+import Dog from '@/dogs/domain/dog';
+import dogId from '@/dogs/domain/dog.id';
 
 // ports/repositories
 @injectable()

@@ -12,7 +12,6 @@ import DogFind from '@/dogs/application/find-dog';
 import DogFindAll from '@/dogs/application/find-all-dog';
 import AppContainer from '@/shared/infrastructure/di';
 import { isAuth } from '@/shared/infrastructure/mw/auth.mw';
-
 export default class DogGetRouter {
   @request('get', '/dogs/{id}')
   @summary('Get a dog by id')
@@ -24,7 +23,7 @@ export default class DogGetRouter {
     200: { description: 'Successful' },
     500: { description: 'Error' }
   })
-  static async get(ctx: Context) {
+  static async getDog(ctx: Context) {
     try {
       // Get Params
       const { id } = ctx.validatedParams;
@@ -38,14 +37,11 @@ export default class DogGetRouter {
       ctx.body = res;
     } catch (error: any) {
       // Error response
-      ctx.status = 500;
-      ctx.body = {
-        error: error.toString()
-      };
+      ctx.app.emit('error', error, ctx);
     }
   }
 
-  @request('get', '/dogs')
+  @request('GET', '/dogs')
   @summary('Get all the dogs')
   @tags(['Dogs'])
   @middlewares([isAuth])
@@ -53,7 +49,7 @@ export default class DogGetRouter {
     200: { description: 'Successful' },
     500: { description: 'Error' }
   })
-  static async getAll(ctx: Context) {
+  static async getAllDogs(ctx: Context) {
     try {
       // Get current user
       const { user }: any = ctx.req;
@@ -68,10 +64,7 @@ export default class DogGetRouter {
       ctx.body = res;
     } catch (error: any) {
       // Error response
-      ctx.status = 500;
-      ctx.body = {
-        error: error.toString()
-      };
+      ctx.app.emit('error', error, ctx);
     }
   }
 }

@@ -6,6 +6,8 @@ const TYPES = {
   JWT: Symbol.for('JWT'),
   EventBus: Symbol.for('EventBus'),
   DomainEventSubscriber: Symbol.for('DomainEventSubscriber'),
+
+  Logger: Symbol.for('Logger')
 };
 
 export { TYPES };

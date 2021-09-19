@@ -1,41 +1,7 @@
-//import GLOBAL_TYPES from '@/shared/infrastructure/di/types';
 import { TYPES } from '@/shared/infrastructure/di/types';
 import JWT from '@/shared/domain/ports/jwt';
 import JWTSecret from '@/shared/domain/jwt.secret';
 import AppContainer from '@/shared/infrastructure/di';
-
-// @injectable()
-// export default class isAuth {
-//   constructor(
-//     @inject(TYPES.JWT) private readonly jwt: JWT,
-//     private readonly ctx: Context,
-//     private readonly next: Function
-//   ) {}
-
-//   public async handle() {
-//     const token = this.ctx.request.headers['authorization'];
-//     if (!token) {
-//       this.ctx.status = 401;
-//       this.ctx.body = {
-//         message: 'No token provided'
-//       };
-//       return;
-//     }
-
-//     const decoded = this.jwt.verify(new JWTSecret(token, true));
-
-//     if (!decoded) {
-//       this.ctx.status = 401;
-//       this.ctx.body = {
-//         message: 'Invalid token'
-//       };
-//       return;
-//     }
-
-//     this.ctx.state.user = decoded;
-//     await this.next();
-//   }
-// }
 
 export const isAuth = async (ctx: any, next: Function) => {
   try {
@@ -50,12 +16,15 @@ export const isAuth = async (ctx: any, next: Function) => {
         ctx.req.user = decoded;
         await next();
       } else {
-        throw 'Bad signature';
+        ctx.status = 401;
+        ctx.app.emit('error', 'Unauthorized', ctx);
       }
     } else {
-      throw 'Unauthorized';
+      ctx.status = 403;
+      ctx.app.emit('error', 'Forbidden', ctx);
     }
   } catch (error: any) {
-    ctx.throw(401, error);
+    ctx.status = 400;
+    ctx.app.emit('error', 'Bad Request', ctx);
   }
 };

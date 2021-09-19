@@ -7,7 +7,6 @@ import { Entity } from '@/shared/domain/entity';
 
 // Aggregate root / entity
 export default class Dog extends Entity {
-
   private id: DogId;
   private name: DogName;
   private breed: DogBreed;

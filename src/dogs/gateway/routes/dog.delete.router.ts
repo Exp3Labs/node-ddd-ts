@@ -9,16 +9,15 @@ import {
 import DogDeleteController from '@/dogs/gateway/controllers/dog.delete.controller';
 import DogDelete from '@/dogs/application/delete-dog';
 import AppContainer from '@/shared/infrastructure/di';
-
 export default class DogDeleteRouter {
-  @request('delete', '/dogs/{id}')
+  @request('DELETE', '/dogs/{id}')
   @summary('Delete a dog by id')
   @tags(['Dogs'])
   @path({
     id: { type: 'string', required: true }
   })
-  @responses({ 200: { description: 'Deleted' }, 500: { description: 'Error' } })
-  static async getUsers(ctx: Context) {
+  @responses({ 204: { description: 'Deleted' }, 500: { description: 'Error' } })
+  static async deleteDog(ctx: Context) {
     try {
       // Get Params
       const { id } = ctx.validatedParams;
@@ -28,13 +27,11 @@ export default class DogDeleteRouter {
       const controller = new DogDeleteController(dogDelete);
       await controller.delete({ id });
       // Successful response
+      ctx.status = 204;
       ctx.body = { result: 'Deleted' };
     } catch (error: any) {
       // Error response
-      ctx.status = 500;
-      ctx.body = {
-        error: error.toString()
-      };
+      ctx.app.emit('error', error, ctx);
     }
   }
 }

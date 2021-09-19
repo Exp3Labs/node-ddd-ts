@@ -1,4 +1,5 @@
-import * as process from 'process';
+declare const process: any;
+
 const env = process.env;
 
 export const PROJECT_MODE: string | undefined = env.PROJECT_MODE;

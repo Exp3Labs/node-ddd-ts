@@ -1,8 +1,9 @@
 import { injectable } from 'inversify';
-import DogRepository from '../domain/ports/dog.repository';
-import Dog from '../domain/dog';
-import dogId from '../domain/dog.id';
+import DogRepository from '@/dogs/domain/ports/dog.repository';
+import Dog from '@/dogs/domain/dog';
+import dogId from '@/dogs/domain/dog.id';
 
+// ports/repositories
 @injectable()
 export default class PostgresDogRepository implements DogRepository {
   save(dog: Dog): Promise<void> {

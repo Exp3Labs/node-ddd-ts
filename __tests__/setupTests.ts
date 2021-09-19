@@ -14,7 +14,6 @@ const dogs = [
 
 describe('FindDog', () => {
   it('should find a dog by id', async () => {
-
     const dogId = '4';
 
     const mockDogRepository = new MockDogRepository(dogs);

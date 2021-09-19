@@ -21,10 +21,7 @@ const config: webpack.Configuration = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
-    plugins: [new TsconfigPathsPlugin()],
-    alias: {
-      process: 'process/browser'
-    }
+    plugins: [new TsconfigPathsPlugin()]
   },
   module: {
     rules: [
@@ -32,15 +29,19 @@ const config: webpack.Configuration = {
         test: /\.tsx?$/,
         use: 'ts-loader',
         exclude: /node_modules/
+      },
+      {
+        test: /\.hbs?$/,
+        use: 'handlebars-loader'
       }
     ]
   },
   externals: [nodeExternals()] as webpack.Configuration['externals'],
   plugins: [
+    new CleanWebpackPlugin(),
     new webpack.DefinePlugin({
       'process.env': JSON.stringify(dotenv.config().parsed)
     }),
-    new CleanWebpackPlugin(),
     new ESLintPlugin({
       extensions: ['.tsx', '.ts', '.js']
     }),
@@ -51,9 +52,6 @@ const config: webpack.Configuration = {
     }),
     new CopyPlugin({ patterns: [{ from: '.env' }] })
   ],
-  node: {
-    global: true
-  },
   stats: {
     warnings: true
   }

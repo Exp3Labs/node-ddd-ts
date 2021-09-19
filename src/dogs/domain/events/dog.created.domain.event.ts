@@ -1,4 +1,4 @@
-import { DomainEvent } from "@/shared/domain/bus/domain.event";
+import { DomainEvent } from '@/shared/domain/bus/domain.event';
 
 type CreateDogDomainEventBody = {
    readonly id: string;

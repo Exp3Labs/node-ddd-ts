@@ -6,8 +6,16 @@ import bodyParser from 'koa-bodyparser';
 import cookie from 'koa-cookie';
 import logger from 'koa-morgan';
 import rateLimit from 'koa-ratelimit';
+import koaStatic from 'koa-static';
 import Swagger from '@/shared/infrastructure/libs/swagger.lib';
-import { SERVER_PORT } from '@/shared/infrastructure/config';
+import {
+  SERVER_PORT,
+  PROJECT_MODE,
+  PROJECT_NAME,
+  SWAGGER_API_DOCS
+} from '@/shared/infrastructure/config';
+
+const appLayout = require('@/shared/infrastructure/layouts/index.hbs');
 
 const app = new Koa();
 const db = new Map();
@@ -40,7 +48,25 @@ app.use(
   })
 );
 
+// Catching downstream errors
+app.on('error', (err: string, ctx: Koa.Context) => {
+  ctx.status = ctx.status || 500;
+  ctx.body = err.toString();
+});
+
+Swagger.get('/', (ctx: any) => {
+  ctx.body = appLayout({
+    name: PROJECT_NAME,
+    mode: PROJECT_MODE,
+    docs: SWAGGER_API_DOCS === 'true' ? '/swagger-html' : false
+  });
+});
+
 app.use(Swagger.routes());
 app.use(Swagger.allowedMethods());
+
+app.use(
+  koaStatic(`${require('path').resolve()}/src/shared/infrastructure/layouts`)
+);
 
 app.listen(SERVER_PORT, () => console.log('Koa started'));

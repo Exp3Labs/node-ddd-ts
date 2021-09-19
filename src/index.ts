@@ -7,7 +7,7 @@ import { Table } from 'console-table-printer';
 import EventBus from '@/shared/domain/bus/event.bus';
 import DomainEventSubscriber from '@/shared/domain/bus/domain.event.subscriber';
 import { DomainEvent } from '@/shared/domain/bus/domain.event';
-import { TYPES } from './shared/infrastructure/di/types';
+import { TYPES } from '@/shared/infrastructure/di/types';
 
 const p = new Table();
 
@@ -25,7 +25,9 @@ const db = async () => {
   await db();
 
   const eventBus = AppContainer.get<EventBus>(TYPES.EventBus);
-  const subscriberDefinitions = AppContainer.getAll<DomainEventSubscriber<DomainEvent>>(TYPES.DomainEventSubscriber);
+  const subscriberDefinitions = AppContainer.getAll<
+    DomainEventSubscriber<DomainEvent>
+  >(TYPES.DomainEventSubscriber);
   eventBus.addSubscribers(subscriberDefinitions);
   await eventBus.start();
 
@@ -44,5 +46,4 @@ const db = async () => {
   );
 
   p.printTable();
-
 })();

@@ -9,9 +9,8 @@ import {
 import DogPostController from '@/dogs/gateway/controllers/dog.post.controller';
 import DogCreate from '@/dogs/application/create-dog';
 import AppContainer from '@/shared/infrastructure/di';
-
 export default class DogPostRouter {
-  @request('post', '/dogs')
+  @request('POST', '/dogs')
   @summary('Create a dog')
   @tags(['Dogs'])
   @body({
@@ -29,7 +28,7 @@ export default class DogPostRouter {
     }
   })
   @responses({ 201: { description: 'Created' }, 500: { description: 'Error' } })
-  static async getUsers(ctx: Context) {
+  static async createDog(ctx: Context) {
     try {
       // Get Params
       const { id, name, breed } = ctx.validatedBody;
@@ -42,14 +41,8 @@ export default class DogPostRouter {
       ctx.status = 201;
       ctx.body = { result: 'Created' };
     } catch (error: any) {
-
-      console.log(error)
-
       // Error response
-      ctx.status = 500;
-      ctx.body = {
-        error
-      };
+      ctx.app.emit('error', error, ctx);
     }
   }
 }

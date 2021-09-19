@@ -1,8 +1,5 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "declaration": true,
     "experimentalDecorators": true,
     "target": "es6",
     "module": "commonjs",

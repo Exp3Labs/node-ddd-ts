@@ -14,8 +14,8 @@ import EventBus from '@/shared/domain/bus/event.bus';
 export default class DogCreate {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository,
-    @inject(TYPES.EventBus) private readonly eventBus: EventBus,
-  ) { }
+    @inject(TYPES.EventBus) private readonly eventBus: EventBus
+  ) {}
 
   async main(command: DogCreatorCommand) {
     const dogId = DogId.fromValue(command.getId());
