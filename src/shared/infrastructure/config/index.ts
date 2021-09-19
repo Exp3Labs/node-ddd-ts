@@ -1,4 +1,4 @@
-declare var process: any;
+declare const process: any;
 
 const env = process.env;
 
