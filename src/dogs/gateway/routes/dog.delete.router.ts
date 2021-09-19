@@ -11,7 +11,7 @@ import DogDelete from '@/dogs/application/delete-dog';
 import AppContainer from '@/shared/infrastructure/di';
 
 export default class DogDeleteRouter {
-  @request('DELETE', '/dogs/{id}')
+  @request('delete', '/dog/{id}')
   @summary('Delete a dog by id')
   @tags(['Dogs'])
   @path({
