@@ -1,4 +1,4 @@
-const _require: any = require;
+declare const require: any;
 
 const importAll = (paths: any) => {
   return paths
@@ -8,4 +8,4 @@ const importAll = (paths: any) => {
 };
 
 export const getRoutes = () =>
-  importAll(_require.context('@/*', true, /^((?!router).)*router.ts$/));
+  importAll(require.context('@/*', true, /^((?!router).)*router.ts$/));
