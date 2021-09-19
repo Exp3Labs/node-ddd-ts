@@ -21,10 +21,7 @@ const config: webpack.Configuration = {
   },
   resolve: {
     extensions: ['.tsx', '.ts', '.js'],
-    plugins: [new TsconfigPathsPlugin()],
-    alias: {
-      process: 'process/browser'
-    }
+    plugins: [new TsconfigPathsPlugin()]
   },
   module: {
     rules: [
@@ -51,9 +48,6 @@ const config: webpack.Configuration = {
     }),
     new CopyPlugin({ patterns: [{ from: '.env' }] })
   ],
-  node: {
-    global: true
-  },
   stats: {
     warnings: true
   }
