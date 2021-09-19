@@ -4,15 +4,14 @@ import {
   path,
   tags,
   responses,
-  Context,
-  security
+  Context
 } from 'koa-swagger-decorator';
 import DogDeleteController from '@/dogs/gateway/controllers/dog.delete.controller';
 import DogDelete from '@/dogs/application/delete-dog';
 import AppContainer from '@/shared/infrastructure/di';
 
 export default class DogDeleteRouter {
-  @request('delete', '/dogs/{id}')
+  @request('DELETE', '/dogs/{id}')
   @summary('Delete a dog by id')
   @tags(['Dogs'])
   @path({
