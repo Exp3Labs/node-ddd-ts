@@ -8,20 +8,15 @@ import {
 
 const router = new SwaggerRouter();
 
-if (SWAGGER_API_DOCS) {
+if (SWAGGER_API_DOCS === 'true') {
   router.swagger({
     title: PROJECT_NAME,
     description: `API DOC (${PROJECT_MODE})`.toUpperCase(),
     version: '1.0.0',
-    swaggerHtmlEndpoint: '/',
+    swaggerHtmlEndpoint: '/swagger-html',
     swaggerJsonEndpoint: '/swagger-json'
   });
-} else {
-  router.get('/', (ctx) => {
-    ctx.body = `${PROJECT_NAME}: ${PROJECT_MODE}`.toUpperCase();
-  });
 }
-
 // Get routes
 getRoutes().map((x: object) => router.map(x, {}));
 

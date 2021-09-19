@@ -9,7 +9,6 @@ import {
 import DogPostController from '@/dogs/gateway/controllers/dog.post.controller';
 import DogCreate from '@/dogs/application/create-dog';
 import AppContainer from '@/shared/infrastructure/di';
-
 export default class DogPostRouter {
   @request('POST', '/dogs')
   @summary('Create a dog')

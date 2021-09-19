@@ -1,4 +1,4 @@
-import { DomainEvent } from './domain.event';
+import { DomainEvent } from '@/shared/domain/bus/domain.event';
 import DomainEventSubscriber from './domain.event.subscriber';
 
 export default interface EventBus {

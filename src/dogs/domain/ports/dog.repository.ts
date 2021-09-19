@@ -1,5 +1,5 @@
-import Dog from '../dog';
-import DogId from '../dog.id';
+import Dog from '@/dogs/domain/dog';
+import DogId from '@/dogs/domain/dog.id';
 
 // Ports (actions to do)
 export default interface DogRepository {

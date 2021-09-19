@@ -9,7 +9,6 @@ import {
 import DogDeleteController from '@/dogs/gateway/controllers/dog.delete.controller';
 import DogDelete from '@/dogs/application/delete-dog';
 import AppContainer from '@/shared/infrastructure/di';
-
 export default class DogDeleteRouter {
   @request('DELETE', '/dogs/{id}')
   @summary('Delete a dog by id')

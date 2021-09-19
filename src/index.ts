@@ -7,7 +7,7 @@ import { Table } from 'console-table-printer';
 import EventBus from '@/shared/domain/bus/event.bus';
 import DomainEventSubscriber from '@/shared/domain/bus/domain.event.subscriber';
 import { DomainEvent } from '@/shared/domain/bus/domain.event';
-import { TYPES } from './shared/infrastructure/di/types';
+import { TYPES } from '@/shared/infrastructure/di/types';
 
 const p = new Table();
 

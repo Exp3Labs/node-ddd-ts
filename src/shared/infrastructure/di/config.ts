@@ -1,13 +1,13 @@
 import { Container, interfaces } from 'inversify';
 import JWT from '@/shared/domain/ports/jwt';
-import JSONWebToken from '@/shared/infrastructure/jwt/jsonwebtoken';
+import JSONWebToken from '@/shared/infrastructure/jsonwebtoken/jsonwebtoken';
 import EventBus from '@/shared/domain/bus/event.bus';
 import RabbitMQEventBus from '@/shared/infrastructure/bus/rabbitmq.event.bus';
 import LocalEventBus from '@/shared/infrastructure/bus/local.event.bus';
 import DomainEventSubscriber from '@/shared/domain/bus/domain.event.subscriber';
 import { DomainEvent } from '@/shared/domain/bus/domain.event';
 import UpdateCountOnDogCreated from '@/dogs/application/create-dog/update.count.on.dog.created';
-import { TYPES } from './types';
+import { TYPES } from '@/shared/infrastructure/di/types';
 
 export class AppDependencies {
   register(container: Container) {

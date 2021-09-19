@@ -3,8 +3,8 @@ import { TYPES } from '@/shared/infrastructure/di/types';
 import DogId from '@/dogs/domain/dog.id';
 import DogFindQuery from '@/dogs/application/find-dog/query';
 import DogRepository from '@/dogs/domain/ports/dog.repository';
-import DogResponse from '../dog.response';
-import DogNotFound from '../../domain/exceptions/dog.not.found';
+import DogResponse from '@/dogs/application/dog.response';
+import DogNotFound from '@/dogs/domain/exceptions/dog.not.found';
 
 // use case DDD: find dog
 @injectable()
