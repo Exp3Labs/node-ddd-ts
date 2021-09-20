@@ -1,6 +1,6 @@
 import { injectable } from 'inversify';
-import { DomainEventClass } from '@/shared/domain/bus/domain.event';
-import DomainEventSubscriber from '@/shared/domain/bus/domain.event.subscriber';
+import { DomainEventClass } from '@/shared/domain/event-bus/domain.event';
+import DomainEventSubscriber from '@/shared/domain/event-bus/domain.event.subscriber';
 import DogCreatedDomainEvent from '@/dogs/domain/events/dog.created.domain.event';
 
 @injectable()

@@ -1,11 +1,11 @@
 import { Container, interfaces } from 'inversify';
 import JWT from '@/shared/domain/ports/jwt';
 import JSONWebToken from '@/shared/infrastructure/jsonwebtoken/jsonwebtoken';
-import EventBus from '@/shared/domain/bus/event.bus';
+import EventBus from '@/shared/domain/event-bus/event.bus';
 import RabbitMQEventBus from '@/shared/infrastructure/event-bus/rabbitmq/rabbitmq.event.bus';
-import LocalEventBus from '@/shared/infrastructure/event-bus/local/local.event.bus';
-import DomainEventSubscriber from '@/shared/domain/bus/domain.event.subscriber';
-import { DomainEvent } from '@/shared/domain/bus/domain.event';
+import InMemoryEventBus from '@/shared/infrastructure/event-bus/in-memory/in.memory.event.bus';
+import DomainEventSubscriber from '@/shared/domain/event-bus/domain.event.subscriber';
+import { DomainEvent } from '@/shared/domain/event-bus/domain.event';
 import UpdateCountOnDogCreated from '@/dogs/gateway/events/update.count.on.dog.created';
 import { TYPES } from '@/shared/infrastructure/di/types';
 import Logger from '@/shared/domain/ports/logger';
@@ -38,6 +38,6 @@ export class AppDependencies {
     });
     //container
     //  .bind<EventBus>(TYPES.EventBus)
-    //  .toConstantValue(LocalEventBus.getInstance());
+    //  .toConstantValue(InMemoryEventBus.getInstance());
   }
 }

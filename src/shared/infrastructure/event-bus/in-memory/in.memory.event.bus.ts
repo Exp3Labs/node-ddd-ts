@@ -1,20 +1,20 @@
 import { injectable } from 'inversify';
-import { DomainEvent } from '@/shared/domain/bus/domain.event';
-import DomainEventSubscriber from '@/shared/domain/bus/domain.event.subscriber';
-import EventBus from '@/shared/domain/bus/event.bus';
+import { DomainEvent } from '@/shared/domain/event-bus/domain.event';
+import DomainEventSubscriber from '@/shared/domain/event-bus/domain.event.subscriber';
+import EventBus from '@/shared/domain/event-bus/event.bus';
 
 @injectable()
-export default class LocalEventBus implements EventBus {
-  private static instance?: LocalEventBus = undefined;
+export default class InMemoryEventBus implements EventBus {
+  private static instance?: InMemoryEventBus = undefined;
   private subscribers: Map<string, Array<DomainEventSubscriber<DomainEvent>>>;
 
   private constructor() {
     this.subscribers = new Map();
   }
 
-  public static getInstance(): LocalEventBus {
+  public static getInstance(): InMemoryEventBus {
     if (this.instance === undefined) {
-      this.instance = new LocalEventBus();
+      this.instance = new InMemoryEventBus();
     }
     return this.instance;
   }
@@ -31,7 +31,7 @@ export default class LocalEventBus implements EventBus {
           (subscriber) => subscriber.constructor.name
         );
         console.log(
-          `[LocalEventBus] Message processed: ${event.eventName} by ${subscribersNames}`
+          `[InMemoryEventBus] Message processed: ${event.eventName} by ${subscribersNames}`
         );
         const subscribersExecutions = subscribers.map((subscriber) =>
           subscriber.on(event)

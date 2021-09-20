@@ -1,9 +1,9 @@
 import { inject, injectable } from 'inversify';
 import { Connection, Message, Exchange, Queue } from 'amqp-ts';
 
-import { DomainEvent } from '@/shared/domain/bus/domain.event';
-import DomainEventSubscriber from '@/shared/domain/bus/domain.event.subscriber';
-import EventBus from '@/shared/domain/bus/event.bus';
+import { DomainEvent } from '@/shared/domain/event-bus/domain.event';
+import DomainEventSubscriber from '@/shared/domain/event-bus/domain.event.subscriber';
+import EventBus from '@/shared/domain/event-bus/event.bus';
 import DomainEventJSONDeserializer from '@/shared/infrastructure/event-bus/rabbitmq/domain.event.json.deserializer';
 import DomainEventMapping from '@/shared/infrastructure/event-bus/rabbitmq/domain.event.mapping';
 import { TYPES } from '@/shared/infrastructure/di/types';
