@@ -20,8 +20,6 @@ export class AppDependencies {
     // jwt
     container.bind<JWT>(TYPES.JWT).to(JSONWebToken);
 
-
-
     // event-bus
     container
       .bind<DomainEventSubscriber<DomainEvent>>(TYPES.DomainEventSubscriber)
