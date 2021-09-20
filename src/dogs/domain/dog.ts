@@ -60,7 +60,7 @@ export default class Dog extends Entity {
     return this.name;
   }
 
-  getRace(): DogBreed {
+  getBreed(): DogBreed {
     return this.breed;
   }
 

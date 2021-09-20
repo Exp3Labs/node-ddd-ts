@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   node:
-    container_name: ${PROJECT_NAME}
+    container_name: node-${PROJECT_NAME}
     restart: always
     build:
       context: .
@@ -13,6 +13,19 @@ services:
     networks:
       - intranet
       - container
+  rabbitmq:
+    container_name: rabbitmq-${PROJECT_NAME}
+    image: bitnami/rabbitmq:3.8.22
+    restart: always
+    environment:
+      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
+      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+    ports:
+      - ${RABBITMQ_PORT}:${RABBITMQ_PORT}
+    networks:
+      - intranet
+    logging:
+      driver: 'none'
 
 networks:
   container:

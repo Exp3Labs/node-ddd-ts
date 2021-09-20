@@ -14,13 +14,13 @@ import EventBus from '@/shared/domain/bus/event.bus';
 export default class DogCreate {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository,
-    @inject(TYPES.EventBus) private readonly eventBus: EventBus
+    @inject(TYPES.EventBus) private readonly eventBus: EventBus | any
   ) {}
 
   async main(command: DogCreatorCommand) {
     const dogId = DogId.fromValue(command.getId());
     const dogName = DogName.fromValue(command.getName());
-    const dogRace = DogBreed.fromValue(command.getRace());
+    const dogRace = DogBreed.fromValue(command.getBreed());
     const dogDate = DogDate.fromValue(new Date());
 
     const dog = Dog.create(dogId, dogName, dogRace, dogDate);
@@ -28,6 +28,6 @@ export default class DogCreate {
     await this.dogRepository.save(dog);
 
     // Domain event
-    await this.eventBus.publish(dog.pullDomainEvents());
+    if (this.eventBus) await this.eventBus.publish(dog.pullDomainEvents());
   }
 }
