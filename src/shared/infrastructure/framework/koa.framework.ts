@@ -7,7 +7,7 @@ import cookie from 'koa-cookie';
 import logger from 'koa-morgan';
 import rateLimit from 'koa-ratelimit';
 import koaStatic from 'koa-static';
-import Swagger from '@/shared/infrastructure/libs/swagger.lib';
+import Swagger from '@/shared/infrastructure/open-api/swagger.lib';
 import {
   SERVER_PORT,
   PROJECT_MODE,

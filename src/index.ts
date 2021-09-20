@@ -1,9 +1,8 @@
 import 'reflect-metadata';
-import '@/shared/infrastructure/libs/koa.lib';
-import mongoose from '@/shared/infrastructure/libs/mongoose.lib';
+import '@/shared/infrastructure/framework/koa.framework';
+import mongoose from '@/shared/infrastructure/database/mongoose.database';
 import { Table } from 'console-table-printer';
 import { initSubscribers } from '@/shared/infrastructure/event-bus/index';
-
 
 const p = new Table();
 

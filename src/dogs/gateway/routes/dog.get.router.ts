@@ -11,7 +11,7 @@ import DogGetController from '@/dogs/gateway/controllers/dog.get.controller';
 import DogFind from '@/dogs/application/find-dog';
 import DogFindAll from '@/dogs/application/find-all-dog';
 import AppContainer from '@/shared/infrastructure/di';
-import { isAuth } from '@/shared/infrastructure/mw/auth.mw';
+import { isAuth } from '@/shared/infrastructure/middleware/auth.middleware';
 export default class DogGetRouter {
   @request('get', '/dogs/{id}')
   @summary('Get a dog by id')

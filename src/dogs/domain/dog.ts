@@ -25,7 +25,10 @@ export default class Dog extends Entity {
 
     dog.record(
       new DogCreatedDomainEvent(
-        id.getValue(), name.getValue(), breed.getValue(), new Date()
+        id.getValue(),
+        name.getValue(),
+        breed.getValue(),
+        new Date()
       )
     );
 

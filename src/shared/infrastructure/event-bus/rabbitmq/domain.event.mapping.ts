@@ -1,13 +1,18 @@
-import { DomainEvent, DomainEventClass } from "@/shared/domain/bus/domain.event";
-import DomainEventSubscriber from "@/shared/domain/bus/domain.event.subscriber";
+import {
+  DomainEvent,
+  DomainEventClass
+} from '@/shared/domain/bus/domain.event';
+import DomainEventSubscriber from '@/shared/domain/bus/domain.event.subscriber';
 
 type Mapping = Map<string, DomainEventClass>;
-
 export default class DomainEventMapping {
   private mapping: Mapping;
 
   constructor(mapping: DomainEventSubscriber<DomainEvent>[]) {
-    this.mapping = mapping.reduce(this.eventsExtractor(), new Map<string, DomainEventClass>());
+    this.mapping = mapping.reduce(
+      this.eventsExtractor(),
+      new Map<string, DomainEventClass>()
+    );
   }
 
   private eventsExtractor() {
@@ -17,8 +22,10 @@ export default class DomainEventMapping {
     };
   }
 
-  private eventNameExtractor(map: Mapping): (domainEvent: DomainEventClass) => void {
-    return domainEvent => {
+  private eventNameExtractor(
+    map: Mapping
+  ): (domainEvent: DomainEventClass) => void {
+    return (domainEvent) => {
       const eventName = domainEvent.EVENT_NAME;
       map.set(eventName, domainEvent);
     };
