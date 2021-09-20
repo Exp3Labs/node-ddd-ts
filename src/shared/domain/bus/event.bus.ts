@@ -1,5 +1,5 @@
 import { DomainEvent } from '@/shared/domain/bus/domain.event';
-import DomainEventSubscriber from './domain.event.subscriber';
+import DomainEventSubscriber from '@/shared/domain/bus/domain.event.subscriber';
 
 export default interface EventBus {
   addSubscribers(subscribers: Array<DomainEventSubscriber<DomainEvent>>): void;

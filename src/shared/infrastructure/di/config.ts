@@ -1,6 +1,11 @@
 import { Container, interfaces } from 'inversify';
 import JWT from '@/shared/domain/ports/jwt';
 import JSONWebToken from '@/shared/infrastructure/jwt/jsonwebtoken.jwt';
+import {
+  RABBITMQ_HOSTNAME,
+  RABBITMQ_USERNAME,
+  RABBITMQ_PASSWORD
+} from '@/shared/infrastructure/config';
 import EventBus from '@/shared/domain/bus/event.bus';
 import RabbitMQEventBus from '@/shared/infrastructure/event-bus/rabbitmq/rabbitmq.event.bus';
 import LocalEventBus from '@/shared/infrastructure/event-bus/local/local.event.bus';
@@ -30,9 +35,9 @@ export class AppDependencies {
 
         return new RabbitMQEventBus(
           {
-            user: 'guest',
-            password: 'guest',
-            host: 'localhost',
+            host: RABBITMQ_HOSTNAME,
+            user: RABBITMQ_USERNAME,
+            password: RABBITMQ_PASSWORD,
             queue: 'dogs.queue',
             exchange: 'dogs.exchange'
           },
