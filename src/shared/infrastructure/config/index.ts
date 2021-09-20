@@ -18,6 +18,8 @@ export const JWT_SECRET_KEY: any = env.JWT_SECRET_KEY;
 
 export const RABBITMQ_HOSTNAME: any = env.RABBITMQ_HOSTNAME;
 
+export const RABBITMQ_PORT: any = env.RABBITMQ_PORT;
+
 export const RABBITMQ_USERNAME: any = env.RABBITMQ_USERNAME;
 
 export const RABBITMQ_PASSWORD: any = env.RABBITMQ_PASSWORD;
