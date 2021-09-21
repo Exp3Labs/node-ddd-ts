@@ -1,12 +1,12 @@
 import { Container } from 'inversify';
-import DogCreate from '@/dogs/application/create-dog';
+import { DogCreate } from '@/dogs/application/create-dog/use.case';
 import DogFind from '@/dogs/application/find-dog';
 import DogUpdate from '@/dogs/application/update-dog';
 import DogDelete from '@/dogs/application/delete-dog';
 import DogFindAll from '@/dogs/application/find-all-dog';
-import DogRepository from '@/dogs/domain/ports/dog.repository';
+import DogRepository from '@/dogs/domain/dog.repository';
 import MongoDogRepository from '@/dogs/infrastructure/mongo.dog.repository';
-import { TYPES } from '@/shared/infrastructure/di/types';
+import { TYPES } from '@/shared/infrastructure/d-injection/types';
 import { QueryHandler } from '@/shared/domain/query-bus/query.handler';
 import Query from '@/shared/domain/query-bus/query';
 import Response from '@/shared/domain/query-bus/response';

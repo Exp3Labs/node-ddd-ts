@@ -1,4 +1,4 @@
-import { TYPES as DOG_TYPES } from '@/dogs/infrastructure/di/types';
+import { TYPES as DOG_TYPES } from '@/dogs/infrastructure/d-injection/types';
 
 const TYPES = {
   ...DOG_TYPES,

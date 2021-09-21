@@ -1,18 +1,16 @@
 import { injectable } from 'inversify';
 import jsonwebtoken from 'jsonwebtoken';
-import JWT from '@/shared/domain/ports/jwt';
-import { JWT_SECRET_KEY } from '@/shared/infrastructure/config';
-import JwtSecret from '@/shared/domain/jwt.secret';
+import JWT from '@/shared/domain/jwt/jwt';
+import JwtSecret from '@/shared/domain/jwt/jwt.secret';
 
 @injectable()
 export default class JSONWebToken implements JWT {
-  signature(): string {
-    return JWT_SECRET_KEY;
-  }
+
+  constructor(private readonly secretKey: string) { }
 
   async sign(data: object): Promise<JwtSecret> {
     try {
-      const token = await jsonwebtoken.sign(data, this.signature());
+      const token = await jsonwebtoken.sign(data, this.secretKey);
       return new JwtSecret(token, true);
     } catch (error: any) {
       return new JwtSecret(error.toString(), false);
@@ -21,9 +19,10 @@ export default class JSONWebToken implements JWT {
 
   async verify(token: JwtSecret): Promise<any> {
     try {
-      return await jsonwebtoken.verify(token.getSecret(), this.signature());
+      return await jsonwebtoken.verify(token.getSecret(), this.secretKey);
     } catch (error) {
       return { error };
     }
   }
+
 }

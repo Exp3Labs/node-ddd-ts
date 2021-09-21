@@ -1,12 +1,13 @@
 import { inject, injectable } from 'inversify';
-import { TYPES } from '@/shared/infrastructure/di/types';
+import { TYPES } from '@/shared/infrastructure/d-injection/types';
 import Dog from '@/dogs/domain/dog';
 import DogId from '@/dogs/domain/dog.id';
 import DogName from '@/dogs/domain/dog.name';
 import DogBreed from '@/dogs/domain/dog.breed';
 import DogDate from '@/dogs/domain/dog.date';
-import DogRepository from '@/dogs/domain/ports/dog.repository';
+import DogRepository from '@/dogs/domain/dog.repository';
 import EventBus from '@/shared/domain/event-bus/event.bus';
+import { UseCase } from '@/shared/domain/use.case';
 
 type Params = {
   dogId: DogId;
@@ -16,7 +17,7 @@ type Params = {
 };
 
 @injectable()
-export default class DogCreate {
+class DogCreate implements UseCase {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository,
     @inject(TYPES.EventBus) private readonly eventBus: EventBus
@@ -32,3 +33,5 @@ export default class DogCreate {
   }
 
 }
+
+export { DogCreate };

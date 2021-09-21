@@ -1,4 +1,4 @@
-import { QueryNotRegistered } from "@/shared/domain/exceptions/query.not.registered";
+import { QueryNotRegistered } from "@/shared/domain/query-bus/query.not.registered";
 import Query from "@/shared/domain/query-bus/query";
 import { QueryBus } from "@/shared/domain/query-bus/query.bus";
 import { QueryHandler } from "@/shared/domain/query-bus/query.handler";

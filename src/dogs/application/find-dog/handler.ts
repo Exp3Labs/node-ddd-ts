@@ -1,7 +1,7 @@
 import DogId from "@/dogs/domain/dog.id";
 import Query from "@/shared/domain/query-bus/query";
 import { QueryHandler } from "@/shared/domain/query-bus/query.handler";
-import { TYPES } from "@/shared/infrastructure/di/types";
+import { TYPES } from "@/shared/infrastructure/d-injection/types";
 import { inject, injectable } from "inversify";
 import DogFind from ".";
 import DogResponse from "../dog.response";

@@ -1,8 +1,8 @@
 import { inject, injectable } from 'inversify';
-import { TYPES } from '@/shared/infrastructure/di/types';
+import { TYPES } from '@/shared/infrastructure/d-injection/types';
 import DogId from '@/dogs/domain/dog.id';
 import DogDeleteCommand from '@/dogs/application/delete-dog/command';
-import DogRepository from '@/dogs/domain/ports/dog.repository';
+import DogRepository from '@/dogs/domain/dog.repository';
 import DogNotFound from '@/dogs/domain/exceptions/dog.not.found';
 
 // use case DDD: delete dog
@@ -10,7 +10,7 @@ import DogNotFound from '@/dogs/domain/exceptions/dog.not.found';
 export default class DogDelete {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository
-  ) {}
+  ) { }
 
   async main(command: DogDeleteCommand) {
     const dogId = DogId.fromValue(command.getId());

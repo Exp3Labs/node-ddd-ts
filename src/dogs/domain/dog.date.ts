@@ -1,7 +1,6 @@
-import ValueObjectDate from '@/shared/domain/value.object.date';
+import DateValueObject from '@/shared/domain/value-objects/date.value.object';
 
-// value object
-export default class DogDate extends ValueObjectDate {
+export default class DogDate extends DateValueObject {
   private constructor(value: Date) {
     super(value);
   }
@@ -12,7 +11,7 @@ export default class DogDate extends ValueObjectDate {
     }
   }
 
-  static fromValue(value: Date): ValueObjectDate {
+  static fromValue(value: Date): DogDate {
     this.ensureDateIsValid(value);
     return new DogDate(value);
   }

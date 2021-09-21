@@ -14,15 +14,20 @@ export const SWAGGER_HOSTNAME: string | undefined = env.SWAGGER_HOSTNAME;
 
 export const SWAGGER_API_DOCS: string | undefined = env.SWAGGER_API_DOCS;
 
-export const JWT_SECRET_KEY: any = env.JWT_SECRET_KEY;
+export const JWT = {
+  secretKey: env.JWT_SECRET_KEY
+};
 
-export const RABBITMQ_HOSTNAME: any = env.RABBITMQ_HOSTNAME;
-
-export const RABBITMQ_PORT: any = env.RABBITMQ_PORT;
-
-export const RABBITMQ_USERNAME: any = env.RABBITMQ_USERNAME;
-
-export const RABBITMQ_PASSWORD: any = env.RABBITMQ_PASSWORD;
+export const EVENT_BUS_RABBITMQ = {
+  hostname: env.EVENT_BUS_RABBITMQ_HOSTNAME,
+  port: env.EVENT_BUS_RABBITMQ_PORT,
+  username: env.EVENT_BUS_RABBITMQ_USERNAME,
+  password: env.EVENT_BUS_RABBITMQ_PASSWORD,
+  queue: env.EVENT_BUS_RABBITMQ_QUEUE,
+  exchange: env.EVENT_BUS_RABBITMQ_EXCHANGE,
+  retries: env.EVENT_BUS_RABBITMQ_RETRIES | 5,
+  interval: env.EVENT_BUS_RABBITMQ_INTERVAL | 1000
+};
 
 export const MONGODB_HOSTNAME: string | undefined = env.MONGODB_HOSTNAME;
 

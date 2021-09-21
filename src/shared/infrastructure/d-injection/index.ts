@@ -1,6 +1,6 @@
 import { Container } from 'inversify';
-import { AppDependencies } from '@/shared/infrastructure/di/config';
-import { DogDependencies } from '@/dogs/infrastructure/di/config';
+import { AppDependencies } from '@/shared/infrastructure/d-injection/config';
+import { DogDependencies } from '@/dogs/infrastructure/d-injection/config';
 
 const AppContainer = new Container();
 

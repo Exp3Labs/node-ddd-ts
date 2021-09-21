@@ -1,5 +1,5 @@
 import { injectable } from 'inversify';
-import DogRepository from '@/dogs/domain/ports/dog.repository';
+import DogRepository from '@/dogs/domain/dog.repository';
 import Dog from '@/dogs/domain/dog';
 import dogId from '@/dogs/domain/dog.id';
 

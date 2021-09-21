@@ -7,10 +7,10 @@ import {
   Context
 } from 'koa-swagger-decorator';
 import DogPostController from '@/dogs/gateway/controllers/dog.post.controller';
-import DogCreate from '@/dogs/application/create-dog';
-import AppContainer from '@/shared/infrastructure/di';
+import { DogCreate } from '@/dogs/application/create-dog/use.case';
+import AppContainer from '@/shared/infrastructure/d-injection';
 import { CommandBus } from '@/shared/domain/command-bus/command.bus';
-import { TYPES } from '@/shared/infrastructure/di/types';
+import { TYPES } from '@/shared/infrastructure/d-injection/types';
 export default class DogPostRouter {
   @request('POST', '/dogs')
   @summary('Create a dog')

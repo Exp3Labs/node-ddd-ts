@@ -1,6 +1,6 @@
-import AppContainer from '@/shared/infrastructure/di/index';
+import AppContainer from '@/shared/infrastructure/d-injection/index';
 import EventBus from '@/shared/domain/event-bus/event.bus';
-import { TYPES } from '@/shared/infrastructure/di/types';
+import { TYPES } from '@/shared/infrastructure/d-injection/types';
 import DomainEventSubscriber from '@/shared/domain/event-bus/domain.event.subscriber';
 import { DomainEvent } from '@/shared/domain/event-bus/domain.event';
 

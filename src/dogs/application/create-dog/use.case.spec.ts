@@ -1,6 +1,6 @@
 import { mock } from 'jest-mock-extended';
 
-import DogCreate from '@/dogs/application/create-dog';
+import { DogCreate } from '@/dogs/application/create-dog/use.case';
 import Dog from '@/dogs/domain/dog';
 import MockDogRepository from '@/dogs/infrastructure/mock.dog.repository';
 import DogId from '@/dogs/domain/dog.id';
@@ -10,12 +10,6 @@ import DogDate from '@/dogs/domain/dog.date';
 import EventBus from '@/shared/domain/event-bus/event.bus';
 
 let dogs: any = [];
-
-interface PartyProvider {
-  getPartyType: () => string;
-  getSongs: (type: string) => string[]
-  start: (type: string) => void;
-}
 
 describe('create-dog', () => {
   it('should create a dog', async () => {

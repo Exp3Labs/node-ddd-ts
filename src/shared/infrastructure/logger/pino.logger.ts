@@ -1,22 +1,23 @@
 import { injectable } from 'inversify';
 import pino from 'pino';
-import Logger from '@/shared/domain/ports/logger';
+import Logger from '@/shared/domain/logger';
 
 @injectable()
 export default class PinoLogger implements Logger {
-  private options: any;
+
+  private options: pino.LoggerOptions;
 
   constructor() {
     this.options = {
       prettyPrint: {
-        levelFirst: true
+        colorize: true,
+        ignore: 'hostname'
       }
     };
   }
 
   info(message: string): void {
-    const logger = pino(this.options);
-    logger.info(message);
+    pino(this.options).info(message);
   }
 
   warn(message: string): void {
@@ -27,7 +28,4 @@ export default class PinoLogger implements Logger {
     pino(this.options).error(message);
   }
 
-  fatal(message: string): void {
-    pino(this.options).fatal(message);
-  }
 }

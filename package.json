@@ -52,7 +52,8 @@
     "pino-pretty": "^7.0.1",
     "reflect-metadata": "^0.1.13",
     "uuid": "^8.3.2",
-    "validator": "13.6.0"
+    "validator": "13.6.0",
+    "winston": "^3.3.3"
   },
   "devDependencies": {
     "@types/copy-webpack-plugin": "^8.0.1",

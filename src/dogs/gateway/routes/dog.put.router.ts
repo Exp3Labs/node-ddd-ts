@@ -9,7 +9,7 @@ import {
 } from 'koa-swagger-decorator';
 import DogPutController from '@/dogs/gateway/controllers/dog.put.controller';
 import DogUpdate from '@/dogs/application/update-dog';
-import AppContainer from '@/shared/infrastructure/di';
+import AppContainer from '@/shared/infrastructure/d-injection';
 export default class DogPutRouter {
   @request('PUT', '/dogs/{id}')
   @summary('Update a dog by id')

@@ -1,7 +1,7 @@
 import Command from "@/shared/domain/command-bus/command";
 import { CommandBus } from "@/shared/domain/command-bus/command.bus";
 import { CommandHandler } from "@/shared/domain/command-bus/command.handler";
-import { CommandNotRegistered } from "@/shared/domain/exceptions/command.not.registered";
+import { CommandNotRegistered } from "@/shared/domain/command-bus/command.not.registered";
 
 export default class InMemoryCommandBus implements CommandBus {
 

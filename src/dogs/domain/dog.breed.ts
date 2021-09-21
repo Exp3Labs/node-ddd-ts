@@ -1,8 +1,6 @@
-import ValueObjectString from '@/shared/domain/value.object.string';
+import StringValueObject from '@/shared/domain/value-objects/string.value.object';
 import DogRaceInvalid from '@/dogs/domain/exceptions/dog.breed.invalid';
-
-// value object
-export default class DogBreed extends ValueObjectString {
+export default class DogBreed extends StringValueObject {
   private constructor(value: string) {
     super(value);
   }
@@ -13,13 +11,14 @@ export default class DogBreed extends ValueObjectString {
     }
 
     const arr: any = ['pitbull'];
-
     if (value.includes(arr)) {
       throw new DogRaceInvalid(value);
     }
   }
-  static fromValue(value: string): ValueObjectString {
+
+  static fromValue(value: string): DogBreed {
     this.ensureRaceIsValid(value);
     return new DogBreed(value);
   }
+
 }

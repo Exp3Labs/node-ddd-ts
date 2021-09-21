@@ -11,3 +11,4 @@ backups
 .env.production.local
 
 .vscode
+logs/

@@ -7,8 +7,8 @@ import DogId from '@/dogs/domain/dog.id';
 import DogName from '@/dogs/domain/dog.name';
 import DogBreed from '@/dogs/domain/dog.breed';
 import DogDate from '@/dogs/domain/dog.date';
-import DogCreate from '.';
-import { TYPES } from '@/shared/infrastructure/di/types';
+import { DogCreate } from '@/dogs/application/create-dog/use.case';
+import { TYPES } from '@/shared/infrastructure/d-injection/types';
 
 @injectable()
 export default class DogCreateHandler implements CommandHandler<DogCreateCommand> {

@@ -1,6 +1,6 @@
 import { inject } from 'inversify';
 import DogCreatorCommand from '@/dogs/application/create-dog/command';
-import { TYPES } from '@/shared/infrastructure/di/types';
+import { TYPES } from '@/shared/infrastructure/d-injection/types';
 import { CommandBus } from '@/shared/domain/command-bus/command.bus';
 export default class DogPostController {
   constructor(

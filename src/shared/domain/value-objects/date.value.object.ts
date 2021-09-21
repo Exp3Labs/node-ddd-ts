@@ -1,5 +1,4 @@
-// value object
-export default class ValueObjectDate {
+export default class DateValueObject {
   private value: Date;
 
   constructor(value: Date) {
@@ -9,4 +8,5 @@ export default class ValueObjectDate {
   getValue(): Date {
     return this.value;
   }
+
 }
