@@ -11,7 +11,7 @@ import DogGetController from '@/dogs/gateway/controllers/dog.get.controller';
 import DogFind from '@/dogs/application/find-dog';
 import DogFindAll from '@/dogs/application/find-all-dog';
 import AppContainer from '@/shared/infrastructure/d-injection';
-import { isAuth } from '@/shared/infrastructure/middleware/auth.middleware';
+import { isAuth } from '@/shared/infrastructure/middleware/swagger.middleware';
 import { QueryBus } from '@/shared/domain/query-bus/query.bus';
 import { TYPES } from '@/shared/infrastructure/d-injection/types';
 export default class DogGetRouter {
