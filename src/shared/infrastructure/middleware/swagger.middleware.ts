@@ -1,7 +1,7 @@
 import { TYPES } from '@/shared/infrastructure/d-injection/types';
 import JWT from '@/shared/domain/jwt/jwt';
 import JWTSecret from '@/shared/domain/jwt/jwt.secret';
-import AppContainer from '@/shared/infrastructure/d-injection';
+import { AppContainer } from '@/shared/infrastructure/d-injection';
 
 export const isAuth = async (ctx: any, next: Function) => {
   try {

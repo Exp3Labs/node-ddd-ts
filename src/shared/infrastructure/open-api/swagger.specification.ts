@@ -1,5 +1,5 @@
 import { SwaggerRouter } from 'koa-swagger-decorator';
-import { getRoutes } from '@/shared/infrastructure/utils/import.util';
+import { getRoutes } from '@/shared/infrastructure/system/import.system';
 import {
   SWAGGER_API_DOCS,
   PROJECT_NAME,

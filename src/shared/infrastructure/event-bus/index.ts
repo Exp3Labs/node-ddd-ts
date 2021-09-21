@@ -1,4 +1,4 @@
-import AppContainer from '@/shared/infrastructure/d-injection/index';
+import { AppContainer } from '@/shared/infrastructure/d-injection/index';
 import EventBus from '@/shared/domain/event-bus/event.bus';
 import { TYPES } from '@/shared/infrastructure/d-injection/types';
 import DomainEventSubscriber from '@/shared/domain/event-bus/domain.event.subscriber';

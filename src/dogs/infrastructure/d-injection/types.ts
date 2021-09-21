@@ -4,5 +4,5 @@ export const TYPES = {
   DogFind: Symbol.for('DogFind'),
   DogFindAll: Symbol.for('DogFindAll'),
   DogUpdate: Symbol.for('DogUpdate'),
-  DogDelete: Symbol.for('DogDelete')
+  DeleteDogUseCase: Symbol.for('DeleteDogUseCase')
 };

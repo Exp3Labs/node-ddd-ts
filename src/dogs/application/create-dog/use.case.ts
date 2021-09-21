@@ -21,17 +21,20 @@ class CreateDogUseCase implements UseCase {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository,
     @inject(TYPES.EventBus) private readonly eventBus: EventBus
-  ) { }
+  ) {}
 
   async main(params: Params) {
-
-    const dog = Dog.create(params.dogId, params.dogName, params.dogBreed, params.dogDate);
+    const dog = Dog.create(
+      params.dogId,
+      params.dogName,
+      params.dogBreed,
+      params.dogDate
+    );
 
     await this.dogRepository.save(dog);
 
     await this.eventBus.publish(dog.pullDomainEvents());
   }
-
 }
 
 export { CreateDogUseCase };

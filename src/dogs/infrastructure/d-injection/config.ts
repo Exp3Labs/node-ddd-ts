@@ -2,7 +2,7 @@ import { Container } from 'inversify';
 import { CreateDogUseCase } from '@/dogs/application/create-dog/use.case';
 import DogFind from '@/dogs/application/find-dog';
 import DogUpdate from '@/dogs/application/update-dog';
-import DogDelete from '@/dogs/application/delete-dog';
+import { DeleteDogUseCase } from '@/dogs/application/delete-dog/use.case';
 import DogFindAll from '@/dogs/application/find-all-dog';
 import DogRepository from '@/dogs/domain/dog.repository';
 import MongoDogRepository from '@/dogs/infrastructure/mongo.dog.repository';
@@ -20,24 +20,28 @@ import UpdateCountOnDogCreated from '@/dogs/gateway/events/update.count.on.dog.c
 // import PostgresDogRepository from '@/dogs/infrastructure/postgres.dog.repository';
 export class DogDependencies {
   register(container: Container) {
-
     container.bind<CreateDogUseCase>(TYPES.DogCreate).to(CreateDogUseCase);
     container.bind<DogFind>(TYPES.DogFind).to(DogFind);
     container.bind<DogUpdate>(DogUpdate).toSelf();
-    container.bind<DogDelete>(DogDelete).toSelf();
+    container.bind<DeleteDogUseCase>(DeleteDogUseCase).toSelf();
     container.bind<DogFindAll>(DogFindAll).toSelf();
 
     container.bind<DogRepository>(TYPES.DogRepository).to(MongoDogRepository);
     // container.bind<DogRepository>(TYPES.DogRepository).to(PostgresDogRepository);
 
     // event-subscribers
-    container.bind<DomainEventSubscriber<DomainEvent>>(TYPES.DomainEventSubscriber).to(UpdateCountOnDogCreated);
+    container
+      .bind<DomainEventSubscriber<DomainEvent>>(TYPES.DomainEventSubscriber)
+      .to(UpdateCountOnDogCreated);
 
     // query-handlers
-    container.bind<QueryHandler<Query, Response>>(TYPES.QueryBusHandler).to(DogFindHandler);
+    container
+      .bind<QueryHandler<Query, Response>>(TYPES.QueryBusHandler)
+      .to(DogFindHandler);
 
     // command-handlers
-    container.bind<CommandHandler<Command>>(TYPES.CommandBusHandler).to(DogCreateHandler);
-
+    container
+      .bind<CommandHandler<Command>>(TYPES.CommandBusHandler)
+      .to(DogCreateHandler);
   }
 }

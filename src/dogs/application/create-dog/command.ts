@@ -1,6 +1,6 @@
-import Command from "@/shared/domain/command-bus/command";
+import Command from '@/shared/domain/command-bus/command';
 
-export default class DogCreateCommand implements Command {
+class DogCreateCommand implements Command {
   private id: string;
   private name: string;
   private breed: string;
@@ -22,5 +22,6 @@ export default class DogCreateCommand implements Command {
   getBreed(): string {
     return this.breed;
   }
-
 }
+
+export { DogCreateCommand };

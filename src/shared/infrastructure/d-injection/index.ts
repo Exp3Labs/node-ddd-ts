@@ -9,4 +9,4 @@ for (const reg of registrationList) {
   new reg().register(AppContainer);
 }
 
-export default AppContainer;
+export { AppContainer };

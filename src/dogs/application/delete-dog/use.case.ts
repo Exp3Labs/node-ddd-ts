@@ -7,10 +7,10 @@ import DogNotFound from '@/dogs/domain/exceptions/dog.not.found';
 
 // use case DDD: delete dog
 @injectable()
-export default class DogDelete {
+class DeleteDogUseCase {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository
-  ) { }
+  ) {}
 
   async main(command: DogDeleteCommand) {
     const dogId = DogId.fromValue(command.getId());
@@ -25,3 +25,5 @@ export default class DogDelete {
     // this.eventBus.publish(new DogUpdate(dog));
   }
 }
+
+export { DeleteDogUseCase };

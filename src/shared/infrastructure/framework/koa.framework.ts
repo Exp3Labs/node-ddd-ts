@@ -7,7 +7,7 @@ import cookie from 'koa-cookie';
 import logger from 'koa-morgan';
 import rateLimit from 'koa-ratelimit';
 import koaStatic from 'koa-static';
-import Swagger from '@/shared/infrastructure/open-api/swagger.lib';
+import Swagger from '@/shared/infrastructure/open-api/swagger.specification';
 import {
   SERVER_PORT,
   PROJECT_MODE,
@@ -51,7 +51,7 @@ app.use(
 // Catching downstream errors
 app.on('error', (err: string, ctx: Koa.Context) => {
   ctx.status = ctx.status || 500;
-  ctx.body = err.toString();
+  ctx.body = { message: err.toString() };
 });
 
 Swagger.get('/', (ctx: any) => {
