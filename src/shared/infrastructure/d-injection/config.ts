@@ -1,7 +1,10 @@
 import { Container, interfaces } from 'inversify';
 import JWT from '@/shared/domain/jwt/jwt';
 import JSONWebToken from '@/shared/infrastructure/jwt/jsonwebtoken.jwt';
-import { EVENT_BUS_RABBITMQ, JWT as JWT_CONFIG } from '@/shared/infrastructure/config';
+import {
+  EVENT_BUS_RABBITMQ,
+  JWT as JWT_CONFIG
+} from '@/shared/infrastructure/config';
 import EventBus from '@/shared/domain/event-bus/event.bus';
 import RabbitMQEventBus from '@/shared/infrastructure/event-bus/rabbitmq/rabbitmq.event.bus';
 
@@ -19,11 +22,9 @@ import Query from '@/shared/domain/query-bus/query';
 import Response from '@/shared/domain/query-bus/response';
 import WinstonLogger from '../logger/winston.logger';
 
-//import PinoLogger from '@/shared/infrastructure/logger/pino.logger';
 //import InMemoryEventBus from '@/shared/infrastructure/event-bus/in-memory/in.memory.event.bus';
 
 export class AppDependencies {
-
   register(container: Container) {
     this.configLogger(container);
     this.configJWT(container);
@@ -33,23 +34,23 @@ export class AppDependencies {
   }
 
   private configLogger(container: Container) {
-    //container.bind<Logger>(TYPES.Logger).to(PinoLogger);
     container.bind<Logger>(TYPES.Logger).to(WinstonLogger);
   }
 
   private configJWT(container: Container) {
     container.bind<JWT>(TYPES.JWT).to(JSONWebToken);
 
-    container.bind<JWT>(TYPES.JWT).toDynamicValue((context: interfaces.Context) => {
-      return new JSONWebToken(JWT_CONFIG.secretKey);
-    });
+    container
+      .bind<JWT>(TYPES.JWT)
+      .toDynamicValue((context: interfaces.Context) => {
+        return new JSONWebToken(JWT_CONFIG.secretKey);
+      });
   }
 
   private configEventBus(container: Container) {
     container
       .bind<EventBus>(TYPES.EventBus)
       .toDynamicValue((context: interfaces.Context) => {
-
         return new RabbitMQEventBus(
           {
             host: EVENT_BUS_RABBITMQ.hostname,
@@ -74,7 +75,9 @@ export class AppDependencies {
     container
       .bind<CommandBus>(TYPES.CommandBus)
       .toDynamicValue((context: interfaces.Context) => {
-        const handlersDefinitions = container.getAll<CommandHandler<Command>>(TYPES.CommandBusHandler);
+        const handlersDefinitions = container.getAll<CommandHandler<Command>>(
+          TYPES.CommandBusHandler
+        );
         return new InMemoryCommandBus(handlersDefinitions);
       });
   }
@@ -83,9 +86,10 @@ export class AppDependencies {
     container
       .bind<QueryBus>(TYPES.QueryBus)
       .toDynamicValue((context: interfaces.Context) => {
-        const handlersDefinitions = container.getAll<QueryHandler<Query, Response>>(TYPES.QueryBusHandler);
+        const handlersDefinitions = container.getAll<
+          QueryHandler<Query, Response>
+        >(TYPES.QueryBusHandler);
         return new InMemoryQueryBus(handlersDefinitions);
       });
   }
-
 }
