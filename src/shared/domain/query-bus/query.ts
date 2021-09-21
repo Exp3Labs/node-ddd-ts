@@ -1,1 +1,1 @@
-export abstract class Query {}
+export default interface Query { }

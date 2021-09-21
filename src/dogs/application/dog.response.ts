@@ -1,7 +1,8 @@
 import Dog from '@/dogs/domain/dog';
+import Response from '@/shared/domain/query-bus/response';
 
 // Response
-export default class DogResponse {
+export default class DogResponse implements Response {
   private id: string;
   private name: string;
   private breed: string;
@@ -18,7 +19,7 @@ export default class DogResponse {
     return new DogResponse(
       dog.getID().getValue(),
       dog.getName().getValue(),
-      dog.getRace().getValue(),
+      dog.getBreed().getValue(),
       dog.getDate().getValue()
     );
   }
@@ -31,7 +32,7 @@ export default class DogResponse {
     return this.name;
   }
 
-  getRace(): string {
+  getBreed(): string {
     return this.breed;
   }
 

@@ -21,6 +21,7 @@ export default class InMemoryEventBus implements EventBus {
 
   async start(): Promise<void> {
     console.log('started', this.subscribers);
+    await Promise.all([]);
   }
 
   async publish(events: DomainEvent[]): Promise<void> {

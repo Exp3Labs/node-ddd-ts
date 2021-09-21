@@ -18,7 +18,7 @@ export default class DogUpdateCommand {
     return this.name;
   }
 
-  getRace(): string {
+  getBreed(): string {
     return this.breed;
   }
 }

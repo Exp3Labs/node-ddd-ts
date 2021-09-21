@@ -6,17 +6,27 @@ import dogId from '@/dogs/domain/dog.id';
 // ports/repositories
 @injectable()
 export default class MockDogRepository implements DogRepository {
-  constructor(private readonly dogs: Dog[]) {}
+  constructor(private dogs: Dog[]) {}
 
-  save(dog: Dog): Promise<void> {
-    console.log('create dog with postgres', dog);
-    throw new Error('Method not implemented.');
+  async save(dog: Dog): Promise<void> {
+    this.dogs.push(dog);
   }
-  update(dog: Dog): Promise<boolean> {
-    throw new Error('Method not implemented.');
+  async update(dog: Dog): Promise<boolean> {
+    const result = this.dogs.map((d: Dog) =>
+      d.getID().getValue() === dog.getID().getValue() ? { ...d, ...dog } : d
+    );
+    return true;
+    // return result.find((dog: Dog) => dog.getID().getValue() === id.getValue())
+    //   ? true
+    //   : false;
   }
-  delete(id: dogId): Promise<boolean> {
-    throw new Error('Method not implemented.');
+  async delete(id: dogId): Promise<boolean> {
+    const result = this.dogs.filter(
+      (dog: Dog) => dog.getID().getValue() !== id.getValue()
+    );
+    return result.find((dog: Dog) => dog.getID().getValue() === id.getValue())
+      ? false
+      : true;
   }
   async findById(id: dogId): Promise<Dog | null> {
     const result: any = this.dogs.find(
@@ -24,7 +34,7 @@ export default class MockDogRepository implements DogRepository {
     );
     return result;
   }
-  findAll(): Promise<Dog[]> {
-    throw new Error('Method not implemented.');
+  async findAll(): Promise<Dog[]> {
+    return this.dogs;
   }
 }

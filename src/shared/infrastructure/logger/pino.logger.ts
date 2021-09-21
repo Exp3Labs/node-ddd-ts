@@ -1,10 +1,9 @@
-import { injectable } from "inversify";
-import pino from "pino";
-import Logger from "@/shared/domain/ports/logger";
+import { injectable } from 'inversify';
+import pino from 'pino';
+import Logger from '@/shared/domain/ports/logger';
 
 @injectable()
 export default class PinoLogger implements Logger {
-
   private options: any;
 
   constructor() {
@@ -31,5 +30,4 @@ export default class PinoLogger implements Logger {
   fatal(message: string): void {
     pino(this.options).fatal(message);
   }
-
 }

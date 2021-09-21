@@ -6,24 +6,23 @@ import DogRepository from '@/dogs/domain/ports/dog.repository';
 import DogResponse from '@/dogs/application/dog.response';
 import DogNotFound from '@/dogs/domain/exceptions/dog.not.found';
 
-// use case DDD: find dog
+type Params = {
+  dogId: DogId
+};
+
 @injectable()
 export default class DogFind {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository
-  ) {}
+  ) { }
 
-  async main(query: DogFindQuery): Promise<DogResponse> {
-    const dogId = DogId.fromValue(query.getId());
+  async main(params: Params): Promise<DogResponse> {
 
-    const dog = await this.dogRepository.findById(dogId);
+    const dog = await this.dogRepository.findById(params.dogId);
     if (!dog) {
-      throw new DogNotFound(dogId.getValue());
+      throw new DogNotFound(params.dogId.getValue());
     }
 
     return DogResponse.fromDomain(dog);
-
-    // Domain event
-    // this.eventBus.publish(new DogCreated(dog));
   }
 }

@@ -25,7 +25,10 @@ export default class Dog extends Entity {
 
     dog.record(
       new DogCreatedDomainEvent(
-        id.getValue(), name.getValue(), breed.getValue(), new Date()
+        id.getValue(),
+        name.getValue(),
+        breed.getValue(),
+        new Date()
       )
     );
 
@@ -57,7 +60,7 @@ export default class Dog extends Entity {
     return this.name;
   }
 
-  getRace(): DogBreed {
+  getBreed(): DogBreed {
     return this.breed;
   }
 

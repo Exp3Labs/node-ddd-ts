@@ -1,5 +1,6 @@
-// CQRS command (from params)
-export default class DogCreatorCommand {
+import Command from "@/shared/domain/command-bus/command";
+
+export default class DogCreateCommand implements Command {
   private id: string;
   private name: string;
   private breed: string;
@@ -18,7 +19,8 @@ export default class DogCreatorCommand {
     return this.name;
   }
 
-  getRace(): string {
+  getBreed(): string {
     return this.breed;
   }
+
 }

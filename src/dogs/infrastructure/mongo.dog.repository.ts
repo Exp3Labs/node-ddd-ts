@@ -11,7 +11,7 @@ export default class MongoDogRepository implements DogRepository {
     await DogModel.create({
       uuid: dog.getID().getValue(),
       name: dog.getName().getValue(),
-      breed: dog.getRace().getValue(),
+      breed: dog.getBreed().getValue(),
       created_at: dog.getDate().getValue()
     });
   }
@@ -22,7 +22,7 @@ export default class MongoDogRepository implements DogRepository {
       },
       {
         name: dog.getName().getValue(),
-        breed: dog.getRace().getValue()
+        breed: dog.getBreed().getValue()
       }
     );
     return result.modifiedCount > 0;

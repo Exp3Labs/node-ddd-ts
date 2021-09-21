@@ -11,7 +11,9 @@ import DogGetController from '@/dogs/gateway/controllers/dog.get.controller';
 import DogFind from '@/dogs/application/find-dog';
 import DogFindAll from '@/dogs/application/find-all-dog';
 import AppContainer from '@/shared/infrastructure/di';
-import { isAuth } from '@/shared/infrastructure/mw/auth.mw';
+import { isAuth } from '@/shared/infrastructure/middleware/auth.middleware';
+import { QueryBus } from '@/shared/domain/query-bus/query.bus';
+import { TYPES } from '@/shared/infrastructure/di/types';
 export default class DogGetRouter {
   @request('get', '/dogs/{id}')
   @summary('Get a dog by id')
@@ -28,10 +30,9 @@ export default class DogGetRouter {
       // Get Params
       const { id } = ctx.validatedParams;
       // Get Container
-      const dogFind = AppContainer.get<DogFind>(DogFind);
-      const dogFindAll = AppContainer.get<DogFindAll>(DogFindAll);
+      const queryBus = AppContainer.get<QueryBus>(TYPES.QueryBus);
       // Run controller
-      const controller = new DogGetController(dogFind, dogFindAll);
+      const controller = new DogGetController(queryBus);
       const res = await controller.get({ id });
       // Successful response
       ctx.body = res;
@@ -55,10 +56,9 @@ export default class DogGetRouter {
       const { user }: any = ctx.req;
       console.log('=> user', user);
       // Get Container
-      const dogFind = AppContainer.get<DogFind>(DogFind);
-      const dogFindAll = AppContainer.get<DogFindAll>(DogFindAll);
+      const queryBus = AppContainer.get<QueryBus>(TYPES.QueryBus);
       // Run controller
-      const controller = new DogGetController(dogFind, dogFindAll);
+      const controller = new DogGetController(queryBus);
       const res = await controller.getAll();
       // Successful response
       ctx.body = res;

@@ -19,7 +19,6 @@ type RabbitMQConfig = {
 
 @injectable()
 export default class RabbitMQEventBus implements EventBus {
-
   private connection: Connection;
   private exchange: Exchange;
   private queue: Queue;
@@ -28,18 +27,23 @@ export default class RabbitMQEventBus implements EventBus {
 
   constructor(
     config: RabbitMQConfig,
-    @inject(TYPES.Logger) private readonly logger: Logger,
+    @inject(TYPES.Logger) private readonly logger: Logger
   ) {
-    this.connection = new Connection(`amqp://${config.user}:${config.password}@${config.host}`);
-    this.exchange = this.connection.declareExchange(config.exchange, 'fanout', { durable: false });
+    this.connection = new Connection(
+      `amqp://${config.user}:${config.password}@${config.host}`
+    );
+    this.exchange = this.connection.declareExchange(config.exchange, 'fanout', {
+      durable: false
+    });
     this.queue = this.connection.declareQueue(config.queue);
     this.subscribers = new Map();
   }
 
   async start(): Promise<void> {
-
     if (!this.deserializer) {
-      throw new Error(`${RabbitMQEventBus.name} has not been properly initialized, deserializer is missing`);
+      throw new Error(
+        `${RabbitMQEventBus.name} has not been properly initialized, deserializer is missing`
+      );
     }
 
     console.log('started', this.subscribers);
@@ -47,17 +51,24 @@ export default class RabbitMQEventBus implements EventBus {
     await this.queue.bind(this.exchange);
 
     await this.queue.activateConsumer(
+      async (message) => {
 
-      async message => {
-
-        const event = this.deserializer!.deserialize(message.content.toString());
+        const event = this.deserializer!.deserialize(
+          message.content.toString()
+        );
 
         if (event) {
           const subscribers = this.subscribers.get(event.eventName);
           if (subscribers && subscribers.length) {
-            const subscribersNames = subscribers.map(subscriber => subscriber.constructor.name);
-            this.logger.info(`[RabbitMQEventBus] Message processed: ${event.eventName} by ${subscribersNames}`);
-            const subscribersExecutions = subscribers.map(subscriber => subscriber.on(event));
+            const subscribersNames = subscribers.map(
+              (subscriber) => subscriber.constructor.name
+            );
+            this.logger.info(
+              `[RabbitMQEventBus] Message processed: ${event.eventName} by ${subscribersNames}`
+            );
+            const subscribersExecutions = subscribers.map((subscriber) =>
+              subscriber.on(event)
+            );
             await Promise.all(subscribersExecutions);
           }
         }
@@ -68,8 +79,8 @@ export default class RabbitMQEventBus implements EventBus {
   }
 
   addSubscribers(subscribers: DomainEventSubscriber<DomainEvent>[]): void {
-    subscribers.forEach(subscriber => {
-      subscriber.subscribedTo().forEach(event => {
+    subscribers.forEach((subscriber) => {
+      subscriber.subscribedTo().forEach((event) => {
         const eventName = event.EVENT_NAME;
         if (this.subscribers.has(eventName)) {
           this.subscribers.get(eventName)!.push(subscriber);
@@ -87,7 +98,7 @@ export default class RabbitMQEventBus implements EventBus {
 
   async publish(events: DomainEvent[]): Promise<void> {
     const executions: any = [];
-    events.map(event => {
+    events.map((event) => {
       const message = new Message({
         data: {
           id: event.eventId,
@@ -97,11 +108,12 @@ export default class RabbitMQEventBus implements EventBus {
         },
         meta: {}
       });
-      this.logger.info(`[RabbitMQEventBus] Event to be published: ${event.eventName}`);
+      this.logger.info(
+        `[RabbitMQEventBus] Event to be published: ${event.eventName}`
+      );
       executions.push(this.exchange.send(message));
     });
 
     await Promise.all(executions);
   }
-
 }

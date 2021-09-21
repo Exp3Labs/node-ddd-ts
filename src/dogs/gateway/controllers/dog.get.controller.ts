@@ -1,20 +1,19 @@
 import { inject } from 'inversify';
-import DogFind from '@/dogs/application/find-dog';
 import DogFindQuery from '@/dogs/application/find-dog/query';
-import DogFindAll from '@/dogs/application/find-all-dog';
 import { TYPES } from '@/shared/infrastructure/di/types';
+import { QueryBus } from '@/shared/domain/query-bus/query.bus';
 export default class DogGetController {
   constructor(
-    @inject(TYPES.DogFind) private readonly dogFind: DogFind,
-    @inject(TYPES.DogFindAll) private readonly dogFindAll: DogFindAll
-  ) {}
+    @inject(TYPES.QueryBus) private readonly queryBus: QueryBus,
+  ) { }
 
   async get({ id }: any) {
     const query = new DogFindQuery(id);
-    return await this.dogFind.main(query);
+    return await this.queryBus.ask(query);
   }
 
   async getAll() {
-    return await this.dogFindAll.main();
+    return [];
+    //return await this.dogFindAll.main();
   }
 }

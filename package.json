@@ -81,6 +81,7 @@
     "eslint-webpack-plugin": "^3.0.1",
     "handlebars-loader": "^1.7.1",
     "jest": "^27.1.1",
+    "jest-mock-extended": "^2.0.2-beta2",
     "nodemon-webpack-plugin": "^4.5.2",
     "prettier": "^2.4.0",
     "ts-jest": "^27.0.5",

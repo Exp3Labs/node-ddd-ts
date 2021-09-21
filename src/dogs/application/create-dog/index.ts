@@ -5,11 +5,16 @@ import DogId from '@/dogs/domain/dog.id';
 import DogName from '@/dogs/domain/dog.name';
 import DogBreed from '@/dogs/domain/dog.breed';
 import DogDate from '@/dogs/domain/dog.date';
-import DogCreatorCommand from '@/dogs/application/create-dog/command';
 import DogRepository from '@/dogs/domain/ports/dog.repository';
 import EventBus from '@/shared/domain/event-bus/event.bus';
 
-// use case DDD: create dog
+type Params = {
+  dogId: DogId;
+  dogName: DogName;
+  dogBreed: DogBreed;
+  dogDate: DogDate;
+};
+
 @injectable()
 export default class DogCreate {
   constructor(
@@ -17,17 +22,13 @@ export default class DogCreate {
     @inject(TYPES.EventBus) private readonly eventBus: EventBus
   ) { }
 
-  async main(command: DogCreatorCommand) {
-    const dogId = DogId.fromValue(command.getId());
-    const dogName = DogName.fromValue(command.getName());
-    const dogRace = DogBreed.fromValue(command.getRace());
-    const dogDate = DogDate.fromValue(new Date());
+  async main(params: Params) {
 
-    const dog = Dog.create(dogId, dogName, dogRace, dogDate);
+    const dog = Dog.create(params.dogId, params.dogName, params.dogBreed, params.dogDate);
 
     await this.dogRepository.save(dog);
 
-    // Domain event
     await this.eventBus.publish(dog.pullDomainEvents());
   }
+
 }

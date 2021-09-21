@@ -1,7 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
 export abstract class DomainEvent {
-
   static EVENT_NAME: string;
 
   readonly entityId: string;
@@ -9,7 +8,12 @@ export abstract class DomainEvent {
   readonly occurredOn: Date;
   readonly eventName: string;
 
-  constructor(eventName: string, entityId: string, eventId?: string, occurredOn?: Date) {
+  constructor(
+    eventName: string,
+    entityId: string,
+    eventId?: string,
+    occurredOn?: Date
+  ) {
     this.entityId = entityId;
     this.eventId = eventId || uuidv4();
     this.occurredOn = occurredOn || new Date();
@@ -19,7 +23,6 @@ export abstract class DomainEvent {
   abstract toPrimitive(): Object;
 
   static fromPrimitives: (...args: any[]) => any;
-
 }
 
 export type DomainEventClass = {

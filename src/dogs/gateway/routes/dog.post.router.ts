@@ -9,6 +9,8 @@ import {
 import DogPostController from '@/dogs/gateway/controllers/dog.post.controller';
 import DogCreate from '@/dogs/application/create-dog';
 import AppContainer from '@/shared/infrastructure/di';
+import { CommandBus } from '@/shared/domain/command-bus/command.bus';
+import { TYPES } from '@/shared/infrastructure/di/types';
 export default class DogPostRouter {
   @request('POST', '/dogs')
   @summary('Create a dog')
@@ -33,9 +35,9 @@ export default class DogPostRouter {
       // Get Params
       const { id, name, breed } = ctx.validatedBody;
       // Get Container
-      const dogCreator = AppContainer.get<DogCreate>(DogCreate);
+      const commandBus = AppContainer.get<CommandBus>(TYPES.CommandBus);
       // Run controller
-      const controller = new DogPostController(dogCreator);
+      const controller = new DogPostController(commandBus);
       await controller.create({ id, name, breed });
       // Successful response
       ctx.status = 201;

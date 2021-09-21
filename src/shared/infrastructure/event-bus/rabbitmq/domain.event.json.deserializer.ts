@@ -1,4 +1,4 @@
-import DomainEventMapping from "@/shared/infrastructure/event-bus/rabbitmq/domain.event.mapping";
+import DomainEventMapping from '@/shared/infrastructure/event-bus/rabbitmq/domain.event.mapping';
 
 export default class DomainEventJSONDeserializer {
   private mapping: DomainEventMapping;
@@ -23,5 +23,4 @@ export default class DomainEventJSONDeserializer {
       eventData.occurred_on
     );
   }
-
 }

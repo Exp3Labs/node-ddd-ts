@@ -19,7 +19,7 @@ export default class DogUpdate {
   async main(command: DogUpdateCommand) {
     const dogId = DogId.fromValue(command.getId());
     const dogName = DogName.fromValue(command.getName());
-    const dogRace = DogBreed.fromValue(command.getRace());
+    const dogRace = DogBreed.fromValue(command.getBreed());
 
     const dog = new Dog(dogId, dogName, dogRace, DogDate.fromValue(new Date()));
 
