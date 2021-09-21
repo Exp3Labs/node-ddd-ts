@@ -1,6 +1,6 @@
 import { mock } from 'jest-mock-extended';
 
-import { DogCreate } from '@/dogs/application/create-dog/use.case';
+import { CreateDogUseCase } from '@/dogs/application/create-dog/use.case';
 import Dog from '@/dogs/domain/dog';
 import MockDogRepository from '@/dogs/infrastructure/mock.dog.repository';
 import DogId from '@/dogs/domain/dog.id';
@@ -21,7 +21,7 @@ describe('create-dog', () => {
 
     const mockDogRepository = new MockDogRepository(dogs);
 
-    const dogCreate = new DogCreate(mockDogRepository, mock<EventBus>());
+    const dogCreate = new CreateDogUseCase(mockDogRepository, mock<EventBus>());
 
     await dogCreate.main({
       dogId: DogId.fromValue(dog.id),

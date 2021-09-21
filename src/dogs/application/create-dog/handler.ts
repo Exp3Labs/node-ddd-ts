@@ -7,13 +7,13 @@ import DogId from '@/dogs/domain/dog.id';
 import DogName from '@/dogs/domain/dog.name';
 import DogBreed from '@/dogs/domain/dog.breed';
 import DogDate from '@/dogs/domain/dog.date';
-import { DogCreate } from '@/dogs/application/create-dog/use.case';
+import { CreateDogUseCase } from '@/dogs/application/create-dog/use.case';
 import { TYPES } from '@/shared/infrastructure/d-injection/types';
 
 @injectable()
-export default class DogCreateHandler implements CommandHandler<DogCreateCommand> {
+export default class CreateDogHandler implements CommandHandler<DogCreateCommand> {
 
-  constructor(@inject(TYPES.DogCreate) private readonly dogCreate: DogCreate) {
+  constructor(@inject(TYPES.DogCreate) private readonly dogCreate: CreateDogUseCase) {
 
   }
 

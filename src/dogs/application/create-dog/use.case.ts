@@ -17,7 +17,7 @@ type Params = {
 };
 
 @injectable()
-class DogCreate implements UseCase {
+class CreateDogUseCase implements UseCase {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository,
     @inject(TYPES.EventBus) private readonly eventBus: EventBus
@@ -34,4 +34,4 @@ class DogCreate implements UseCase {
 
 }
 
-export { DogCreate };
+export { CreateDogUseCase };

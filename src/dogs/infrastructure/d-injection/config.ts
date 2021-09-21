@@ -1,5 +1,5 @@
 import { Container } from 'inversify';
-import { DogCreate } from '@/dogs/application/create-dog/use.case';
+import { CreateDogUseCase } from '@/dogs/application/create-dog/use.case';
 import DogFind from '@/dogs/application/find-dog';
 import DogUpdate from '@/dogs/application/update-dog';
 import DogDelete from '@/dogs/application/delete-dog';
@@ -21,7 +21,7 @@ import UpdateCountOnDogCreated from '@/dogs/gateway/events/update.count.on.dog.c
 export class DogDependencies {
   register(container: Container) {
 
-    container.bind<DogCreate>(TYPES.DogCreate).to(DogCreate);
+    container.bind<CreateDogUseCase>(TYPES.DogCreate).to(CreateDogUseCase);
     container.bind<DogFind>(TYPES.DogFind).to(DogFind);
     container.bind<DogUpdate>(DogUpdate).toSelf();
     container.bind<DogDelete>(DogDelete).toSelf();
