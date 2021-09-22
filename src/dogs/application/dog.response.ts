@@ -1,5 +1,5 @@
 import { Dog } from '@/dogs/domain/dog';
-import { Response } from '@/shared/domain/query-bus/response';
+import { Response } from '@/shared/domain/cqrs/query-bus/response';
 // Response
 export class DogResponse implements Response {
   private id: string;

@@ -10,7 +10,7 @@ import {
 import { AppContainer } from '@/shared/infrastructure/d-injection';
 import { TYPES } from '@/shared/infrastructure/d-injection/types';
 import { isAuth } from '@/shared/infrastructure/middleware/swagger.middleware';
-import { QueryBus } from '@/shared/domain/query-bus/query.bus';
+import { QueryBus } from '@/shared/domain/cqrs/query-bus/query.bus';
 import { DogGetController } from '@/dogs/gateway/controllers/dog.get.controller';
 export class DogGetRouter {
   @request('get', '/dogs/{id}')
@@ -43,7 +43,7 @@ export class DogGetRouter {
   @request('GET', '/dogs')
   @summary('Get all the dogs')
   @tags(['Dogs'])
-  @middlewares([isAuth])
+  // @middlewares([isAuth])
   @responses({
     200: { description: 'Successful' },
     500: { description: 'Error' }
@@ -51,8 +51,8 @@ export class DogGetRouter {
   static async getAllDogs(ctx: Context) {
     try {
       // Get current user
-      const { user }: any = ctx.req;
-      console.log('=> user', user);
+      // const { user }: any = ctx.req;
+      // console.log('=> user', user);
       // Get Container
       const queryBus = AppContainer.get<QueryBus>(TYPES.QueryBus);
       // Run controller

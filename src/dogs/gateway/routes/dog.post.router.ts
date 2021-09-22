@@ -8,7 +8,7 @@ import {
 } from 'koa-swagger-decorator';
 import { AppContainer } from '@/shared/infrastructure/d-injection';
 import { TYPES } from '@/shared/infrastructure/d-injection/types';
-import { CommandBus } from '@/shared/domain/command-bus/command.bus';
+import { CommandBus } from '@/shared/domain/cqrs/command-bus/command.bus';
 import { DogPostController } from '@/dogs/gateway/controllers/dog.post.controller';
 export class DogPostRouter {
   @request('POST', '/dogs')

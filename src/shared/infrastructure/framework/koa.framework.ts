@@ -52,6 +52,7 @@ export const startKoa = (): void => {
 
   // Catching downstream errors
   app.on('error', (err: string, ctx: Koa.Context) => {
+    console.log(err);
     ctx.status = ctx.status || 500;
     ctx.body = { message: err.toString() };
   });

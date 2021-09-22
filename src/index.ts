@@ -1,3 +1,3 @@
-import { init } from '@/shared/infrastructure/system';
+import { init } from '@/shared/infrastructure/bootstrap';
 // Start project
 init();

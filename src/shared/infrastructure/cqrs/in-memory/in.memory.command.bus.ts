@@ -1,7 +1,7 @@
-import { Command } from '@/shared/domain/command-bus/command';
-import { CommandBus } from '@/shared/domain/command-bus/command.bus';
-import { CommandHandler } from '@/shared/domain/command-bus/command.handler';
-import { CommandNotRegistered } from '@/shared/domain/command-bus/command.not.registered';
+import { Command } from '@/shared/domain/cqrs/command-bus/command';
+import { CommandBus } from '@/shared/domain/cqrs/command-bus/command.bus';
+import { CommandHandler } from '@/shared/domain/cqrs/command-bus/command.handler';
+import { CommandNotRegistered } from '@/shared/domain/cqrs/command-bus/command.not.registered';
 
 export class InMemoryCommandBus implements CommandBus {
   private commandHandlersMap: Map<Command, CommandHandler<Command>>;

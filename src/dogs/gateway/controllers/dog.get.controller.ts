@@ -1,7 +1,8 @@
 import { inject } from 'inversify';
 import { TYPES } from '@/shared/infrastructure/d-injection/types';
-import { QueryBus } from '@/shared/domain/query-bus/query.bus';
+import { QueryBus } from '@/shared/domain/cqrs/query-bus/query.bus';
 import { DogFindQuery } from '@/dogs/application/find-dog/query';
+import { DogFindAllQuery } from '@/dogs/application/find-all-dog/query';
 export class DogGetController {
   constructor(@inject(TYPES.QueryBus) private readonly queryBus: QueryBus) {}
 
@@ -11,7 +12,7 @@ export class DogGetController {
   }
 
   async getAllDogs() {
-    return [];
-    //return await this.dogFindAll.main();
+    const query = new DogFindAllQuery();
+    return await this.queryBus.ask(query);
   }
 }

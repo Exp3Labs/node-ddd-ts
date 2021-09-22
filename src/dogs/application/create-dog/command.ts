@@ -1,4 +1,4 @@
-import { Command } from '@/shared/domain/command-bus/command';
+import { Command } from '@/shared/domain/cqrs/command-bus/command';
 
 export class DogCreateCommand implements Command {
   private id: string;

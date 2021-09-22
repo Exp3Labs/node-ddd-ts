@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { DogCreateCommand } from '@/dogs/application/create-dog/command';
-import { CommandHandler } from '@/shared/domain/command-bus/command.handler';
-import { Command } from '@/shared/domain/command-bus/command';
+import { CommandHandler } from '@/shared/domain/cqrs/command-bus/command.handler';
+import { Command } from '@/shared/domain/cqrs/command-bus/command';
 import { DogId } from '@/dogs/domain/dog.id';
 import { DogName } from '@/dogs/domain/dog.name';
 import { DogBreed } from '@/dogs/domain/dog.breed';
@@ -16,9 +16,7 @@ export class CreateDogHandler implements CommandHandler<DogCreateCommand> {
     private readonly createDogUseCase: CreateDogUseCase
   ) {}
 
-  subscribedTo(): Command {
-    return DogCreateCommand;
-  }
+  subscribedTo = (): Command => DogCreateCommand;
 
   async handle(command: DogCreateCommand): Promise<void> {
     const dogId = DogId.fromValue(command.getId());

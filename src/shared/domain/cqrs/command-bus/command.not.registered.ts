@@ -1,4 +1,4 @@
-import { Command } from '../command-bus/command';
+import { Command } from './command';
 export class CommandNotRegistered extends Error {
   constructor(command: Command) {
     super(

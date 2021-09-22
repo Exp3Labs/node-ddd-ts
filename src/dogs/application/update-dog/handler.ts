@@ -1,7 +1,7 @@
 import { inject, injectable } from 'inversify';
 import { DogUpdateCommand } from '@/dogs/application/update-dog/command';
-import { CommandHandler } from '@/shared/domain/command-bus/command.handler';
-import { Command } from '@/shared/domain/command-bus/command';
+import { CommandHandler } from '@/shared/domain/cqrs/command-bus/command.handler';
+import { Command } from '@/shared/domain/cqrs/command-bus/command';
 import { DogId } from '@/dogs/domain/dog.id';
 import { DogName } from '@/dogs/domain/dog.name';
 import { DogBreed } from '@/dogs/domain/dog.breed';

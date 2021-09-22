@@ -5,7 +5,7 @@ import { EventBus } from '@/shared/domain/event-bus/event.bus';
 import { Logger } from '@/shared/domain/logger';
 
 @injectable()
-export default class InMemoryEventBus implements EventBus {
+export class InMemoryEventBus implements EventBus {
   private logger: Logger;
   private static instance?: InMemoryEventBus = undefined;
   private subscribers: Map<string, Array<DomainEventSubscriber<DomainEvent>>>;
