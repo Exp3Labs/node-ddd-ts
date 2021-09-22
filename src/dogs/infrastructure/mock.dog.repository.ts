@@ -1,12 +1,11 @@
 import { injectable } from 'inversify';
-import DogRepository from '@/dogs/domain/dog.repository';
-import Dog from '@/dogs/domain/dog';
-import dogId from '@/dogs/domain/dog.id';
-
+import { DogRepository } from '@/dogs/domain/dog.repository';
+import { Dog } from '@/dogs/domain/dog';
+import { DogId } from '@/dogs/domain/dog.id';
 // ports/repositories
 @injectable()
-export default class MockDogRepository implements DogRepository {
-  constructor(private dogs: Dog[]) { }
+export class MockDogRepository implements DogRepository {
+  constructor(private dogs: Dog[]) {}
 
   async save(dog: Dog): Promise<void> {
     this.dogs.push(dog);
@@ -20,7 +19,7 @@ export default class MockDogRepository implements DogRepository {
     //   ? true
     //   : false;
   }
-  async delete(id: dogId): Promise<boolean> {
+  async delete(id: DogId): Promise<boolean> {
     const result = this.dogs.filter(
       (dog: Dog) => dog.getID().getValue() !== id.getValue()
     );
@@ -28,7 +27,7 @@ export default class MockDogRepository implements DogRepository {
       ? false
       : true;
   }
-  async findById(id: dogId): Promise<Dog | null> {
+  async findById(id: DogId): Promise<Dog | null> {
     const result: any = this.dogs.find(
       (dog: Dog) => dog.getID().getValue() === id.getValue()
     );

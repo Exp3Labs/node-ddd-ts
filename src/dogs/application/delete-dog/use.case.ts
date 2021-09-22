@@ -1,13 +1,13 @@
 import { inject, injectable } from 'inversify';
 import { TYPES } from '@/shared/infrastructure/d-injection/types';
-import DogId from '@/dogs/domain/dog.id';
-import DogDeleteCommand from '@/dogs/application/delete-dog/command';
-import DogRepository from '@/dogs/domain/dog.repository';
-import DogNotFound from '@/dogs/domain/exceptions/dog.not.found';
+import { DogId } from '@/dogs/domain/dog.id';
+import { DogDeleteCommand } from '@/dogs/application/delete-dog/command';
+import { DogRepository } from '@/dogs/domain/dog.repository';
+import { DogNotFound } from '@/dogs/domain/exceptions/dog.not.found';
 
 // use case DDD: delete dog
 @injectable()
-class DeleteDogUseCase {
+export class DeleteDogUseCase {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository
   ) {}
@@ -25,5 +25,3 @@ class DeleteDogUseCase {
     // this.eventBus.publish(new DogUpdate(dog));
   }
 }
-
-export { DeleteDogUseCase };

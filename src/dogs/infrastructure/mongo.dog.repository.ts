@@ -1,12 +1,11 @@
 import { injectable } from 'inversify';
-import DogModel from '@/dogs/infrastructure/mongoose/dog.model';
-import DogRepository from '@/dogs/domain/dog.repository';
-import Dog from '@/dogs/domain/dog';
-import dogId from '@/dogs/domain/dog.id';
-
+import { DogModel } from '@/dogs/infrastructure/mongoose/dog.model';
+import { DogRepository } from '@/dogs/domain/dog.repository';
+import { Dog } from '@/dogs/domain/dog';
+import { DogId } from '@/dogs/domain/dog.id';
 // ports/repositories
 @injectable()
-export default class MongoDogRepository implements DogRepository {
+export class MongoDogRepository implements DogRepository {
   async save(dog: Dog): Promise<void> {
     await DogModel.create({
       uuid: dog.getID().getValue(),
@@ -27,14 +26,14 @@ export default class MongoDogRepository implements DogRepository {
     );
     return result.modifiedCount > 0;
   }
-  async delete(id: dogId): Promise<boolean> {
+  async delete(id: DogId): Promise<boolean> {
     const result: any = await DogModel.deleteOne({
       uuid: id.getValue()
     });
 
     return result.deletedCount > 0;
   }
-  async findById(id: dogId): Promise<Dog | null> {
+  async findById(id: DogId): Promise<Dog | null> {
     const result: Object = await DogModel.findOne({
       uuid: id.getValue()
     }).lean();

@@ -1,6 +1,6 @@
 import { TYPES } from '@/shared/infrastructure/d-injection/types';
-import JWT from '@/shared/domain/jwt/jwt';
-import JWTSecret from '@/shared/domain/jwt/jwt.secret';
+import { JWT } from '@/shared/domain/jwt/jwt';
+import { JwtSecret } from '@/shared/domain/jwt/jwt.secret';
 import { AppContainer } from '@/shared/infrastructure/d-injection';
 
 export const isAuth = async (ctx: any, next: Function) => {
@@ -10,7 +10,7 @@ export const isAuth = async (ctx: any, next: Function) => {
     if (token) {
       ctx.request.header.authorization = `Bearer ${token}`;
 
-      const decoded: any = await jwt.verify(new JWTSecret(token, true));
+      const decoded: any = await jwt.verify(new JwtSecret(token, true));
 
       if (!decoded?.error) {
         ctx.req.user = decoded;

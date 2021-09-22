@@ -1,6 +1,6 @@
 import { TYPES as DOG_TYPES } from '@/dogs/infrastructure/d-injection/types';
 
-const TYPES = {
+export const TYPES = {
   ...DOG_TYPES,
 
   JWT: Symbol.for('JWT'),
@@ -16,5 +16,3 @@ const TYPES = {
 
   Logger: Symbol.for('Logger')
 };
-
-export { TYPES };

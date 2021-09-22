@@ -1,13 +1,12 @@
 import { mock } from 'jest-mock-extended';
-
 import { CreateDogUseCase } from '@/dogs/application/create-dog/use.case';
-import Dog from '@/dogs/domain/dog';
-import MockDogRepository from '@/dogs/infrastructure/mock.dog.repository';
-import DogId from '@/dogs/domain/dog.id';
-import DogName from '@/dogs/domain/dog.name';
-import DogBreed from '@/dogs/domain/dog.breed';
-import DogDate from '@/dogs/domain/dog.date';
-import EventBus from '@/shared/domain/event-bus/event.bus';
+import { Dog } from '@/dogs/domain/dog';
+import { MockDogRepository } from '@/dogs/infrastructure/mock.dog.repository';
+import { DogId } from '@/dogs/domain/dog.id';
+import { DogName } from '@/dogs/domain/dog.name';
+import { DogBreed } from '@/dogs/domain/dog.breed';
+import { DogDate } from '@/dogs/domain/dog.date';
+import { EventBus } from '@/shared/domain/event-bus/event.bus';
 
 let dogs: any = [];
 

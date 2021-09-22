@@ -1,5 +1,5 @@
 // CQRS command (from params)
-export default class DogDeleteCommand {
+export class DogDeleteCommand {
   private id: string;
 
   constructor(id: string) {

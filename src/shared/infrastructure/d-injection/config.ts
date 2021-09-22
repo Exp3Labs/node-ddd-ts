@@ -1,26 +1,26 @@
 import { Container, interfaces } from 'inversify';
-import JWT from '@/shared/domain/jwt/jwt';
-import JSONWebToken from '@/shared/infrastructure/jwt/jsonwebtoken.jwt';
+import { JWT } from '@/shared/domain/jwt/jwt';
+import { JSONWebToken } from '@/shared/infrastructure/jwt/jsonwebtoken.jwt';
 import {
   EVENT_BUS_RABBITMQ,
   JWT as JWT_CONFIG
 } from '@/shared/infrastructure/config';
-import EventBus from '@/shared/domain/event-bus/event.bus';
-import RabbitMQEventBus from '@/shared/infrastructure/event-bus/rabbitmq/rabbitmq.event.bus';
+import { EventBus } from '@/shared/domain/event-bus/event.bus';
+import { RabbitMQEventBus } from '@/shared/infrastructure/event-bus/rabbitmq/rabbitmq.event.bus';
 
 import { TYPES } from '@/shared/infrastructure/d-injection/types';
-import Logger from '@/shared/domain/logger';
+import { Logger } from '@/shared/domain/logger';
 
 import { CommandBus } from '@/shared/domain/command-bus/command.bus';
-import InMemoryCommandBus from '../command-bus/in-memory/in.memory.command.bus';
+import { InMemoryCommandBus } from '../command-bus/in-memory/in.memory.command.bus';
 import { CommandHandler } from '@/shared/domain/command-bus/command.handler';
-import Command from '@/shared/domain/command-bus/command';
+import { Command } from '@/shared/domain/command-bus/command';
 import { QueryBus } from '@/shared/domain/query-bus/query.bus';
 import { InMemoryQueryBus } from '../query-bus/in-memory/in.memory.query.bus';
 import { QueryHandler } from '@/shared/domain/query-bus/query.handler';
-import Query from '@/shared/domain/query-bus/query';
-import Response from '@/shared/domain/query-bus/response';
-import WinstonLogger from '../logger/winston.logger';
+import { Query } from '@/shared/domain/query-bus/query';
+import { Response } from '@/shared/domain/query-bus/response';
+import { WinstonLogger } from '../logger/winston.logger';
 
 //import InMemoryEventBus from '@/shared/infrastructure/event-bus/in-memory/in.memory.event.bus';
 

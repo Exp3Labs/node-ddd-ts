@@ -1,12 +1,11 @@
-import { injectable } from 'inversify';
 import jsonwebtoken from 'jsonwebtoken';
-import JWT from '@/shared/domain/jwt/jwt';
-import JwtSecret from '@/shared/domain/jwt/jwt.secret';
+import { injectable } from 'inversify';
+import { JWT } from '@/shared/domain/jwt/jwt';
+import { JwtSecret } from '@/shared/domain/jwt/jwt.secret';
 
 @injectable()
-export default class JSONWebToken implements JWT {
-
-  constructor(private readonly secretKey: string) { }
+export class JSONWebToken implements JWT {
+  constructor(private readonly secretKey: string) {}
 
   async sign(data: object): Promise<JwtSecret> {
     try {
@@ -24,5 +23,4 @@ export default class JSONWebToken implements JWT {
       return { error };
     }
   }
-
 }

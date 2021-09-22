@@ -1,5 +1,5 @@
 // value object
-export default class StringValueObject {
+export class StringValueObject {
   private value: string;
 
   constructor(value: string) {

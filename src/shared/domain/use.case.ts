@@ -1,5 +1,3 @@
-interface UseCase {
+export interface UseCase {
   main(...args: any): Promise<any>;
 }
-
-export { UseCase };

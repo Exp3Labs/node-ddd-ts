@@ -1,6 +1,5 @@
-import DomainEventMapping from '@/shared/infrastructure/event-bus/rabbitmq/domain.event.mapping';
-
-export default class DomainEventJSONDeserializer {
+import { DomainEventMapping } from '@/shared/infrastructure/event-bus/rabbitmq/domain.event.mapping';
+export class DomainEventJSONDeserializer {
   private mapping: DomainEventMapping;
 
   constructor(mapping: DomainEventMapping) {

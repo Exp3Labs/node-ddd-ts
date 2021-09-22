@@ -1,1 +1,1 @@
-export default interface Command { }
+export interface Command {}

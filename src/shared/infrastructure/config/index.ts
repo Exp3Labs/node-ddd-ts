@@ -8,7 +8,7 @@ export const PROJECT_NAME: string | undefined = env.PROJECT_NAME;
 
 export const SERVER_HOSTNAME: string | undefined = env.SERVER_HOSTNAME;
 
-export const SERVER_PORT: string | undefined = env.SERVER_PORT;
+export const SERVER_PORT = parseInt(env.SERVER_PORT);
 
 export const SWAGGER_HOSTNAME: string | undefined = env.SWAGGER_HOSTNAME;
 

@@ -1,8 +1,7 @@
-import Dog from '@/dogs/domain/dog';
-import DogId from '@/dogs/domain/dog.id';
-
+import { Dog } from '@/dogs/domain/dog';
+import { DogId } from '@/dogs/domain/dog.id';
 // Ports (actions to do)
-export default interface DogRepository {
+export interface DogRepository {
   save(dog: Dog): Promise<void>;
   update(dog: Dog): Promise<boolean>;
   delete(dog: DogId): Promise<boolean>;

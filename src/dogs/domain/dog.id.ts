@@ -1,8 +1,6 @@
-import UUIDValueObject from '@/shared/domain/value-objects/uuid.value.object';
-
+import { UUIDValueObject } from '@/shared/domain/value-objects/uuid.value.object';
 // value object
-export default class DogId extends UUIDValueObject {
-
+export class DogId extends UUIDValueObject {
   private constructor(value: string) {
     super(value);
   }
@@ -17,5 +15,4 @@ export default class DogId extends UUIDValueObject {
     this.ensureIdIsValid(value);
     return new DogId(value);
   }
-
 }

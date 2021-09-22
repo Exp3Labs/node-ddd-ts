@@ -1,4 +1,4 @@
-export default class JwtSecret {
+export class JwtSecret {
   constructor(private secret: string, private isValid: boolean) {}
 
   getSecret(): string {

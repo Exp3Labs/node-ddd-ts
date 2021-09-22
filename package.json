@@ -32,7 +32,6 @@
     "@koa/cors": "^3.1.0",
     "amqp-ts": "^1.8.0",
     "bcrypt": "^5.0.1",
-    "console-table-printer": "^2.10.0",
     "crypto": "^1.0.1",
     "dotenv": "^10.0.0",
     "handlebars": "^4.7.7",

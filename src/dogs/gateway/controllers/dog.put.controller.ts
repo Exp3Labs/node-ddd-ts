@@ -1,12 +1,15 @@
 import { inject } from 'inversify';
-import DogUpdate from '@/dogs/application/update-dog';
-import DogUpdateCommand from '@/dogs/application/update-dog/command';
 import { TYPES } from '@/shared/infrastructure/d-injection/types';
-export default class DogPutController {
-  constructor(@inject(TYPES.DogUpdate) private readonly dogUpdate: DogUpdate) { }
+import { DogUpdateCommand } from '@/dogs/application/update-dog/command';
+import { DogUpdateUseCase } from '@/dogs/application/update-dog/use.case';
+export class DogPutController {
+  constructor(
+    @inject(TYPES.DogUpdateUseCase)
+    private readonly dogUpdateUseCase: DogUpdateUseCase
+  ) {}
 
-  async update({ id, name, breed }: any) {
+  async updateDog({ id, name, breed }: any) {
     const command = new DogUpdateCommand(id, name, breed);
-    return await this.dogUpdate.main(command);
+    return await this.dogUpdateUseCase.main(command);
   }
 }

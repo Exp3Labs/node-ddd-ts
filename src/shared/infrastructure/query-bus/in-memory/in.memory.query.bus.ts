@@ -1,11 +1,9 @@
-import { QueryNotRegistered } from "@/shared/domain/query-bus/query.not.registered";
-import Query from "@/shared/domain/query-bus/query";
-import { QueryBus } from "@/shared/domain/query-bus/query.bus";
-import { QueryHandler } from "@/shared/domain/query-bus/query.handler";
-import Response from "@/shared/domain/query-bus/response";
-
+import { Query } from '@/shared/domain/query-bus/query';
+import { QueryNotRegistered } from '@/shared/domain/query-bus/query.not.registered';
+import { QueryBus } from '@/shared/domain/query-bus/query.bus';
+import { QueryHandler } from '@/shared/domain/query-bus/query.handler';
+import { Response } from '@/shared/domain/query-bus/response';
 export class InMemoryQueryBus implements QueryBus {
-
   private queryHandlersMap: Map<Query, QueryHandler<Query, Response>>;
 
   constructor(queryHandlers: Array<QueryHandler<Query, Response>>) {
@@ -23,7 +21,7 @@ export class InMemoryQueryBus implements QueryBus {
   ): Map<Query, QueryHandler<Query, Response>> {
     const handlersMap = new Map();
 
-    queryHandlers.forEach(queryHandler => {
+    queryHandlers.forEach((queryHandler) => {
       handlersMap.set(queryHandler.subscribedTo(), queryHandler);
     });
 

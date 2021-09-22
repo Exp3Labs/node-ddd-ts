@@ -1,8 +1,7 @@
-import Dog from '@/dogs/domain/dog';
-import Response from '@/shared/domain/query-bus/response';
-
+import { Dog } from '@/dogs/domain/dog';
+import { Response } from '@/shared/domain/query-bus/response';
 // Response
-export default class DogResponse implements Response {
+export class DogResponse implements Response {
   private id: string;
   private name: string;
   private breed: string;

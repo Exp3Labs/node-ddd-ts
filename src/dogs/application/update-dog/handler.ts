@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { DogCreateCommand } from '@/dogs/application/create-dog/command';
+import { DogUpdateCommand } from '@/dogs/application/update-dog/command';
 import { CommandHandler } from '@/shared/domain/command-bus/command.handler';
 import { Command } from '@/shared/domain/command-bus/command';
 import { DogId } from '@/dogs/domain/dog.id';
@@ -10,17 +10,17 @@ import { CreateDogUseCase } from '@/dogs/application/create-dog/use.case';
 import { TYPES } from '@/shared/infrastructure/d-injection/types';
 
 @injectable()
-export class CreateDogHandler implements CommandHandler<DogCreateCommand> {
+export class CreateDogHandlerEvent implements CommandHandler<DogUpdateCommand> {
   constructor(
     @inject(TYPES.CreateDogUseCase)
     private readonly createDogUseCase: CreateDogUseCase
   ) {}
 
   subscribedTo(): Command {
-    return DogCreateCommand;
+    return DogUpdateCommand;
   }
 
-  async handle(command: DogCreateCommand): Promise<void> {
+  async handle(command: DogUpdateCommand): Promise<void> {
     const dogId = DogId.fromValue(command.getId());
     const dogName = DogName.fromValue(command.getName());
     const dogBreed = DogBreed.fromValue(command.getBreed());

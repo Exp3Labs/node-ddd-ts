@@ -7,10 +7,10 @@ import {
   Context,
   responses
 } from 'koa-swagger-decorator';
-import DogPutController from '@/dogs/gateway/controllers/dog.put.controller';
-import DogUpdate from '@/dogs/application/update-dog';
 import { AppContainer } from '@/shared/infrastructure/d-injection';
-export default class DogPutRouter {
+import { DogPutController } from '@/dogs/gateway/controllers/dog.put.controller';
+import { DogUpdateUseCase } from '@/dogs/application/update-dog/use.case';
+export class DogPutRouter {
   @request('PUT', '/dogs/{id}')
   @summary('Update a dog by id')
   @tags(['Dogs'])
@@ -34,10 +34,10 @@ export default class DogPutRouter {
       const { id } = ctx.validatedParams;
       const { name, breed } = ctx.validatedBody;
       // Get Container
-      const dogUpdate = AppContainer.get<DogUpdate>(DogUpdate);
+      const dogUpdate = AppContainer.get<DogUpdateUseCase>(DogUpdateUseCase);
       // Run controller
       const controller = new DogPutController(dogUpdate);
-      await controller.update({ id, name, breed });
+      await controller.updateDog({ id, name, breed });
       // Successful response
       ctx.body = { result: 'Updated' };
     } catch (error) {

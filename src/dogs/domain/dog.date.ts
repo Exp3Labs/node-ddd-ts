@@ -1,6 +1,5 @@
-import DateValueObject from '@/shared/domain/value-objects/date.value.object';
-
-export default class DogDate extends DateValueObject {
+import { DateValueObject } from '@/shared/domain/value-objects/date.value.object';
+export class DogDate extends DateValueObject {
   private constructor(value: Date) {
     super(value);
   }

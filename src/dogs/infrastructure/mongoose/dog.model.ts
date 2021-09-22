@@ -20,6 +20,4 @@ const schema = new Schema({
   }
 });
 
-const Model = model('Dog', schema);
-
-export default Model;
+export const DogModel = model('Dog', schema);

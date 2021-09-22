@@ -1,5 +1,5 @@
 // CQRS command (from params)
-export default class DogUpdateCommand {
+export class DogUpdateCommand {
   private id: string;
   private name: string;
   private breed: string;

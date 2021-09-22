@@ -2,10 +2,10 @@ import {
   DomainEvent,
   DomainEventClass
 } from '@/shared/domain/event-bus/domain.event';
-import DomainEventSubscriber from '@/shared/domain/event-bus/domain.event.subscriber';
+import { DomainEventSubscriber } from '@/shared/domain/event-bus/domain.event.subscriber';
 
 type Mapping = Map<string, DomainEventClass>;
-export default class DomainEventMapping {
+export class DomainEventMapping {
   private mapping: Mapping;
 
   constructor(mapping: DomainEventSubscriber<DomainEvent>[]) {

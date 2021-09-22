@@ -1,10 +1,9 @@
-import Command from "@/shared/domain/command-bus/command";
-import { CommandBus } from "@/shared/domain/command-bus/command.bus";
-import { CommandHandler } from "@/shared/domain/command-bus/command.handler";
-import { CommandNotRegistered } from "@/shared/domain/command-bus/command.not.registered";
+import { Command } from '@/shared/domain/command-bus/command';
+import { CommandBus } from '@/shared/domain/command-bus/command.bus';
+import { CommandHandler } from '@/shared/domain/command-bus/command.handler';
+import { CommandNotRegistered } from '@/shared/domain/command-bus/command.not.registered';
 
-export default class InMemoryCommandBus implements CommandBus {
-
+export class InMemoryCommandBus implements CommandBus {
   private commandHandlersMap: Map<Command, CommandHandler<Command>>;
 
   constructor(commandHandlers: Array<CommandHandler<Command>>) {
@@ -12,16 +11,17 @@ export default class InMemoryCommandBus implements CommandBus {
   }
 
   async dispatch(command: Command): Promise<void> {
-
     const handler = this.search(command);
 
     await handler.handle(command);
   }
 
-  private formatHandlers(commandHandlers: Array<CommandHandler<Command>>): Map<Command, CommandHandler<Command>> {
+  private formatHandlers(
+    commandHandlers: Array<CommandHandler<Command>>
+  ): Map<Command, CommandHandler<Command>> {
     const handlersMap = new Map();
 
-    commandHandlers.forEach(commandHandler => {
+    commandHandlers.forEach((commandHandler) => {
       handlersMap.set(commandHandler.subscribedTo(), commandHandler);
     });
 
@@ -37,5 +37,4 @@ export default class InMemoryCommandBus implements CommandBus {
 
     return commandHandler;
   }
-
 }

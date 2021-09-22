@@ -1,1 +1,1 @@
-export default interface Query { }
+export interface Query {}

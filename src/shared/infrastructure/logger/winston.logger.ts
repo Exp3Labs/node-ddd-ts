@@ -1,6 +1,6 @@
-import winston, { Logger as WinstonLoggerType } from 'winston';
-import Logger from '@/shared/domain/logger';
 import { injectable } from 'inversify';
+import winston, { Logger as WinstonLoggerType } from 'winston';
+import { Logger } from '@/shared/domain/logger';
 
 enum Levels {
   DEBUG = 'debug',
@@ -9,8 +9,7 @@ enum Levels {
 }
 
 @injectable()
-export default class WinstonLogger implements Logger {
-
+export class WinstonLogger implements Logger {
   private logger: WinstonLoggerType;
 
   constructor() {
@@ -24,9 +23,18 @@ export default class WinstonLogger implements Logger {
       ),
       transports: [
         new winston.transports.Console(),
-        new winston.transports.File({ filename: `logs/${Levels.DEBUG}.log`, level: Levels.DEBUG }),
-        new winston.transports.File({ filename: `logs/${Levels.ERROR}.log`, level: Levels.ERROR }),
-        new winston.transports.File({ filename: `logs/${Levels.INFO}.log`, level: Levels.INFO })
+        new winston.transports.File({
+          filename: `logs/${Levels.DEBUG}.log`,
+          level: Levels.DEBUG
+        }),
+        new winston.transports.File({
+          filename: `logs/${Levels.ERROR}.log`,
+          level: Levels.ERROR
+        }),
+        new winston.transports.File({
+          filename: `logs/${Levels.INFO}.log`,
+          level: Levels.INFO
+        })
       ]
     });
   }
@@ -42,5 +50,4 @@ export default class WinstonLogger implements Logger {
   error(message: string | Error) {
     this.logger.error(message);
   }
-
 }

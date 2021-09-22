@@ -1,20 +1,20 @@
 import { inject, injectable } from 'inversify';
 import { TYPES } from '@/shared/infrastructure/d-injection/types';
-import Dog from '@/dogs/domain/dog';
-import DogId from '@/dogs/domain/dog.id';
-import DogName from '@/dogs/domain/dog.name';
-import DogBreed from '@/dogs/domain/dog.breed';
-import DogUpdateCommand from '@/dogs/application/update-dog/command';
-import DogRepository from '@/dogs/domain/dog.repository';
-import DogDate from '@/dogs/domain/dog.date';
-import DogNotFound from '@/dogs/domain/exceptions/dog.not.found';
+import { Dog } from '@/dogs/domain/dog';
+import { DogId } from '@/dogs/domain/dog.id';
+import { DogName } from '@/dogs/domain/dog.name';
+import { DogBreed } from '@/dogs/domain/dog.breed';
+import { DogUpdateCommand } from '@/dogs/application/update-dog/command';
+import { DogRepository } from '@/dogs/domain/dog.repository';
+import { DogDate } from '@/dogs/domain/dog.date';
+import { DogNotFound } from '@/dogs/domain/exceptions/dog.not.found';
 
 // use case DDD: update dog
 @injectable()
-export default class DogUpdate {
+export class DogUpdateUseCase {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository
-  ) { }
+  ) {}
 
   async main(command: DogUpdateCommand) {
     const dogId = DogId.fromValue(command.getId());

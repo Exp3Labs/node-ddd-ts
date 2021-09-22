@@ -1,12 +1,12 @@
 import { inject, injectable } from 'inversify';
 import { Connection, Message, Exchange, Queue } from 'amqp-ts';
 import { DomainEvent } from '@/shared/domain/event-bus/domain.event';
-import DomainEventSubscriber from '@/shared/domain/event-bus/domain.event.subscriber';
-import EventBus from '@/shared/domain/event-bus/event.bus';
-import DomainEventJSONDeserializer from '@/shared/infrastructure/event-bus/rabbitmq/domain.event.json.deserializer';
-import DomainEventMapping from '@/shared/infrastructure/event-bus/rabbitmq/domain.event.mapping';
+import { DomainEventSubscriber } from '@/shared/domain/event-bus/domain.event.subscriber';
+import { EventBus } from '@/shared/domain/event-bus/event.bus';
+import { DomainEventJSONDeserializer } from '@/shared/infrastructure/event-bus/rabbitmq/domain.event.json.deserializer';
+import { DomainEventMapping } from '@/shared/infrastructure/event-bus/rabbitmq/domain.event.mapping';
 import { TYPES } from '@/shared/infrastructure/d-injection/types';
-import Logger from '@/shared/domain/logger';
+import { Logger } from '@/shared/domain/logger';
 
 type RabbitMQConfig = {
   user: string;
@@ -20,7 +20,7 @@ type RabbitMQConfig = {
 };
 
 @injectable()
-export default class RabbitMQEventBus implements EventBus {
+export class RabbitMQEventBus implements EventBus {
   private connection: Connection;
   private exchange: Exchange;
   private queue: Queue;
@@ -31,11 +31,14 @@ export default class RabbitMQEventBus implements EventBus {
     config: RabbitMQConfig,
     @inject(TYPES.Logger) private readonly logger: Logger
   ) {
-
-    this.connection = new Connection(`amqp://${config.user}:${config.password}@${config.host}:${config.port}`, null, {
-      retries: config.retries,
-      interval: config.interval
-    });
+    this.connection = new Connection(
+      `amqp://${config.user}:${config.password}@${config.host}:${config.port}`,
+      null,
+      {
+        retries: config.retries,
+        interval: config.interval
+      }
+    );
 
     this.exchange = this.connection.declareExchange(config.exchange, 'fanout', {
       durable: false
@@ -61,29 +64,31 @@ export default class RabbitMQEventBus implements EventBus {
 
     await this.queue.bind(this.exchange);
 
-    await this.queue.activateConsumer(async (message) => {
+    await this.queue.activateConsumer(
+      async (message) => {
+        const event = this.deserializer!.deserialize(
+          message.content.toString()
+        );
 
-      const event = this.deserializer!.deserialize(
-        message.content.toString()
-      );
-
-      if (event) {
-        const subscribers = this.subscribers.get(event.eventName);
-        if (subscribers && subscribers.length) {
-          const subscribersNames = subscribers.map(
-            (subscriber) => subscriber.constructor.name
-          );
-          this.logger.info(
-            `[${RabbitMQEventBus.name}] Message processed: ${event.eventName} by ${subscribersNames}`
-          );
-          const subscribersExecutions = subscribers.map((subscriber) =>
-            subscriber.on(event)
-          );
-          await Promise.all(subscribersExecutions);
+        if (event) {
+          const subscribers = this.subscribers.get(event.eventName);
+          if (subscribers && subscribers.length) {
+            const subscribersNames = subscribers.map(
+              (subscriber) => subscriber.constructor.name
+            );
+            this.logger.info(
+              `[${RabbitMQEventBus.name}] Message processed: ${event.eventName} by ${subscribersNames}`
+            );
+            const subscribersExecutions = subscribers.map((subscriber) =>
+              subscriber.on(event)
+            );
+            await Promise.all(subscribersExecutions);
+          }
         }
-      }
-      message.ack();
-    }, { noAck: false });
+        message.ack();
+      },
+      { noAck: false }
+    );
   }
 
   addSubscribers(subscribers: DomainEventSubscriber<DomainEvent>[]): void {
@@ -127,14 +132,15 @@ export default class RabbitMQEventBus implements EventBus {
 
   private openConnection = () => {
     this.logger.info(`[${RabbitMQEventBus.name}] started successfully`);
-  }
+  };
 
   private errorConnection = (error: Error) => {
-    this.logger.error(`[${RabbitMQEventBus.name}] error connection: ${error.message}`);
-  }
+    this.logger.error(
+      `[${RabbitMQEventBus.name}] error connection: ${error.message}`
+    );
+  };
 
   private lostConnection = () => {
     this.logger.error(`[${RabbitMQEventBus.name}] lost connection`);
-  }
-
+  };
 }

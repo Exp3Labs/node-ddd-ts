@@ -1,5 +1,3 @@
-import Query from "@/shared/domain/query-bus/query";
+import { Query } from '@/shared/domain/query-bus/query';
 
-export default class FindAllQuery implements Query {
-
-}
+export class DogFindAllQuery implements Query {}

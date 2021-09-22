@@ -7,14 +7,12 @@ import {
   responses,
   Context
 } from 'koa-swagger-decorator';
-import DogGetController from '@/dogs/gateway/controllers/dog.get.controller';
-import DogFind from '@/dogs/application/find-dog';
-import DogFindAll from '@/dogs/application/find-all-dog';
 import { AppContainer } from '@/shared/infrastructure/d-injection';
+import { TYPES } from '@/shared/infrastructure/d-injection/types';
 import { isAuth } from '@/shared/infrastructure/middleware/swagger.middleware';
 import { QueryBus } from '@/shared/domain/query-bus/query.bus';
-import { TYPES } from '@/shared/infrastructure/d-injection/types';
-export default class DogGetRouter {
+import { DogGetController } from '@/dogs/gateway/controllers/dog.get.controller';
+export class DogGetRouter {
   @request('get', '/dogs/{id}')
   @summary('Get a dog by id')
   @tags(['Dogs'])
@@ -33,7 +31,7 @@ export default class DogGetRouter {
       const queryBus = AppContainer.get<QueryBus>(TYPES.QueryBus);
       // Run controller
       const controller = new DogGetController(queryBus);
-      const res = await controller.get({ id });
+      const res = await controller.getDog({ id });
       // Successful response
       ctx.body = res;
     } catch (error: any) {
@@ -59,7 +57,7 @@ export default class DogGetRouter {
       const queryBus = AppContainer.get<QueryBus>(TYPES.QueryBus);
       // Run controller
       const controller = new DogGetController(queryBus);
-      const res = await controller.getAll();
+      const res = await controller.getAllDogs();
       // Successful response
       ctx.body = res;
     } catch (error: any) {

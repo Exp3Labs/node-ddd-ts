@@ -1,8 +1,7 @@
 import { v4 as uuidv4, validate } from 'uuid';
-import UUIDInvalid from './uuid.invalid';
+import { UUIDInvalid } from './uuid.invalid';
 
-export default class UUIDValueObject {
-
+export class UUIDValueObject {
   private value: string;
 
   constructor(value: string) {
@@ -23,5 +22,4 @@ export default class UUIDValueObject {
   getValue(): string {
     return this.value;
   }
-
 }

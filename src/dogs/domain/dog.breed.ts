@@ -1,6 +1,6 @@
-import StringValueObject from '@/shared/domain/value-objects/string.value.object';
-import DogRaceInvalid from '@/dogs/domain/exceptions/dog.breed.invalid';
-export default class DogBreed extends StringValueObject {
+import { StringValueObject } from '@/shared/domain/value-objects/string.value.object';
+import { DogRaceInvalid } from '@/dogs/domain/exceptions/dog.breed.invalid';
+export class DogBreed extends StringValueObject {
   private constructor(value: string) {
     super(value);
   }
@@ -20,5 +20,4 @@ export default class DogBreed extends StringValueObject {
     this.ensureRaceIsValid(value);
     return new DogBreed(value);
   }
-
 }

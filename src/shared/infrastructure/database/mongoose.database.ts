@@ -7,7 +7,7 @@ import {
   MONGODB_PASSWORD
 } from '@/shared/infrastructure/config';
 
-const connect = async () => {
+export const mongooseConnection = async () => {
   const uri: string =
     MONGODB_USERNAME && MONGODB_PASSWORD
       ? `mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_HOSTNAME}:${MONGODB_PORT}/${MONGODB_DATABASE}`
@@ -28,8 +28,4 @@ const connect = async () => {
   });
 
   await mongoose.connect(uri, {});
-
-  return publicURI;
 };
-
-export default connect;

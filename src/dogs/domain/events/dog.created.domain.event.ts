@@ -6,7 +6,7 @@ type CreateDogDomainEventBody = {
   readonly breed: string;
   readonly eventName: string;
 };
-export default class DogCreatedDomainEvent extends DomainEvent {
+export class DogCreatedDomainEvent extends DomainEvent {
   static readonly EVENT_NAME = 'dog.created';
 
   private id: string;

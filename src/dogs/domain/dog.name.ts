@@ -1,7 +1,6 @@
-import StringValueObject from '@/shared/domain/value-objects/string.value.object';
-
+import { StringValueObject } from '@/shared/domain/value-objects/string.value.object';
 // value object
-export default class DogName extends StringValueObject {
+export class DogName extends StringValueObject {
   private constructor(value: string) {
     super(value);
   }
@@ -16,5 +15,4 @@ export default class DogName extends StringValueObject {
     this.ensureNameIsValid(value);
     return new DogName(value);
   }
-
 }

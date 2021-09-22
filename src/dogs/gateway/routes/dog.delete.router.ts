@@ -6,10 +6,10 @@ import {
   responses,
   Context
 } from 'koa-swagger-decorator';
-import DogDeleteController from '@/dogs/gateway/controllers/dog.delete.controller';
-import { DeleteDogUseCase } from '@/dogs/application/delete-dog/use.case';
 import { AppContainer } from '@/shared/infrastructure/d-injection';
-export default class DogDeleteRouter {
+import { DogDeleteController } from '@/dogs/gateway/controllers/dog.delete.controller';
+import { DeleteDogUseCase } from '@/dogs/application/delete-dog/use.case';
+export class DogDeleteRouter {
   @request('DELETE', '/dogs/{id}')
   @summary('Delete a dog by id')
   @tags(['Dogs'])
@@ -26,7 +26,7 @@ export default class DogDeleteRouter {
         AppContainer.get<DeleteDogUseCase>(DeleteDogUseCase);
       // Run controller
       const controller = new DogDeleteController(deleteDogUseCase);
-      await controller.delete({ id });
+      await controller.deleteDog({ id });
       // Successful response
       ctx.status = 204;
       ctx.body = { result: 'Deleted' };
