@@ -1,6 +1,0 @@
-
-
-
-
-
-// 1. inicar mongoose
