@@ -1,8 +1,7 @@
-import { FindDogUseCase } from '@/dogs/application/find-dog/use.case';
-import { Dog } from '@/dogs/domain/dog';
 import { MockDogRepository } from '@/dogs/infrastructure/mock.dog.repository';
+import { Dog } from '@/dogs/domain/dog';
+import { FindAllDogsUseCase } from '@/dogs/application/find-all-dog/use.case';
 import { DogResponse } from '@/dogs/application/dog.response';
-import { DogId } from '@/dogs/domain/dog.id';
 
 const dogs = [
   Dog.fromPrimitives(
@@ -31,18 +30,13 @@ const dogs = [
   )
 ];
 
-describe('find-dog', () => {
-  it('should find a dog by id', async () => {
-    const dogId = '5f2c584b-7e63-4b9a-9253-cacd5957e31a';
-
+describe('find-all-dogs', () => {
+  it('should find dogs', async () => {
     const mockDogRepository = new MockDogRepository(dogs);
-    const dogFind = new FindDogUseCase(mockDogRepository);
-    const result = await dogFind.main({
-      dogId: DogId.fromValue(dogId)
-    });
+    const findAllDogsUseCase = new FindAllDogsUseCase(mockDogRepository);
+    const result = await findAllDogsUseCase.main();
 
     expect(result).toBeDefined();
-    expect(result).toBeInstanceOf(DogResponse);
-    expect(result.getId()).toEqual(dogId);
+    expect(result[0]).toBeInstanceOf(DogResponse);
   });
 });

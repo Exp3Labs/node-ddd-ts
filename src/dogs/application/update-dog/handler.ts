@@ -1,19 +1,19 @@
 import { inject, injectable } from 'inversify';
-import { DogUpdateCommand } from '@/dogs/application/update-dog/command';
-import { CommandHandler } from '@/shared/domain/cqrs/command-bus/command.handler';
+import { TYPES } from '@/shared/infrastructure/d-injection/types';
 import { Command } from '@/shared/domain/cqrs/command-bus/command';
+import { CommandHandler } from '@/shared/domain/cqrs/command-bus/command.handler';
+import { DogUpdateCommand } from '@/dogs/application/update-dog/command';
 import { DogId } from '@/dogs/domain/dog.id';
 import { DogName } from '@/dogs/domain/dog.name';
 import { DogBreed } from '@/dogs/domain/dog.breed';
 import { DogDate } from '@/dogs/domain/dog.date';
-import { CreateDogUseCase } from '@/dogs/application/create-dog/use.case';
-import { TYPES } from '@/shared/infrastructure/d-injection/types';
+import { UpdateDogUseCase } from '@/dogs/application/update-dog/use.case';
 
 @injectable()
-export class CreateDogHandlerEvent implements CommandHandler<DogUpdateCommand> {
+export class UpdateDogHandler implements CommandHandler<DogUpdateCommand> {
   constructor(
-    @inject(TYPES.CreateDogUseCase)
-    private readonly createDogUseCase: CreateDogUseCase
+    @inject(TYPES.UpdateDogUseCase)
+    private readonly updateDogUseCase: UpdateDogUseCase
   ) {}
 
   subscribedTo(): Command {
@@ -26,6 +26,6 @@ export class CreateDogHandlerEvent implements CommandHandler<DogUpdateCommand> {
     const dogBreed = DogBreed.fromValue(command.getBreed());
     const dogDate = DogDate.fromValue(new Date());
 
-    await this.createDogUseCase.main({ dogId, dogName, dogBreed, dogDate });
+    // await this.updateDogUseCase.main({ dogId, dogName, dogBreed, dogDate });
   }
 }

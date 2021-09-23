@@ -1,8 +1,8 @@
 export const TYPES = {
   DogRepository: Symbol.for('DogRepository'),
   CreateDogUseCase: Symbol.for('CreateDogUseCase'),
-  DogFindUseCase: Symbol.for('DogFindUseCase'),
-  DogFindAllUseCase: Symbol.for('DogFindAllUseCase'),
-  DogUpdateUseCase: Symbol.for('DogUpdateUseCase'),
+  FindDogUseCase: Symbol.for('FindDogUseCase'),
+  UpdateDogUseCase: Symbol.for('UpdateDogUseCase'),
   DeleteDogUseCase: Symbol.for('DeleteDogUseCase'),
+  FindAllDogsUseCase: Symbol.for('FindAllDogsUseCase')
 };

@@ -6,7 +6,7 @@ import { DogResponse } from '@/dogs/application/dog.response';
 
 // use case DDD: find all dogs
 @injectable()
-export class DogFindAllUseCase implements UseCase {
+export class FindAllDogsUseCase implements UseCase {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository
   ) {}

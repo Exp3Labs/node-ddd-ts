@@ -13,35 +13,39 @@ import { DomainEventSubscriber } from '@/shared/domain/event-bus/domain.event.su
 
 import { UpdateStatisticsOnDogCreated } from '@/dogs/gateway/events/update.count.on.dog.created';
 
-import { CreateDogHandler } from '@/dogs/application/create-dog/handler';
-import { DogFindHandler } from '@/dogs/application/find-dog/handler';
-
 import { CreateDogUseCase } from '@/dogs/application/create-dog/use.case';
-import { DogFindUseCase } from '@/dogs/application/find-dog/use.case';
-import { DogUpdateUseCase } from '@/dogs/application/update-dog/use.case';
+import { FindDogUseCase } from '@/dogs/application/find-dog/use.case';
+import { UpdateDogUseCase } from '@/dogs/application/update-dog/use.case';
 import { DeleteDogUseCase } from '@/dogs/application/delete-dog/use.case';
-import { DogFindAllUseCase } from '@/dogs/application/find-all-dog/use.case';
+import { FindAllDogsUseCase } from '@/dogs/application/find-all-dog/use.case';
 
-import { DogFindAllHandler } from '@/dogs/application/find-all-dog/handler';
+import { CreateDogHandler } from '@/dogs/application/create-dog/handler';
+import { FindDogHandler } from '@/dogs/application/find-dog/handler';
+import { UpdateDogHandler } from '@/dogs/application/update-dog/handler';
+import { DeleteDogHandler } from '@/dogs/application/delete-dog/handler';
+import { FindAllDogsHandler } from '@/dogs/application/find-all-dog/handler';
 
 import { DogRepository } from '@/dogs/domain/dog.repository';
 import { MongoDogRepository } from '@/dogs/infrastructure/mongo.dog.repository';
 // import { PostgresDogRepository } from '@/dogs/infrastructure/postgres.dog.repository';
 export class DogDependencies {
   register(container: Container) {
+    container.bind<DogRepository>(TYPES.DogRepository).to(MongoDogRepository);
+    // container.bind<DogRepository>(TYPES.DogRepository).to(PostgresDogRepository);
+
     container
       .bind<CreateDogUseCase>(TYPES.CreateDogUseCase)
       .to(CreateDogUseCase);
-    container.bind<DogFindUseCase>(TYPES.DogFindUseCase).to(DogFindUseCase);
+    container.bind<FindDogUseCase>(TYPES.FindDogUseCase).to(FindDogUseCase);
     container
-      .bind<DogFindAllUseCase>(TYPES.DogFindAllUseCase)
-      .to(DogFindAllUseCase);
-
-    container.bind<DogUpdateUseCase>(DogUpdateUseCase).toSelf();
-    container.bind<DeleteDogUseCase>(DeleteDogUseCase).toSelf();
-
-    container.bind<DogRepository>(TYPES.DogRepository).to(MongoDogRepository);
-    // container.bind<DogRepository>(TYPES.DogRepository).to(PostgresDogRepository);
+      .bind<UpdateDogUseCase>(TYPES.UpdateDogUseCase)
+      .to(UpdateDogUseCase);
+    container
+      .bind<DeleteDogUseCase>(TYPES.DeleteDogUseCase)
+      .to(DeleteDogUseCase);
+    container
+      .bind<FindAllDogsUseCase>(TYPES.FindAllDogsUseCase)
+      .to(FindAllDogsUseCase);
 
     // event-subscribers
     container
@@ -51,14 +55,20 @@ export class DogDependencies {
     // query-handlers
     container
       .bind<QueryHandler<Query, Response>>(TYPES.QueryBusHandler)
-      .to(DogFindHandler);
+      .to(FindDogHandler);
     container
       .bind<QueryHandler<Query, Response>>(TYPES.QueryBusHandler)
-      .to(DogFindAllHandler);
+      .to(FindAllDogsHandler);
 
     // command-handlers
     container
       .bind<CommandHandler<Command>>(TYPES.CommandBusHandler)
       .to(CreateDogHandler);
+    container
+      .bind<CommandHandler<Command>>(TYPES.CommandBusHandler)
+      .to(UpdateDogHandler);
+    container
+      .bind<CommandHandler<Command>>(TYPES.CommandBusHandler)
+      .to(DeleteDogHandler);
   }
 }

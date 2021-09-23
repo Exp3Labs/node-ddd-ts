@@ -2,6 +2,8 @@ import { injectable } from 'inversify';
 import { DogRepository } from '@/dogs/domain/dog.repository';
 import { Dog } from '@/dogs/domain/dog';
 import { DogId } from '@/dogs/domain/dog.id';
+import { DogName } from '@/dogs/domain/dog.name';
+import { DogBreed } from '@/dogs/domain/dog.breed';
 // ports/repositories
 @injectable()
 export class MockDogRepository implements DogRepository {
@@ -12,18 +14,19 @@ export class MockDogRepository implements DogRepository {
   }
   async update(dog: Dog): Promise<boolean> {
     const result = this.dogs.map((d: Dog) =>
-      d.getID().getValue() === dog.getID().getValue() ? { ...d, ...dog } : d
+      d.getID().getValue() === dog.getID().getValue() ? dog : d
     );
+    this.dogs = result;
     return true;
-    // return result.find((dog: Dog) => dog.getID().getValue() === id.getValue())
-    //   ? true
-    //   : false;
   }
   async delete(id: DogId): Promise<boolean> {
-    const result = this.dogs.filter(
-      (dog: Dog) => dog.getID().getValue() !== id.getValue()
+    const index: number = this.dogs.findIndex(
+      (dog: Dog) => dog.getID().getValue() === id.getValue()
     );
-    return result.find((dog: Dog) => dog.getID().getValue() === id.getValue())
+    await this.dogs.splice(index, 1);
+    return this.dogs.find(
+      (dog: Dog) => dog.getID().getValue() === id.getValue()
+    )
       ? false
       : true;
   }

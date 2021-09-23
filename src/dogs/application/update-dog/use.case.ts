@@ -8,20 +8,31 @@ import { DogUpdateCommand } from '@/dogs/application/update-dog/command';
 import { DogRepository } from '@/dogs/domain/dog.repository';
 import { DogDate } from '@/dogs/domain/dog.date';
 import { DogNotFound } from '@/dogs/domain/exceptions/dog.not.found';
+import { UseCase } from '@/shared/domain/use.case';
 
 // use case DDD: update dog
+type Params = {
+  dogId: DogId;
+  dogName: DogName;
+  dogBreed: DogBreed;
+};
 @injectable()
-export class DogUpdateUseCase {
+export class UpdateDogUseCase implements UseCase {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository
   ) {}
 
-  async main(command: DogUpdateCommand) {
-    const dogId = DogId.fromValue(command.getId());
-    const dogName = DogName.fromValue(command.getName());
-    const dogRace = DogBreed.fromValue(command.getBreed());
+  async main(params: Params) {
+    const dogId = params.dogId;
+    const dogName = params.dogName;
+    const dogBreed = params.dogBreed;
 
-    const dog = new Dog(dogId, dogName, dogRace, DogDate.fromValue(new Date()));
+    const dog = new Dog(
+      dogId,
+      dogName,
+      dogBreed,
+      DogDate.fromValue(new Date())
+    );
 
     const result = await this.dogRepository.update(dog);
 

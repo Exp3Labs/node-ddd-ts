@@ -1,15 +1,15 @@
 import { inject } from 'inversify';
 import { TYPES } from '@/shared/infrastructure/d-injection/types';
+import { CommandBus } from '@/shared/domain/cqrs/command-bus/command.bus';
 import { DogDeleteCommand } from '@/dogs/application/delete-dog/command';
-import { DeleteDogUseCase } from '@/dogs/application/delete-dog/use.case';
 export class DogDeleteController {
   constructor(
-    @inject(TYPES.DeleteDogUseCase)
-    private readonly deleteDogUseCase: DeleteDogUseCase
+    @inject(TYPES.CommandBus) private readonly commandBus: CommandBus
   ) {}
 
   async deleteDog({ id }: any) {
+    // validations
     const command = new DogDeleteCommand(id);
-    return await this.deleteDogUseCase.main(command);
+    return await this.commandBus.dispatch(command);
   }
 }

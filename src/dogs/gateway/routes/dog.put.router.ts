@@ -9,7 +9,7 @@ import {
 } from 'koa-swagger-decorator';
 import { AppContainer } from '@/shared/infrastructure/d-injection';
 import { DogPutController } from '@/dogs/gateway/controllers/dog.put.controller';
-import { DogUpdateUseCase } from '@/dogs/application/update-dog/use.case';
+import { UpdateDogUseCase } from '@/dogs/application/update-dog/use.case';
 export class DogPutRouter {
   @request('PUT', '/dogs/{id}')
   @summary('Update a dog by id')
@@ -34,7 +34,7 @@ export class DogPutRouter {
       const { id } = ctx.validatedParams;
       const { name, breed } = ctx.validatedBody;
       // Get Container
-      const dogUpdate = AppContainer.get<DogUpdateUseCase>(DogUpdateUseCase);
+      const dogUpdate = AppContainer.get<UpdateDogUseCase>(UpdateDogUseCase);
       // Run controller
       const controller = new DogPutController(dogUpdate);
       await controller.updateDog({ id, name, breed });
