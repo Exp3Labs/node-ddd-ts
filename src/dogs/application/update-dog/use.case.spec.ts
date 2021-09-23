@@ -1,9 +1,9 @@
 import { MockDogRepository } from '@/dogs/infrastructure/mock.dog.repository';
+import { UpdateDogUseCase } from '@/dogs/application/update-dog/use.case';
 import { Dog } from '@/dogs/domain/dog';
 import { DogId } from '@/dogs/domain/dog.id';
 import { DogName } from '@/dogs/domain/dog.name';
 import { DogBreed } from '@/dogs/domain/dog.breed';
-import { UpdateDogUseCase } from '@/dogs/application/update-dog/use.case';
 
 const dogs = [
   Dog.fromPrimitives(

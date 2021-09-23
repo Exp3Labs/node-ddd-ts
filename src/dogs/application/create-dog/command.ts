@@ -1,3 +1,4 @@
+// CQRS command (from params)
 import { Command } from '@/shared/domain/cqrs/command-bus/command';
 
 export class DogCreateCommand implements Command {

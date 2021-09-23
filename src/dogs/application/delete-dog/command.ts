@@ -1,5 +1,7 @@
 // CQRS command (from params)
-export class DogDeleteCommand {
+import { Command } from '@/shared/domain/cqrs/command-bus/command';
+
+export class DogDeleteCommand implements Command {
   private id: string;
 
   constructor(id: string) {

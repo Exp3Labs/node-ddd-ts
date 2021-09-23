@@ -1,5 +1,7 @@
 // CQRS command (from params)
-export class DogUpdateCommand {
+import { Command } from '@/shared/domain/cqrs/command-bus/command';
+
+export class DogUpdateCommand implements Command {
   private id: string;
   private name: string;
   private breed: string;

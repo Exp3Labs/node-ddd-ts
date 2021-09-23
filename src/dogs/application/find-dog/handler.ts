@@ -14,9 +14,7 @@ export class FindDogHandler implements QueryHandler<DogFindQuery, DogResponse> {
     private readonly dogFindUseCase: FindDogUseCase
   ) {}
 
-  subscribedTo(): Query {
-    return DogFindQuery;
-  }
+  subscribedTo = (): Query => DogFindQuery;
 
   handle(query: DogFindQuery): Promise<DogResponse> {
     const dogId = DogId.fromValue(query.getId());
