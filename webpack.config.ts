@@ -50,8 +50,10 @@ const config: webpack.Configuration = {
       verbose: true,
       delay: 500
     }),
-    new CopyPlugin({ patterns: [{ from: '.env' }] })
-  ],
+    new CopyPlugin({
+      patterns: [{ from: '.env' }]
+    }) as webpack.WebpackPluginFunction
+  ] as webpack.Configuration['plugins'],
   stats: {
     warnings: true
   }
