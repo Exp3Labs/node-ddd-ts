@@ -3,6 +3,7 @@ import { QueryNotRegistered } from '@/shared/domain/cqrs/query-bus/query.not.reg
 import { QueryBus } from '@/shared/domain/cqrs/query-bus/query.bus';
 import { QueryHandler } from '@/shared/domain/cqrs/query-bus/query.handler';
 import { Response } from '@/shared/domain/cqrs/query-bus/response';
+
 export class InMemoryQueryBus implements QueryBus {
   private queryHandlersMap: Map<Query, QueryHandler<Query, Response>>;
 

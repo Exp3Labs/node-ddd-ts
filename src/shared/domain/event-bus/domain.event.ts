@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+
 export abstract class DomainEvent {
   static EVENT_NAME: string;
 
