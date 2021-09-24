@@ -1,12 +1,12 @@
-# BOILERPLATE-NODE-DDD-TS
+# NODE-DDD-TS
 
 domain-driven-design + clean-architecture + hexagonal-architecture + CQRS
 
 ## Installation
 
 ```bash
-git clone https://github.com/ExperimentsLabs/boilerplate-node-ddd-ts
-cd boilerplate-node-ddd-ts
+git clone https://github.com/Exp3Labs/node-ddd-ts
+cd node-ddd-ts
 yarn
 ```
 
