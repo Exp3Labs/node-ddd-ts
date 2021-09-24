@@ -13,7 +13,7 @@ import { isAuth } from '@/shared/infrastructure/middleware/swagger.middleware';
 import { QueryBus } from '@/shared/domain/cqrs/query-bus/query.bus';
 import { DogGetController } from '@/dogs/gateway/controllers/dog.get.controller';
 export class DogGetRouter {
-  @request('get', '/dogs/{id}')
+  @request('GET', '/dogs/{id}')
   @summary('Get a dog by id')
   @tags(['Dogs'])
   @path({
@@ -43,7 +43,6 @@ export class DogGetRouter {
   @request('GET', '/dogs')
   @summary('Get all the dogs')
   @tags(['Dogs'])
-  // @middlewares([isAuth])
   @responses({
     200: { description: 'Successful' },
     500: { description: 'Error' }
@@ -53,6 +52,32 @@ export class DogGetRouter {
       // Get current user
       // const { user }: any = ctx.req;
       // console.log('=> user', user);
+      // Get Container
+      const queryBus = AppContainer.get<QueryBus>(TYPES.QueryBus);
+      // Run controller
+      const controller = new DogGetController(queryBus);
+      const res = await controller.getAllDogs();
+      // Successful response
+      ctx.body = res;
+    } catch (error: any) {
+      // Error response
+      ctx.app.emit('error', error, ctx);
+    }
+  }
+
+  @request('GET', '/dogs/protected')
+  @summary('Get all the dogs (auth required)')
+  @tags(['Dogs'])
+  @middlewares([isAuth])
+  @responses({
+    200: { description: 'Successful' },
+    500: { description: 'Error' }
+  })
+  static async getAllDogsProtected(ctx: Context) {
+    try {
+      // Get current user
+      const { user }: any = ctx.req;
+      console.log('=> user', user);
       // Get Container
       const queryBus = AppContainer.get<QueryBus>(TYPES.QueryBus);
       // Run controller

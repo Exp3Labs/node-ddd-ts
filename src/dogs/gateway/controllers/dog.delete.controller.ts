@@ -2,6 +2,7 @@ import { inject } from 'inversify';
 import { TYPES } from '@/shared/infrastructure/d-injection/types';
 import { CommandBus } from '@/shared/domain/cqrs/command-bus/command.bus';
 import { DogDeleteCommand } from '@/dogs/application/delete-dog/command';
+
 export class DogDeleteController {
   constructor(
     @inject(TYPES.CommandBus) private readonly commandBus: CommandBus
