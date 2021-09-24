@@ -1,20 +1,16 @@
 import { SwaggerRouter } from 'koa-swagger-decorator';
 import { getRoutes } from '@/shared/infrastructure/bootstrap/import.system';
-import {
-  SWAGGER_API_DOCS,
-  PROJECT_NAME,
-  PROJECT_MODE
-} from '@/shared/infrastructure/config';
+import { PROJECT, SWAGGER } from '@/shared/infrastructure/config';
 
 const router = new SwaggerRouter();
 
-if (SWAGGER_API_DOCS === 'true') {
+if (SWAGGER.isPublic === 'true') {
   router.swagger({
-    title: PROJECT_NAME,
-    description: `API DOC (${PROJECT_MODE})`.toUpperCase(),
+    title: PROJECT.name,
+    description: `.ENV: ${PROJECT.mode}`.toUpperCase(),
     version: '1.0.0',
-    swaggerHtmlEndpoint: '/swagger-html',
-    swaggerJsonEndpoint: '/swagger-json'
+    swaggerHtmlEndpoint: SWAGGER.html,
+    swaggerJsonEndpoint: SWAGGER.json
   });
 }
 // Get routes

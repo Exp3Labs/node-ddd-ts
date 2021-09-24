@@ -1,19 +1,13 @@
 import mongoose from 'mongoose';
-import {
-  MONGODB_HOSTNAME,
-  MONGODB_PORT,
-  MONGODB_DATABASE,
-  MONGODB_USERNAME,
-  MONGODB_PASSWORD
-} from '@/shared/infrastructure/config';
+import { MONGO_DB } from '@/shared/infrastructure/config';
 
 export const mongooseConnection = async () => {
   const uri: string =
-    MONGODB_USERNAME && MONGODB_PASSWORD
-      ? `mongodb://${MONGODB_USERNAME}:${MONGODB_PASSWORD}@${MONGODB_HOSTNAME}:${MONGODB_PORT}/${MONGODB_DATABASE}`
-      : `mongodb://${MONGODB_HOSTNAME}:${MONGODB_PORT}/${MONGODB_DATABASE}`;
+    MONGO_DB.username && MONGO_DB.password
+      ? `mongodb://${MONGO_DB.hostname}:${MONGO_DB.password}@${MONGO_DB.hostname}:${MONGO_DB.port}/${MONGO_DB.database}`
+      : `mongodb://${MONGO_DB.hostname}:${MONGO_DB.port}/${MONGO_DB.database}`;
 
-  const publicURI = `${MONGODB_HOSTNAME}:${MONGODB_PORT}/${MONGODB_DATABASE}`;
+  const publicURI = `${MONGO_DB.hostname}:${MONGO_DB.port}/${MONGO_DB.database}`;
 
   mongoose.connection.on('connected', () => {
     console.log(`Mongoose connected to ${publicURI}`);

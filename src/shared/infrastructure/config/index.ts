@@ -2,20 +2,32 @@ declare const process: any;
 
 const env = process.env;
 
-export const PROJECT_MODE: string | undefined = env.PROJECT_MODE;
+export const PROJECT = {
+  name: env.PROJECT_NAME,
+  mode: env.PROJECT_MODE
+};
 
-export const PROJECT_NAME: string | undefined = env.PROJECT_NAME;
+export const SERVER = {
+  hostname: env.SERVER_HOSTNAME,
+  port: env.SERVER_PORT
+};
 
-export const SERVER_HOSTNAME: string | undefined = env.SERVER_HOSTNAME;
-
-export const SERVER_PORT = parseInt(env.SERVER_PORT);
-
-export const SWAGGER_HOSTNAME: string | undefined = env.SWAGGER_HOSTNAME;
-
-export const SWAGGER_API_DOCS: string | undefined = env.SWAGGER_API_DOCS;
+export const SWAGGER = {
+  isPublic: env.SWAGGER_IS_PUBLIC,
+  html: env.SWAGGER_HTML_ENDPOINT,
+  json: env.SWAGGER_JSON_ENDPOINT
+};
 
 export const JWT = {
   secretKey: env.JWT_SECRET_KEY
+};
+
+export const MONGO_DB = {
+  hostname: env.MONGODB_HOSTNAME,
+  port: env.MONGODB_PORT,
+  database: env.MONGODB_DATABASE,
+  username: env.MONGODB_USERNAME,
+  password: env.MONGODB_PASSWORD
 };
 
 export const EVENT_BUS_RABBITMQ = {
@@ -29,17 +41,7 @@ export const EVENT_BUS_RABBITMQ = {
   interval: env.EVENT_BUS_RABBITMQ_INTERVAL | 1000
 };
 
-export const MONGODB_HOSTNAME: string | undefined = env.MONGODB_HOSTNAME;
-
-export const MONGODB_PORT: string | undefined = env.MONGODB_PORT;
-
-export const MONGODB_DATABASE: string | undefined = env.MONGODB_DATABASE;
-
-export const MONGODB_USERNAME: string | undefined = env.MONGODB_USERNAME;
-
-export const MONGODB_PASSWORD: string | undefined = env.MONGODB_PASSWORD;
-
-export const TTL: object | undefined = {
+export const TTL = {
   day: 86400,
   week: 604800,
   month: 2592000,
