@@ -1,5 +1,5 @@
-import { DomainError } from "@/shared/domain/domain.error";
-import { VODefinitionError } from "@/shared/domain/value-objects/definition.error";
+import { DomainError } from '@/shared/domain/domain.error';
+import { VODefinitionError } from '@/shared/domain/value-objects/definition.error';
 
 export interface VODateOptions {
   /**
@@ -20,7 +20,7 @@ export interface VODateInstance {
 }
 
 export interface VODateConstructor {
-  new(r: string | Date): VODateInstance;
+  new (r: string | Date): VODateInstance;
 }
 
 const isDefined = (value: any): boolean => {
@@ -28,7 +28,6 @@ const isDefined = (value: any): boolean => {
 };
 
 export const VODate = (options: VODateOptions = {}): VODateConstructor => {
-
   if (isDefined(options.name)) {
     if (typeof options.name !== 'string') {
       throw new VODefinitionError('name property must be a string.');
@@ -44,15 +43,15 @@ export const VODate = (options: VODateOptions = {}): VODateConstructor => {
   // TODO: check if format is valid
 
   const name = options.name ?? 'Value';
-  const format = isDefined(options.format) ? options.format : 'YYYY-MM-DD h:mm:ss';
+  const format = isDefined(options.format)
+    ? options.format
+    : 'YYYY-MM-DD h:mm:ss';
 
   return class {
-
     protected _value: Date;
 
     constructor(raw: string | Date) {
-
-      if ((typeof raw !== 'string') && !(raw instanceof Date)) {
+      if (typeof raw !== 'string' && !(raw instanceof Date)) {
         throw new DomainError(`${name} is not a date.`);
       }
 
@@ -65,17 +64,14 @@ export const VODate = (options: VODateOptions = {}): VODateConstructor => {
 
         this._value = new Date(raw);
       } else {
-
         // TODO: Check if date matches format
 
         this._value = raw;
       }
-
     }
 
     valueOf(): Date {
       return new Date();
     }
-
-  }
-}
+  };
+};

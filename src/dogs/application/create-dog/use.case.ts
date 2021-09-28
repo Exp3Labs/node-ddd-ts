@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 
-import { AppContainer } from '@/shared/infrastructure/d-injection'
+import { AppContainer } from '@/shared/infrastructure/d-injection';
 import { QueryBus } from '@/shared/domain/cqrs/query-bus/query.bus';
 import { TYPES } from '@/shared/infrastructure/d-injection/types';
 import { UseCase } from '@/shared/domain/use.case';
@@ -16,20 +16,19 @@ import { DogRaceInvalid } from '@/dogs/domain/exceptions/dog.breed.invalid';
 
 import { FindBreedQuery } from '@/breeds/application/find-breed/query';
 
-
 type Params = {
   dogId: DogId;
   dogName: DogName;
   dogBreed: DogBreed;
   dogDate: DogDate;
-}
+};
 
 @injectable()
 export class CreateDogUseCase implements UseCase {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository,
     @inject(TYPES.EventBus) private readonly eventBus: EventBus
-  ) { }
+  ) {}
 
   async main(params: Params) {
     const dog = Dog.create(
@@ -39,7 +38,7 @@ export class CreateDogUseCase implements UseCase {
       params.dogDate
     );
 
-    if (!await this.checkIfBreedExists(params.dogBreed)) {
+    if (!(await this.checkIfBreedExists(params.dogBreed))) {
       throw new DogRaceInvalid(params.dogBreed.valueOf());
     }
 

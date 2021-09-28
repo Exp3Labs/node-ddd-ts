@@ -11,7 +11,7 @@ export class DeleteDogHandler implements CommandHandler<DogDeleteCommand> {
   constructor(
     @inject(TYPES.DeleteDogUseCase)
     private readonly deleteDogUseCase: DeleteDogUseCase
-  ) { }
+  ) {}
 
   subscribedTo = (): Command => DogDeleteCommand;
 

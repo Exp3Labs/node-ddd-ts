@@ -13,8 +13,9 @@ type Params = {
 @injectable()
 export class FindBreedUseCase implements UseCase {
   constructor(
-    @inject(TYPES.BreedRepository) private readonly breedRepository: BreedRepository
-  ) { }
+    @inject(TYPES.BreedRepository)
+    private readonly breedRepository: BreedRepository
+  ) {}
 
   async main(params: Params): Promise<BreedResponse> {
     const breed = await this.breedRepository.findBreedByName(params.name);

@@ -10,19 +10,20 @@ import { Response } from '@/shared/domain/cqrs/query-bus/response';
 import { FindBreedHandler } from '@/breeds/application/find-breed/handler';
 
 export class BreedDependencies {
-
   register(container: Container) {
     // repositories
-    container.bind<BreedRepository>(TYPES.BreedRepository).to(MemoryBreedRepository);
+    container
+      .bind<BreedRepository>(TYPES.BreedRepository)
+      .to(MemoryBreedRepository);
 
     // use cases
-    container.bind<FindBreedUseCase>(TYPES.FindBreedUseCase).to(FindBreedUseCase);
+    container
+      .bind<FindBreedUseCase>(TYPES.FindBreedUseCase)
+      .to(FindBreedUseCase);
 
     // query-handlers
     container
       .bind<QueryHandler<Query, Response>>(TYPES.QueryBusHandler)
       .to(FindBreedHandler);
-
   }
-
 }

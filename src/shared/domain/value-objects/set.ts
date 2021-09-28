@@ -1,5 +1,5 @@
-import { DomainError } from "@/shared/domain/domain.error";
-import { VODefinitionError } from "@/shared/domain/value-objects/definition.error";
+import { DomainError } from '@/shared/domain/domain.error';
+import { VODefinitionError } from '@/shared/domain/value-objects/definition.error';
 
 export interface VOSetOptions<Strict extends boolean = boolean> {
   /**
@@ -17,27 +17,41 @@ export interface VOSetOptions<Strict extends boolean = boolean> {
 
 export type Setable = string | number | boolean;
 
-export type VOSetRaw<Element extends Setable, Strict extends boolean> = Strict extends true ? Element
-  : | (Element extends number ? number : never) | (Element extends string ? string : never) | (Element extends boolean ? boolean : never);
+export type VOSetRaw<
+  Element extends Setable,
+  Strict extends boolean
+> = Strict extends true
+  ? Element
+  :
+      | (Element extends number ? number : never)
+      | (Element extends string ? string : never)
+      | (Element extends boolean ? boolean : never);
 
 export interface VOSetInstance<Element extends Setable> {
-  valueOf(): Element
+  valueOf(): Element;
 }
 
-export interface VOSetConstructor<Element extends Setable, Strict extends boolean> {
-  new(r: VOSetRaw<Element, Strict>): VOSetInstance<Element>
+export interface VOSetConstructor<
+  Element extends Setable,
+  Strict extends boolean
+> {
+  new (r: VOSetRaw<Element, Strict>): VOSetInstance<Element>;
 }
 
-const isSetable = (element: any): element is Setable => ['number', 'string', 'boolean'].includes(typeof element);
+const isSetable = (element: any): element is Setable =>
+  ['number', 'string', 'boolean'].includes(typeof element);
 
-const expectedSetableTypes = (set: Array<Setable>): Array<'number' | 'string' | 'boolean'> =>
-  Array.from(new Set(set.map(v => <'number' | 'string' | 'boolean'>typeof v)));
+const expectedSetableTypes = (
+  set: Array<Setable>
+): Array<'number' | 'string' | 'boolean'> =>
+  Array.from(
+    new Set(set.map((v) => <'number' | 'string' | 'boolean'>typeof v))
+  );
 
 export const VOSet = <Element extends Setable, Strict extends boolean>(
   elements: Array<Element>,
-  options: VOSetOptions<Strict> = {},
+  options: VOSetOptions<Strict> = {}
 ): VOSetConstructor<Element, Strict> => {
-
   for (const [i, v] of Object.entries(elements)) {
     if (!isSetable(v)) {
       throw new VODefinitionError(`Entries are invalid.`);
@@ -53,7 +67,7 @@ export const VOSet = <Element extends Setable, Strict extends boolean>(
   const nonStrictExpectedTypes = expectedSetableTypes(elements);
 
   return class {
-    protected _value: Element
+    protected _value: Element;
 
     constructor(raw: VOSetRaw<Element, Strict>) {
       if (!strict && !nonStrictExpectedTypes.includes(typeof raw as any)) {
@@ -68,6 +82,5 @@ export const VOSet = <Element extends Setable, Strict extends boolean>(
     valueOf(): Element {
       return this._value;
     }
-
-  }
-}
+  };
+};

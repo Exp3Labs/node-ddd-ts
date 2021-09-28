@@ -1,5 +1,4 @@
 export class DomainError extends Error {
-
   constructor(private readonly errorMessage: string) {
     super(errorMessage);
   }
@@ -7,5 +6,4 @@ export class DomainError extends Error {
   public getErrorMessage(): string {
     return this.errorMessage;
   }
-
 }
