@@ -13,15 +13,15 @@ type Params = {
 export class DeleteDogUseCase implements UseCase {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository
-  ) {}
+  ) { }
 
   async main(params: Params) {
-    const dogId = DogId.fromValue(params.dogId.getValue());
+    const dogId = new DogId(params.dogId.valueOf());
 
     const result = await this.dogRepository.delete(dogId);
 
     if (!result) {
-      throw new DogNotFound(dogId.getValue());
+      throw new DogNotFound(dogId.valueOf());
     }
   }
 }

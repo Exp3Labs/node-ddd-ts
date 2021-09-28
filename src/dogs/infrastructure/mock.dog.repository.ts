@@ -14,25 +14,25 @@ export class MockDogRepository implements DogRepository {
   }
   async update(dog: Dog): Promise<boolean> {
     const result = this.dogs.map((d: Dog) =>
-      d.getID().getValue() === dog.getID().getValue() ? dog : d
+      d.getID().valueOf() === dog.getID().valueOf() ? dog : d
     );
     this.dogs = result;
     return true;
   }
   async delete(id: DogId): Promise<boolean> {
     const index: number = this.dogs.findIndex(
-      (dog: Dog) => dog.getID().getValue() === id.getValue()
+      (dog: Dog) => dog.getID().valueOf() === id.valueOf()
     );
     await this.dogs.splice(index, 1);
     return this.dogs.find(
-      (dog: Dog) => dog.getID().getValue() === id.getValue()
+      (dog: Dog) => dog.getID().valueOf() === id.valueOf()
     )
       ? false
       : true;
   }
   async findById(id: DogId): Promise<Dog | null> {
     const result: any = this.dogs.find(
-      (dog: Dog) => dog.getID().getValue() === id.getValue()
+      (dog: Dog) => dog.getID().valueOf() === id.valueOf()
     );
     return result;
   }

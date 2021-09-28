@@ -27,10 +27,10 @@ describe('delete-dog', () => {
     const deleteDogUseCase = new DeleteDogUseCase(mockDogRepository);
 
     await deleteDogUseCase.main({
-      dogId: DogId.fromValue(dogId)
+      dogId: new DogId(dogId)
     });
 
-    const result = dogs.find((d: Dog) => d.getID().getValue() === dogId);
+    const result = dogs.find((d: Dog) => d.getID().valueOf() === dogId);
 
     expect(result).toBeUndefined();
   });

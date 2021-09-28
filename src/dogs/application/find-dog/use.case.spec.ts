@@ -32,7 +32,7 @@ describe('find-dog', () => {
     const mockDogRepository = new MockDogRepository(dogs);
     const dogFind = new FindDogUseCase(mockDogRepository);
     const result = await dogFind.main({
-      dogId: DogId.fromValue(dogId)
+      dogId: new DogId(dogId)
     });
 
     expect(result).toBeDefined();

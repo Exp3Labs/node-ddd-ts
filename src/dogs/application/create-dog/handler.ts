@@ -14,15 +14,15 @@ export class CreateDogHandler implements CommandHandler<DogCreateCommand> {
   constructor(
     @inject(TYPES.CreateDogUseCase)
     private readonly createDogUseCase: CreateDogUseCase
-  ) {}
+  ) { }
 
   subscribedTo = (): Command => DogCreateCommand;
 
   async handle(command: DogCreateCommand): Promise<void> {
-    const dogId = DogId.fromValue(command.getId());
-    const dogName = DogName.fromValue(command.getName());
-    const dogBreed = DogBreed.fromValue(command.getBreed());
-    const dogDate = DogDate.fromValue(new Date());
+    const dogId = new DogId(command.getId());
+    const dogName = new DogName(command.getName());
+    const dogBreed = new DogBreed(command.getBreed());
+    const dogDate = new DogDate(new Date());
 
     await this.createDogUseCase.main({ dogId, dogName, dogBreed, dogDate });
   }

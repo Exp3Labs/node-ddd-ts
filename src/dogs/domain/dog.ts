@@ -24,9 +24,9 @@ export class Dog extends Entity {
 
     dog.record(
       new DogCreatedDomainEvent(
-        id.getValue(),
-        name.getValue(),
-        breed.getValue(),
+        id.valueOf(),
+        name.valueOf(),
+        breed.valueOf(),
         new Date()
       )
     );
@@ -40,10 +40,10 @@ export class Dog extends Entity {
     breed: string,
     date: Date
   ): Dog {
-    const dogId = DogId.fromValue(id);
-    const dogName = DogName.fromValue(name);
-    const dogRace = DogBreed.fromValue(breed);
-    const dogDate = DogDate.fromValue(date);
+    const dogId = new DogId(id);
+    const dogName = new DogName(name);
+    const dogRace = new DogBreed(breed);
+    const dogDate = new DogDate(date);
     return new Dog(dogId, dogName, dogRace, dogDate);
   }
 

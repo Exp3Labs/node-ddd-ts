@@ -1,18 +1,3 @@
-import { UUIDValueObject } from '@/shared/domain/value-objects/uuid.value.object';
-// value object
-export class DogId extends UUIDValueObject {
-  private constructor(value: string) {
-    super(value);
-  }
+import { VOIdentifier } from '@/shared/domain/value-objects/identifier';
 
-  private static ensureIdIsValid(value: string) {
-    if (!value) {
-      throw new Error('Dog id is required');
-    }
-  }
-
-  static fromValue(value: string): DogId {
-    this.ensureIdIsValid(value);
-    return new DogId(value);
-  }
-}
+export class DogId extends VOIdentifier({ name: 'Dog ID' }) { }

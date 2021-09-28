@@ -12,12 +12,12 @@ export class FindDogHandler implements QueryHandler<DogFindQuery, DogResponse> {
   constructor(
     @inject(TYPES.FindDogUseCase)
     private readonly dogFindUseCase: FindDogUseCase
-  ) {}
+  ) { }
 
   subscribedTo = (): Query => DogFindQuery;
 
   handle(query: DogFindQuery): Promise<DogResponse> {
-    const dogId = DogId.fromValue(query.getId());
+    const dogId = new DogId(query.getId());
     return this.dogFindUseCase.main({ dogId });
   }
 }

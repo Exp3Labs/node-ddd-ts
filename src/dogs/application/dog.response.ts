@@ -16,10 +16,10 @@ export class DogResponse implements Response {
 
   static fromDomain(dog: Dog): DogResponse {
     return new DogResponse(
-      dog.getID().getValue(),
-      dog.getName().getValue(),
-      dog.getBreed().getValue(),
-      dog.getDate().getValue()
+      dog.getID().valueOf(),
+      dog.getName().valueOf(),
+      dog.getBreed().valueOf(),
+      dog.getDate().valueOf()
     );
   }
 

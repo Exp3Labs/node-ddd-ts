@@ -19,7 +19,7 @@ export class FindDogUseCase implements UseCase {
   async main(params: Params): Promise<DogResponse> {
     const dog = await this.dogRepository.findById(params.dogId);
     if (!dog) {
-      throw new DogNotFound(params.dogId.getValue());
+      throw new DogNotFound(params.dogId.valueOf());
     }
 
     return DogResponse.fromDomain(dog);

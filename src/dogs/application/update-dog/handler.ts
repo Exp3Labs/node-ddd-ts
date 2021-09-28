@@ -14,14 +14,14 @@ export class UpdateDogHandler implements CommandHandler<DogUpdateCommand> {
   constructor(
     @inject(TYPES.UpdateDogUseCase)
     private readonly updateDogUseCase: UpdateDogUseCase
-  ) {}
+  ) { }
 
   subscribedTo = (): Command => DogUpdateCommand;
 
   async handle(command: DogUpdateCommand): Promise<void> {
-    const dogId = DogId.fromValue(command.getId());
-    const dogName = DogName.fromValue(command.getName());
-    const dogBreed = DogBreed.fromValue(command.getBreed());
+    const dogId = new DogId(command.getId());
+    const dogName = new DogName(command.getName());
+    const dogBreed = new DogBreed(command.getBreed());
 
     await this.updateDogUseCase.main({ dogId, dogName, dogBreed });
   }

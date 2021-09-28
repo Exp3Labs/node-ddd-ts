@@ -8,34 +8,34 @@ import { DogId } from '@/dogs/domain/dog.id';
 export class MongoDogRepository implements DogRepository {
   async save(dog: Dog): Promise<void> {
     await DogModel.create({
-      uuid: dog.getID().getValue(),
-      name: dog.getName().getValue(),
-      breed: dog.getBreed().getValue(),
-      created_at: dog.getDate().getValue()
+      uuid: dog.getID().valueOf(),
+      name: dog.getName().valueOf(),
+      breed: dog.getBreed().valueOf(),
+      created_at: dog.getDate().valueOf()
     });
   }
   async update(dog: Dog): Promise<boolean> {
     const result: any = await DogModel.updateOne(
       {
-        uuid: dog.getID().getValue()
+        uuid: dog.getID().valueOf()
       },
       {
-        name: dog.getName().getValue(),
-        breed: dog.getBreed().getValue()
+        name: dog.getName().valueOf(),
+        breed: dog.getBreed().valueOf()
       }
     );
     return result.modifiedCount > 0;
   }
   async delete(id: DogId): Promise<boolean> {
     const result: any = await DogModel.deleteOne({
-      uuid: id.getValue()
+      uuid: id.valueOf()
     });
 
     return result.deletedCount > 0;
   }
   async findById(id: DogId): Promise<Dog | null> {
     const result: Object = await DogModel.findOne({
-      uuid: id.getValue()
+      uuid: id.valueOf()
     }).lean();
 
     return result ? this.fromPrimitives(result) : null;

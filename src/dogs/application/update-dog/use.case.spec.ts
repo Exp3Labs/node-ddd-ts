@@ -31,12 +31,12 @@ describe('update-dog', () => {
     const mockDogRepository = new MockDogRepository(dogs);
     const updateDogUseCase = new UpdateDogUseCase(mockDogRepository);
     await updateDogUseCase.main({
-      dogId: DogId.fromValue(dog.id),
-      dogName: DogName.fromValue(dog.name),
-      dogBreed: DogBreed.fromValue(dog.breed)
+      dogId: new DogId(dog.id),
+      dogName: new DogName(dog.name),
+      dogBreed: new DogBreed(dog.breed)
     });
 
-    const result = dogs.find((d: Dog) => d.getID().getValue() === dog.id);
+    const result = dogs.find((d: Dog) => d.getID().valueOf() === dog.id);
 
     expect(result).toBeDefined();
     expect('Max').toEqual(dog.name);

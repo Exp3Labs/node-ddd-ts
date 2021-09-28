@@ -11,12 +11,12 @@ export class DeleteDogHandler implements CommandHandler<DogDeleteCommand> {
   constructor(
     @inject(TYPES.DeleteDogUseCase)
     private readonly deleteDogUseCase: DeleteDogUseCase
-  ) {}
+  ) { }
 
   subscribedTo = (): Command => DogDeleteCommand;
 
   async handle(command: DogDeleteCommand): Promise<void> {
-    const dogId = DogId.fromValue(command.getId());
+    const dogId = new DogId(command.getId());
     await this.deleteDogUseCase.main({ dogId });
   }
 }
