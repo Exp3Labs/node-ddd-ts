@@ -19,19 +19,14 @@ type Params = {
 export class UpdateDogUseCase implements UseCase {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository
-  ) { }
+  ) {}
 
   async main(params: Params) {
     const dogId = params.dogId;
     const dogName = params.dogName;
     const dogBreed = params.dogBreed;
 
-    const dog = new Dog(
-      dogId,
-      dogName,
-      dogBreed,
-      new DogDate(new Date())
-    );
+    const dog = new Dog(dogId, dogName, dogBreed, new DogDate(new Date()));
 
     const result = await this.dogRepository.update(dog);
 

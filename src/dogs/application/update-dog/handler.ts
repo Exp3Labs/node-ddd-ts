@@ -14,7 +14,7 @@ export class UpdateDogHandler implements CommandHandler<DogUpdateCommand> {
   constructor(
     @inject(TYPES.UpdateDogUseCase)
     private readonly updateDogUseCase: UpdateDogUseCase
-  ) { }
+  ) {}
 
   subscribedTo = (): Command => DogUpdateCommand;
 

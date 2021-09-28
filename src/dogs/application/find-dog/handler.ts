@@ -12,7 +12,7 @@ export class FindDogHandler implements QueryHandler<DogFindQuery, DogResponse> {
   constructor(
     @inject(TYPES.FindDogUseCase)
     private readonly dogFindUseCase: FindDogUseCase
-  ) { }
+  ) {}
 
   subscribedTo = (): Query => DogFindQuery;
 

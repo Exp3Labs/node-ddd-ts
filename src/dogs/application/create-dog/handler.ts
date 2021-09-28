@@ -14,7 +14,7 @@ export class CreateDogHandler implements CommandHandler<DogCreateCommand> {
   constructor(
     @inject(TYPES.CreateDogUseCase)
     private readonly createDogUseCase: CreateDogUseCase
-  ) { }
+  ) {}
 
   subscribedTo = (): Command => DogCreateCommand;
 

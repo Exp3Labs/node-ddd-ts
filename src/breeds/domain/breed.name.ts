@@ -1,8 +1,7 @@
-import { BreedNameInvalid } from "@/breeds/domain/exceptions/breed.name.invalid";
-import { VOString } from "@/shared/domain/value-objects/string";
+import { BreedNameInvalid } from '@/breeds/domain/exceptions/breed.name.invalid';
+import { VOString } from '@/shared/domain/value-objects/string';
 
 export class BreedName extends VOString({ field: 'Breed name' }) {
-
   constructor(value: string) {
     super(value);
     BreedName.ensureNameIsValid(value);
@@ -18,5 +17,4 @@ export class BreedName extends VOString({ field: 'Breed name' }) {
     this.ensureNameIsValid(value);
     return new BreedName(value);
   }
-
 }

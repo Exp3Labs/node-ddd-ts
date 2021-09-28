@@ -1,5 +1,5 @@
-import { DomainError } from "@/shared/domain/domain.error";
-import { VODefinitionError } from "@/shared/domain/value-objects/definition.error";
+import { DomainError } from '@/shared/domain/domain.error';
+import { VODefinitionError } from '@/shared/domain/value-objects/definition.error';
 
 export interface VOStringOptions {
   /**
@@ -31,15 +31,16 @@ export interface VOStringInstance {
 }
 
 export interface VOStringConstructor {
-  new(r: string): VOStringInstance;
+  new (r: string): VOStringInstance;
 }
 
 const isDefined = (value: any): boolean => {
   return value !== null && value !== undefined;
 };
 
-export const VOString = (options: VOStringOptions = {}): VOStringConstructor => {
-
+export const VOString = (
+  options: VOStringOptions = {}
+): VOStringConstructor => {
   if (isDefined(options.field)) {
     if (typeof options.field !== 'string') {
       throw new VODefinitionError('name property must be a string.');
@@ -66,7 +67,9 @@ export const VOString = (options: VOStringOptions = {}): VOStringConstructor => 
 
   if (isDefined(options.pattern)) {
     if (!(options.pattern instanceof RegExp)) {
-      throw new VODefinitionError('patter property must be a regular expression');
+      throw new VODefinitionError(
+        'patter property must be a regular expression'
+      );
     }
   }
 
@@ -74,11 +77,9 @@ export const VOString = (options: VOStringOptions = {}): VOStringConstructor => 
   const field = options.field ?? 'Value';
 
   return class {
-
     protected _value: string;
 
     constructor(raw: string) {
-
       if (typeof raw !== 'string') {
         throw new DomainError(`${field} is invalid.`);
       }
@@ -91,8 +92,10 @@ export const VOString = (options: VOStringOptions = {}): VOStringConstructor => 
         throw new DomainError(`${field} is too short.`);
       }
 
-      if (isDefined(options.pattern) && !(options.pattern!.test(raw))) {
-        throw new DomainError(`${field} does not match the regular expression.`);
+      if (isDefined(options.pattern) && !options.pattern!.test(raw)) {
+        throw new DomainError(
+          `${field} does not match the regular expression.`
+        );
       }
 
       this._value = raw;
@@ -101,6 +104,5 @@ export const VOString = (options: VOStringOptions = {}): VOStringConstructor => 
     valueOf(): string {
       return this._value;
     }
-
-  }
-}
+  };
+};

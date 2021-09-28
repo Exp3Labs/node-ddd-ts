@@ -1,17 +1,16 @@
-import { injectable } from "inversify";
-import { Breed } from "@/breeds/domain/breed";
-import { BreedName } from "@/breeds/domain/breed.name";
-import { BreedRepository } from "@/breeds/domain/breed.repository";
+import { injectable } from 'inversify';
+import { Breed } from '@/breeds/domain/breed';
+import { BreedName } from '@/breeds/domain/breed.name';
+import { BreedRepository } from '@/breeds/domain/breed.repository';
 
 type BreedModel = {
-  name: string,
-  adaptability: string,
-  coatLength: string
-}
+  name: string;
+  adaptability: string;
+  coatLength: string;
+};
 
 @injectable()
 export class MemoryBreedRepository implements BreedRepository {
-
   private breeds: Array<BreedModel>;
 
   constructor() {
@@ -24,9 +23,10 @@ export class MemoryBreedRepository implements BreedRepository {
 
   async findBreedByName(breedName: BreedName): Promise<Breed | null> {
     const breedFound = this.breeds.find(
-      (breed) => breed.name.toLowerCase() === breedName.valueOf().toLowerCase());
+      (breed) => breed.name.toLowerCase() === breedName.valueOf().toLowerCase()
+    );
 
-    return (breedFound) ? this.fromPrimitives(breedFound) : null;
+    return breedFound ? this.fromPrimitives(breedFound) : null;
   }
 
   private fromPrimitives(result: BreedModel): Breed {
@@ -36,5 +36,4 @@ export class MemoryBreedRepository implements BreedRepository {
       result.coatLength
     );
   }
-
 }

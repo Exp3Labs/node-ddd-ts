@@ -22,9 +22,7 @@ export class MockDogRepository implements DogRepository {
       (dog: Dog) => dog.getID().valueOf() === id.valueOf()
     );
     await this.dogs.splice(index, 1);
-    return this.dogs.find(
-      (dog: Dog) => dog.getID().valueOf() === id.valueOf()
-    )
+    return this.dogs.find((dog: Dog) => dog.getID().valueOf() === id.valueOf())
       ? false
       : true;
   }
