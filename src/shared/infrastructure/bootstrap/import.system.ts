@@ -10,4 +10,4 @@ const importAll = (paths: any) =>
     });
 
 export const getRoutes = () =>
-  importAll(require.context('@/*', true, /^((?!router).)*router.ts$/));
+  importAll(require.context('@/*', true, /^((?!!+).)*router.ts$/));
