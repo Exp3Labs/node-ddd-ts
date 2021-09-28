@@ -2,9 +2,7 @@ import { injectable } from 'inversify';
 import { DogRepository } from '@/dogs/domain/dog.repository';
 import { Dog } from '@/dogs/domain/dog';
 import { DogId } from '@/dogs/domain/dog.id';
-import { DogName } from '@/dogs/domain/dog.name';
-import { DogBreed } from '@/dogs/domain/dog.breed';
-// ports/repositories
+
 @injectable()
 export class MockDogRepository implements DogRepository {
   constructor(private dogs: Dog[]) {}

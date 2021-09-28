@@ -2,7 +2,7 @@ import { injectable } from 'inversify';
 import { DogRepository } from '@/dogs/domain/dog.repository';
 import { Dog } from '@/dogs/domain/dog';
 import { DogId } from '@/dogs/domain/dog.id';
-// ports/repositories
+
 @injectable()
 export class PostgresDogRepository implements DogRepository {
   save(dog: Dog): Promise<void> {

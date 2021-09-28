@@ -8,13 +8,7 @@ import logger from 'koa-morgan';
 import rateLimit from 'koa-ratelimit';
 import koaStatic from 'koa-static';
 import Swagger from '@/shared/infrastructure/open-api/swagger.specification';
-import {
-  SERVER_HOSTNAME,
-  SERVER_PORT,
-  PROJECT_MODE,
-  PROJECT_NAME,
-  SWAGGER_API_DOCS
-} from '@/shared/infrastructure/config';
+import { PROJECT, SERVER, SWAGGER } from '@/shared/infrastructure/config';
 
 const appLayout = require('@/shared/infrastructure/layouts/index.hbs');
 
@@ -59,9 +53,9 @@ export const startKoa = (): void => {
 
   Swagger.get('/', (ctx: any) => {
     ctx.body = appLayout({
-      name: PROJECT_NAME,
-      mode: PROJECT_MODE,
-      docs: SWAGGER_API_DOCS === 'true' ? '/swagger-html' : false
+      name: PROJECT.name,
+      mode: PROJECT.mode,
+      docs: SWAGGER.isPublic === 'true' ? SWAGGER.html : false
     });
   });
 
@@ -72,7 +66,7 @@ export const startKoa = (): void => {
     koaStatic(`${require('path').resolve()}/src/shared/infrastructure/layouts`)
   );
 
-  app.listen(SERVER_PORT, () =>
-    console.log(`Koa Started in http://${SERVER_HOSTNAME}:${SERVER_PORT}`)
+  app.listen(SERVER.port, () =>
+    console.log(`Koa Started in http://${SERVER.hostname}:${SERVER.port}`)
   );
 };

@@ -1,3 +1,4 @@
-import { init } from '@/shared/infrastructure/bootstrap';
+import 'reflect-metadata';
+import { init as runShared } from '@/shared/infrastructure/bootstrap';
 // Start project
-init();
+runShared();
