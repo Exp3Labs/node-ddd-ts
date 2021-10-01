@@ -35,10 +35,12 @@ services:
     image: bitnami/rabbitmq:3.8.22
     restart: always
     environment:
-      - RABBITMQ_USERNAME=${RABBITMQ_USERNAME}
-      - RABBITMQ_PASSWORD=${RABBITMQ_PASSWORD}
+      - RABBITMQ_USERNAME=${EVENT_BUS_RABBITMQ_USERNAME}
+      - RABBITMQ_PASSWORD=${EVENT_BUS_RABBITMQ_PASSWORD}
     ports:
-      - ${RABBITMQ_PORT}:5672
+      - ${EVENT_BUS_RABBITMQ_PORT}:5672
+    expose:
+      - ${EVENT_BUS_RABBITMQ_PORT}
     networks:
       - intranet
     logging:
