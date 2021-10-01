@@ -31,7 +31,7 @@ import { MongoDogRepository } from '@/dogs/infrastructure/mongo.dog.repository';
 export class DogDependencies {
   register(container: Container) {
     container.bind<DogRepository>(TYPES.DogRepository).to(MongoDogRepository);
-    // container.bind<DogRepository>(TYPES.DogRepository).to(PostgresDogRepository);
+    //container.bind<DogRepository>(TYPES.DogRepository).to(PostgresDogRepository);
 
     container
       .bind<CreateDogUseCase>(TYPES.CreateDogUseCase)
