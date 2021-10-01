@@ -1,7 +1,8 @@
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { TYPES } from '@/shared/infrastructure/d-injection/types';
 import { CommandBus } from '@/shared/domain/cqrs/command-bus/command.bus';
 import { DogUpdateCommand } from '@/dogs/application/update-dog/command';
+@injectable()
 export class DogPutController {
   constructor(
     @inject(TYPES.CommandBus) private readonly commandBus: CommandBus

@@ -1,17 +1,18 @@
+import { Entity } from '@/shared/domain/entity';
+
 import { DogId } from '@/dogs/domain/dog.id';
 import { DogName } from '@/dogs/domain/dog.name';
 import { DogBreed } from '@/dogs/domain/dog.breed';
 import { DogDate } from '@/dogs/domain/dog.date';
-import { DogCreatedDomainEvent } from './events/dog.created.domain.event';
-import { Entity } from '@/shared/domain/entity';
-// Aggregate root / entity
-export class Dog extends Entity {
-  private id: DogId;
-  private name: DogName;
-  private breed: DogBreed;
-  private date: DogDate;
+import { DogCreatedDomainEvent } from '@/dogs/domain/dog.created.domain.event';
 
-  constructor(id: DogId, name: DogName, breed: DogBreed, date: DogDate) {
+export class Dog extends Entity {
+  constructor(
+    private id: DogId,
+    private name: DogName,
+    private breed: DogBreed,
+    private date: DogDate
+  ) {
     super();
     this.id = id;
     this.name = name;

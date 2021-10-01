@@ -1,5 +1,6 @@
-import { Container } from 'inversify';
-import { TYPES } from '@/shared/infrastructure/d-injection/types';
+import { ContainerModule, interfaces } from 'inversify';
+import { TYPES } from '@/dogs/infrastructure/d-injection/types';
+import { TYPES as TYPES_SHARED } from '@/shared/infrastructure/d-injection/types';
 
 import { QueryHandler } from '@/shared/domain/cqrs/query-bus/query.handler';
 import { Query } from '@/shared/domain/cqrs/query-bus/query';
@@ -27,48 +28,36 @@ import { FindAllDogsHandler } from '@/dogs/application/find-all-dog/handler';
 
 import { DogRepository } from '@/dogs/domain/dog.repository';
 import { MongoDogRepository } from '@/dogs/infrastructure/mongo.dog.repository';
+import { AppContainer } from '@/shared/infrastructure/d-injection/container';
 // import { PostgresDogRepository } from '@/dogs/infrastructure/postgres.dog.repository';
-export class DogDependencies {
-  register(container: Container) {
-    container.bind<DogRepository>(TYPES.DogRepository).to(MongoDogRepository);
+
+export const DogContainerModule = new ContainerModule(
+  (bind: interfaces.Bind, unbind: interfaces.Unbind) => {
+    bind<DogRepository>(TYPES.DogRepository).to(MongoDogRepository);
     // container.bind<DogRepository>(TYPES.DogRepository).to(PostgresDogRepository);
 
-    container
-      .bind<CreateDogUseCase>(TYPES.CreateDogUseCase)
-      .to(CreateDogUseCase);
-    container.bind<FindDogUseCase>(TYPES.FindDogUseCase).to(FindDogUseCase);
-    container
-      .bind<UpdateDogUseCase>(TYPES.UpdateDogUseCase)
-      .to(UpdateDogUseCase);
-    container
-      .bind<DeleteDogUseCase>(TYPES.DeleteDogUseCase)
-      .to(DeleteDogUseCase);
-    container
-      .bind<FindAllDogsUseCase>(TYPES.FindAllDogsUseCase)
-      .to(FindAllDogsUseCase);
-
     // event-subscribers
-    container
-      .bind<DomainEventSubscriber<DomainEvent>>(TYPES.DomainEventSubscriber)
-      .to(UpdateStatisticsOnDogCreated);
+    bind<DomainEventSubscriber<DomainEvent>>(
+      TYPES_SHARED.DomainEventSubscriber
+    ).to(UpdateStatisticsOnDogCreated);
 
     // query-handlers
-    container
-      .bind<QueryHandler<Query, Response>>(TYPES.QueryBusHandler)
-      .to(FindDogHandler);
-    container
-      .bind<QueryHandler<Query, Response>>(TYPES.QueryBusHandler)
-      .to(FindAllDogsHandler);
+    bind<QueryHandler<Query, Response>>(TYPES_SHARED.QueryBusHandler).to(
+      FindDogHandler
+    );
+    bind<FindAllDogsHandler>(TYPES_SHARED.QueryBusHandler).to(
+      FindAllDogsHandler
+    );
 
     // command-handlers
-    container
-      .bind<CommandHandler<Command>>(TYPES.CommandBusHandler)
-      .to(CreateDogHandler);
-    container
-      .bind<CommandHandler<Command>>(TYPES.CommandBusHandler)
-      .to(UpdateDogHandler);
-    container
-      .bind<CommandHandler<Command>>(TYPES.CommandBusHandler)
-      .to(DeleteDogHandler);
+    bind<CommandHandler<Command>>(TYPES_SHARED.CommandBusHandler).to(
+      CreateDogHandler
+    );
+    bind<CommandHandler<Command>>(TYPES_SHARED.CommandBusHandler).to(
+      UpdateDogHandler
+    );
+    bind<CommandHandler<Command>>(TYPES_SHARED.CommandBusHandler).to(
+      DeleteDogHandler
+    );
   }
-}
+);

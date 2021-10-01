@@ -23,6 +23,7 @@ import { WinstonLogger } from '../logger/winston.logger';
 
 // import { RabbitMQEventBus } from '@/shared/infrastructure/event-bus/rabbitmq/rabbitmq.event.bus';
 import { InMemoryEventBus } from '@/shared/infrastructure/event-bus/in-memory/in.memory.event.bus';
+import { FindAllDogsHandler } from '@/dogs/application/find-all-dog/handler';
 
 export class AppDependencies {
   register(container: Container) {
@@ -77,9 +78,9 @@ export class AppDependencies {
     container
       .bind<CommandBus>(TYPES.CommandBus)
       .toDynamicValue((context: interfaces.Context) => {
-        const handlersDefinitions = container.getAll<CommandHandler<Command>>(
-          TYPES.CommandBusHandler
-        );
+        const handlersDefinitions = context.container.getAll<
+          CommandHandler<Command>
+        >(TYPES.CommandBusHandler);
         return new InMemoryCommandBus(handlersDefinitions);
       });
   }
@@ -88,9 +89,10 @@ export class AppDependencies {
     container
       .bind<QueryBus>(TYPES.QueryBus)
       .toDynamicValue((context: interfaces.Context) => {
-        const handlersDefinitions = container.getAll<
+        const handlersDefinitions = context.container.getAll<
           QueryHandler<Query, Response>
         >(TYPES.QueryBusHandler);
+
         return new InMemoryQueryBus(handlersDefinitions);
       });
   }

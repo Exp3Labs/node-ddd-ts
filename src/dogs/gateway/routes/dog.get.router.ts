@@ -7,10 +7,8 @@ import {
   responses,
   Context
 } from 'koa-swagger-decorator';
-import { AppContainer } from '@/shared/infrastructure/d-injection';
-import { TYPES } from '@/shared/infrastructure/d-injection/types';
+import { AppContainer } from '@/shared/infrastructure/d-injection/container';
 import { isAuth } from '@/shared/infrastructure/middleware/swagger.middleware';
-import { QueryBus } from '@/shared/domain/cqrs/query-bus/query.bus';
 import { DogGetController } from '@/dogs/gateway/controllers/dog.get.controller';
 export class DogGetRouter {
   @request('GET', '/dogs/{id}')
@@ -27,10 +25,8 @@ export class DogGetRouter {
     try {
       // Get Params
       const { id } = ctx.validatedParams;
-      // Get Container
-      const queryBus = AppContainer.get<QueryBus>(TYPES.QueryBus);
-      // Run controller
-      const controller = new DogGetController(queryBus);
+      // Get Controller
+      const controller = AppContainer.resolve(DogGetController);
       const res = await controller.getDog({ id });
       // Successful response
       ctx.body = res;
@@ -49,13 +45,8 @@ export class DogGetRouter {
   })
   static async getAllDogs(ctx: Context) {
     try {
-      // Get current user
-      // const { user }: any = ctx.req;
-      // console.log('=> user', user);
-      // Get Container
-      const queryBus = AppContainer.get<QueryBus>(TYPES.QueryBus);
-      // Run controller
-      const controller = new DogGetController(queryBus);
+      // Get Controller
+      const controller = AppContainer.resolve(DogGetController);
       const res = await controller.getAllDogs();
       // Successful response
       ctx.body = res;
@@ -78,10 +69,8 @@ export class DogGetRouter {
       // Get current user
       const { user }: any = ctx.req;
       console.log('=> user', user);
-      // Get Container
-      const queryBus = AppContainer.get<QueryBus>(TYPES.QueryBus);
-      // Run controller
-      const controller = new DogGetController(queryBus);
+      // Get Controller
+      const controller = AppContainer.resolve(DogGetController);
       const res = await controller.getAllDogs();
       // Successful response
       ctx.body = res;

@@ -1,10 +1,12 @@
 import { inject, injectable } from 'inversify';
-import { TYPES } from '@/shared/infrastructure/d-injection/types';
+import { provide } from 'inversify-binding-decorators';
+import { TYPES } from '@/dogs/infrastructure/d-injection/types';
 import { UseCase } from '@/shared/domain/use.case';
 import { DogRepository } from '@/dogs/domain/dog.repository';
 import { DogResponse } from '@/dogs/application/dog.response';
 
-@injectable()
+//@injectable()
+@provide(TYPES.FindAllDogsUseCase)
 export class FindAllDogsUseCase implements UseCase {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository

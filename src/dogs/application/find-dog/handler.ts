@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { TYPES } from '@/shared/infrastructure/d-injection/types';
+import { TYPES } from '@/dogs/infrastructure/d-injection/types';
 import { FindDogUseCase } from '@/dogs/application/find-dog/use.case';
 import { DogId } from '@/dogs/domain/dog.id';
 import { DogResponse } from '@/dogs/application/dog.response';

@@ -6,9 +6,7 @@ import {
   responses,
   Context
 } from 'koa-swagger-decorator';
-import { AppContainer } from '@/shared/infrastructure/d-injection';
-import { TYPES } from '@/shared/infrastructure/d-injection/types';
-import { CommandBus } from '@/shared/domain/cqrs/command-bus/command.bus';
+import { AppContainer } from '@/shared/infrastructure/d-injection/container';
 import { DogPostController } from '@/dogs/gateway/controllers/dog.post.controller';
 export class DogPostRouter {
   @request('POST', '/dogs')
@@ -33,10 +31,8 @@ export class DogPostRouter {
     try {
       // Get Params
       const { id, name, breed } = ctx.validatedBody;
-      // Get Container
-      const commandBus = AppContainer.get<CommandBus>(TYPES.CommandBus);
-      // Run controller
-      const controller = new DogPostController(commandBus);
+      // Get Controller
+      const controller = AppContainer.resolve(DogPostController);
       await controller.createDog({ id, name, breed });
       // Successful response
       ctx.status = 201;

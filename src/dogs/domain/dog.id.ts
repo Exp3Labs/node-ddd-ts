@@ -1,3 +1,3 @@
-import { VOIdentifier } from '@/shared/domain/value-objects/identifier';
+import { Identifier } from '@/shared/domain/value-objects/identifier';
 
-export class DogId extends VOIdentifier({ name: 'Dog ID' }) {}
+export class DogId extends Identifier {}

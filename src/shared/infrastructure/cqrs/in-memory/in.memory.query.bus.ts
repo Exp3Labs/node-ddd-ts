@@ -12,8 +12,7 @@ export class InMemoryQueryBus implements QueryBus {
   }
 
   async ask<R extends Response>(query: Query): Promise<R> {
-    const handler = this.search(query);
-
+    const handler: any = this.search(query);
     return handler.handle(query) as Promise<R>;
   }
 

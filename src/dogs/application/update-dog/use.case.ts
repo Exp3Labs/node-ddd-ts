@@ -1,5 +1,6 @@
 import { inject, injectable } from 'inversify';
-import { TYPES } from '@/shared/infrastructure/d-injection/types';
+import { provide } from 'inversify-binding-decorators';
+import { TYPES } from '@/dogs/infrastructure/d-injection/types';
 import { UseCase } from '@/shared/domain/use.case';
 import { DogRepository } from '@/dogs/domain/dog.repository';
 import { Dog } from '@/dogs/domain/dog';
@@ -15,7 +16,7 @@ type Params = {
   dogBreed: DogBreed;
 };
 
-@injectable()
+@provide(TYPES.UpdateDogUseCase)
 export class UpdateDogUseCase implements UseCase {
   constructor(
     @inject(TYPES.DogRepository) private readonly dogRepository: DogRepository

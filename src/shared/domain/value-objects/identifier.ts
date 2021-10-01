@@ -1,57 +1,35 @@
-import { validate } from 'uuid';
+import { v4 as uuidv4, validate } from 'uuid';
 
-import { DomainError } from '@/shared/domain/domain.error';
-import { VODefinitionError } from '@/shared/domain/value-objects/definition.error';
 import { UUIDInvalid } from '@/shared/domain/value-objects/uuid.invalid';
+import { ValueObject } from '@/shared/domain/value-objects/value.object';
 
-export interface VOIdentifierOptions {
-  /**
-   * VO Name
-   * @default `value`
-   */
-  name?: string;
-}
+export class Identifier implements ValueObject<string> {
+  constructor(private value: string) {
+    this.ensureUUID(value);
+    this.value = value;
+  }
 
-export interface VOIdentifierInstance {
-  valueOf(): string;
-}
-
-export interface VOIdentifierConstructor {
-  new (r: string): VOIdentifierInstance;
-}
-
-const isDefined = (value: any): boolean => {
-  return value !== null && value !== undefined;
-};
-
-export const VOIdentifier = (
-  options: VOIdentifierOptions = {}
-): VOIdentifierConstructor => {
-  if (isDefined(options.name)) {
-    if (typeof options.name !== 'string') {
-      throw new VODefinitionError('name property must be a string.');
+  private ensureUUID(uuid: string): void {
+    if (!validate(uuid)) {
+      throw new UUIDInvalid(uuid);
     }
   }
 
-  const name = options.name ?? 'Value';
+  static random(): Identifier {
+    return new Identifier(uuidv4());
+  }
 
-  return class {
-    protected _value: string;
+  valueOf(): string {
+    return this.value;
+  }
 
-    constructor(raw: string) {
-      if (typeof raw !== 'string') {
-        throw new DomainError(`${name} is invalid.`);
-      }
+  fromPrimitive(value: string): ValueObject<string> {
+    return new Identifier(value);
+  }
 
-      if (!validate(raw)) {
-        throw new UUIDInvalid(raw);
-      }
+  validate(value: string): void {}
 
-      this._value = raw;
-    }
-
-    valueOf(): string {
-      return this._value;
-    }
-  };
-};
+  equals(object: ValueObject<string>): boolean {
+    throw new Error('Method not implemented.');
+  }
+}

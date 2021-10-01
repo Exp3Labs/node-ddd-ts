@@ -7,10 +7,7 @@ import {
   Context,
   responses
 } from 'koa-swagger-decorator';
-import { AppContainer } from '@/shared/infrastructure/d-injection';
-import { TYPES } from '@/shared/infrastructure/d-injection/types';
-import { CommandBus } from '@/shared/domain/cqrs/command-bus/command.bus';
-import { UpdateDogUseCase } from '@/dogs/application/update-dog/use.case';
+import { AppContainer } from '@/shared/infrastructure/d-injection/container';
 import { DogPutController } from '@/dogs/gateway/controllers/dog.put.controller';
 export class DogPutRouter {
   @request('PUT', '/dogs/{id}')
@@ -35,10 +32,8 @@ export class DogPutRouter {
       // Get Params
       const { id } = ctx.validatedParams;
       const { name, breed } = ctx.validatedBody;
-      // Get Container
-      const commandBus = AppContainer.get<CommandBus>(TYPES.CommandBus);
-      // Run controller
-      const controller = new DogPutController(commandBus);
+      // Get Controller
+      const controller = AppContainer.resolve(DogPutController);
       await controller.updateDog({ id, name, breed });
       // Successful response
       ctx.body = { result: 'Updated' };

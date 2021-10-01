@@ -1,5 +1,5 @@
 import { inject, injectable } from 'inversify';
-import { TYPES } from '@/shared/infrastructure/d-injection/types';
+import { TYPES } from '@/dogs/infrastructure/d-injection/types';
 import { Command } from '@/shared/domain/cqrs/command-bus/command';
 import { CommandHandler } from '@/shared/domain/cqrs/command-bus/command.handler';
 import { DogUpdateCommand } from '@/dogs/application/update-dog/command';
